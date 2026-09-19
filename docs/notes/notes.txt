@@ -1,1 +1,26 @@
 created a new branch to update the docs
+Section 2 - Views
+
+Function-Based Views
+1. HttpResponse FBV
+View: dashboard_view
+Purpose: Displays a basic ClassCompass dashboard using an HttpResponse with raw HTML.
+
+2. render() FBV
+View: course_list_view
+Purpose: Gets the courses for the current user and passes them to a course list template using render().
+
+Class-Based Views
+3. Base CBV
+View: CalendarView
+Purpose: Manually gets the academic events for the current user and passes them to the calendar template.
+
+4. Generic CBV
+View: CourseDetailView
+Purpose: Uses Django's DetailView to display the details of a specific course.
+
+HttpResponse vs render:
+HttpResponse was useful for creating a simple page without needing a template on the other hand, the render() view was more useful when we need to get data from the database and display it in an HTML template.
+
+Base CBV vs Generic CBV:
+The Base CBV was useful when we want to manually control how the request is handled and how the data is queried, while the generic CBV was better for common operations because Django provides the logic for the CRUD operations.
