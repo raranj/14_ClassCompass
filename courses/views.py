@@ -63,24 +63,16 @@ def course_list_view(request):
     )
 
 class CourseOverviewView(View):
-    """
-    Displays a custom overview of the user's courses.
-
-    This demonstrates the base View class.
-    The query and rendering logic are written manually inside get().
-    """
-
     def get(self, request):
         courses = Course.objects.order_by("course_code")
 
         context = {
             "courses": courses,
-            "course_count": courses.count(),
         }
 
         return render(
             request,
-            "courses/course_overview.html",
+            "courses/course_list.html",
             context,
         )
 
