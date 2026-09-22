@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+    {{ course.course_code }} | ClassCompass
+{% endblock %}
+
+
+{% block content %}
+
+    <h2>
+        {{ course.course_code }}
+        -
+        {{ course.course_name }}
+    </h2>
+
+
+    <p>
+        <strong>Term:</strong>
+        {{ course.term }}
+    </p>
+
+    <p>
+        <strong>Year:</strong>
+        {{ course.year }}
+    </p>
+
+    <p>
+        <strong>Office Hours:</strong>
+
+        {% if course.office_hours %}
+            {{ course.office_hours }}
+        {% else %}
+            Not provided
+        {% endif %}
+    </p>
+
+    <p>
+        <strong>Meeting Schedule:</strong>
+
+        {% if course.meeting_schedule %}
+            {{ course.meeting_schedule }}
+        {% else %}
+            Not provided
+        {% endif %}
+    </p>
+
+    <p>
+        <strong>Description:</strong>
+
+        {% if course.description %}
+            {{ course.description }}
+        {% else %}
+            No description provided.
+        {% endif %}
+    </p>
+
+
+    <p>
+        <a href="{% url 'courses:course_list' %}">
+            Back to Courses
+        </a>
+    </p>
+
+{% endblock %}

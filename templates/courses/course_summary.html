@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+    Course Summary | ClassCompass
+{% endblock %}
+
+
+{% block content %}
+
+    <h2>Course Summary</h2>
+
+    <p>
+        Total courses: {{ course_count }}
+    </p>
+
+
+    <ul>
+
+        {% for course in courses %}
+
+            <li>
+                {{ course.course_code }}
+                -
+                {{ course.course_name }}
+            </li>
+
+        {% empty %}
+
+            <li>
+                No courses are currently available.
+            </li>
+
+        {% endfor %}
+
+    </ul>
+
+{% endblock %}

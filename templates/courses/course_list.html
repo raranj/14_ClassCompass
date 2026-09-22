@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+    Courses | ClassCompass
+{% endblock %}
+
+
+{% block content %}
+
+    <h2>Courses</h2>
+
+    <p>View the courses currently stored in ClassCompass.</p>
+
+
+    <ul>
+
+        {% for course in courses %}
+
+            <li>
+                <strong>{{ course.course_code }}</strong>
+                -
+                {{ course.course_name }}
+
+                <br>
+
+                {{ course.term }}
+                {{ course.year }}
+            </li>
+
+        {% empty %}
+
+            <li>
+                No courses have been added yet.
+            </li>
+
+        {% endfor %}
+
+    </ul>
+
+{% endblock %}
