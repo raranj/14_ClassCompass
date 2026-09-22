@@ -1,47 +1,157 @@
-VIEWS
+Assignment 2: Structure, Views, and Templates
 
-We used the Course domain model.
+TEAM CONTRIBUTIONS
 
-View 1 - Function-Based View: Manual HttpResponse
-Name: course_summary_view
+Ranjana - Worked on Sections 1 and 2.
+Laasya - Worked on Section 2.
+Haan - Worked on Section 3.
 
-Displays a summary of Course objects. The view manually loads
-courses/course_summary.html using loader.get_template(), manually
-renders the context, and wraps the result in HttpResponse.
+SECTION 1
+We created a separate branch to update documentation and demonstrate
+GitHub knowledge about switching and merging branches.
 
-URL:
-/courses/summary/
+SECTION 2
+We use our Course model for the four views.
+
+View 1 - FBV: Manual HttpResponse
+-------------------------------------------------
+
+View Name: course_summary_view
+Purpose: Displays a summary of Course objects.
+
+The view queries the Course model, manually loads the template, manually renders the template, and wraps the result in HttpResponse.
+
+URL: /courses/summary/
 
 
-View 2 - Function-Based View: render() Shortcut
-Name: course_list_view
+View 2 - FBV: render()
+------------------------------------------------
 
-Displays a list of all Course objects. The view manually queries
-Course.objects.all(), places the queryset into a context dictionary,
-and renders courses/course_list.html using Django's render()
-shortcut.
+View Name: course_list_view
+Purpose: Displays a list of Course objects.
 
-URL:
-/courses/
+The view queries Course.objects.all() and passes the data to
+the Course list template using render().
 
-View 3 - Base Class-Based View
-Name: CourseOverviewView
+URL: /courses/
 
-Displays a custom overview of Course objects. The class inherits
-from django.views.View, implements get(), manually queries the
-Course model, creates a context dictionary, and renders the course
-overview template.
 
-URL:
-/courses/overview/
+View 3 - Base CBV
+------------------------------
+
+View Name: CourseOverviewView
+Purpose: Displays an overview of Course objects.
+
+The class inherits directly from django.views.View and implements
+get() to query the Course model and render a Course template.
+
+URL: /courses/overview/
 
 
 View 4 - Generic Class-Based View
-Name: CourseDetailView
+---------------------------------
 
-Displays the details of one Course. The class inherits from
-Django's DetailView, defines model = Course, specifies a template,
-and uses "course" as the context object name.
+View Name: CourseDetailView
+Purpose: Displays one individual Course.
 
-URL:
-/courses/<course_id>/
+The class inherits from Django's DetailView.
+
+It specifies:
+
+- model = Course
+- template_name = "courses/course_detail.html"
+- context_object_name = "course"
+
+We used the primary key provided in the URL to retrieve the
+correct Course object.
+
+URL: /courses/<course_id>/
+
+SECTION 3
+
+Base Template
+-------------
+
+The project contains:
+
+templates/base.html
+
+The base template contains shared page structure including:
+
+- HTML document structure
+- Page title block
+- ClassCompass header
+- Navigation
+- Main content block
+- Footer
+
+Feature templates extend base.html instead of repeating the same
+HTML structure.
+
+
+Course Templates
+----------------
+
+The current Course templates include:
+
+- templates/courses/course_summary.html
+- templates/courses/course_list.html
+- templates/courses/course_detail.html
+
+Note:
+The root URL is currently connected to DashboardView which attempts to renderdashboard/dashboard.html
+
+We haven't implemented the dashboard template yet, so opening
+the root URL produces a TemplateDoesNotExist error for:
+
+dashboard/dashboard.html
+
+The Course-related views and templates required for Sections 2 and 3
+have been implemented and tested successfully.
+
+VIEW REFLECTION
+
+HttpResponse vs render()
+------------------------
+
+The manual HttpResponse approach was useful for understanding what
+Django is doing because the view explicitly queries the model, loads the template
+, creates the context, renders the template, and then wraps the rendered HTML in HttpResponse.
+
+This made the entire process easier to understand.
+
+The render() shortcut was more convenient for some
+pages because it combines template loading and
+returning the HttpResponse into a simpler function call.
+
+We decided that for most pages, render() would be easier to read
+and maintain.
+
+
+Base CBV vs Generic CBV
+-----------------------
+
+The base View class was useful when we wanted more direct control over
+what happens during a request.
+
+For CourseOverviewView, we manually implemented get() and queried the
+Course model and then selected the template.
+
+A generic CBV such as DetailView was useful for a common Django pattern.
+
+For CourseDetailView, Django already knows how to retrieve one Course
+using its primary key, so we only needed to specify the model,
+template, and context object name.
+
+We liked generic CBVs because they reduced repeated boilerplate code, while the
+base View class seems more useful when custom request-handling logic is needed.
+
+
+NEXT STEPS
+- Completing the dashboard template
+- Completing the Calendar UI
+- Course creation, editing, and deletion UI
+- Syllabus upload and syllabus information extraction
+- Academic event creation and editing
+
+We will expand the Course, Syllabus, and AcademicEvent models and planned views this week.
