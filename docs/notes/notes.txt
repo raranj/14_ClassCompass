@@ -1,26 +1,47 @@
-created a new branch to update the docs
-Section 2 - Views
+VIEWS
 
-Function-Based Views
-1. HttpResponse FBV
-View: dashboard_view
-Purpose: Displays a basic ClassCompass dashboard using an HttpResponse with raw HTML.
+We used the Course domain model.
 
-2. render() FBV
-View: course_list_view
-Purpose: Gets the courses for the current user and passes them to a course list template using render().
+View 1 - Function-Based View: Manual HttpResponse
+Name: course_summary_view
 
-Class-Based Views
-3. Base CBV
-View: CalendarView
-Purpose: Manually gets the academic events for the current user and passes them to the calendar template.
+Displays a summary of Course objects. The view manually loads
+courses/course_summary.html using loader.get_template(), manually
+renders the context, and wraps the result in HttpResponse.
 
-4. Generic CBV
-View: CourseDetailView
-Purpose: Uses Django's DetailView to display the details of a specific course.
+URL:
+/courses/summary/
 
-HttpResponse vs render:
-HttpResponse was useful for creating a simple page without needing a template on the other hand, the render() view was more useful when we need to get data from the database and display it in an HTML template.
 
-Base CBV vs Generic CBV:
-The Base CBV was useful when we want to manually control how the request is handled and how the data is queried, while the generic CBV was better for common operations because Django provides the logic for the CRUD operations.
+View 2 - Function-Based View: render() Shortcut
+Name: course_list_view
+
+Displays a list of all Course objects. The view manually queries
+Course.objects.all(), places the queryset into a context dictionary,
+and renders courses/course_list.html using Django's render()
+shortcut.
+
+URL:
+/courses/
+
+View 3 - Base Class-Based View
+Name: CourseOverviewView
+
+Displays a custom overview of Course objects. The class inherits
+from django.views.View, implements get(), manually queries the
+Course model, creates a context dictionary, and renders the course
+overview template.
+
+URL:
+/courses/overview/
+
+
+View 4 - Generic Class-Based View
+Name: CourseDetailView
+
+Displays the details of one Course. The class inherits from
+Django's DetailView, defines model = Course, specifies a template,
+and uses "course" as the context object name.
+
+URL:
+/courses/<course_id>/
