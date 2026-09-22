@@ -50,8 +50,7 @@ def course_list_view(request):
     3. Call render()
     """
 
-    # courses = Course.objects.all()
-    courses = Course.objects.none()
+    courses = Course.objects.all()
 
 
     context = {
