@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Study Tools | ClassCompass{% endblock %}
+
+{% block content %}
+    <h2>Study Tools</h2>
+
+    <ul>
+        {% for tool in study_tools %}
+            <li>
+                <strong>{{ tool.title }}</strong> ({{ tool.get_tool_type_display }})
+                — {{ tool.course.course_code }}
+            </li>
+        {% empty %}
+            <li>No study tools have been generated yet.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

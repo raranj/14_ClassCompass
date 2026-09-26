@@ -19,8 +19,20 @@
         <h1>ClassCompass</h1>
 
         <nav>
+            <a href="{% url 'courses:dashboard' %}">
+                Home
+            </a>
+
+            <a href="{% url 'courses:study_tool_list' %}">
+                Study Tools
+            </a>
+
             <a href="{% url 'courses:course_list' %}">
                 Courses
+            </a>
+
+            <a href="{% url 'courses:calendar' %}">
+                Calendar
             </a>
         </nav>
 

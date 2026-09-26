@@ -7,8 +7,6 @@ app_name = "courses"
 
 
 urlpatterns = [
-    # path('', views.redirect_root_view()),
-
     path(
         "courses/summary/",
         views.course_summary_view,
@@ -38,6 +36,15 @@ urlpatterns = [
         "",
         views.DashboardView.as_view(),
         name="dashboard",
+    ),
+
+    path("",
+         views.redirect_root_view,
+         name="root"
+    ),
+    path("study-tools/",
+         views.StudyToolListView.as_view(),
+         name="study_tool_list"
     ),
 
     path(

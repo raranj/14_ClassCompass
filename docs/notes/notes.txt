@@ -155,3 +155,7 @@ NEXT STEPS
 - Academic event creation and editing
 
 We will expand the Course, Syllabus, and AcademicEvent models and planned views this week.
+
+
+---------------------
+Section 1: URL Linking & Navigation

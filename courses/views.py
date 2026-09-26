@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.shortcuts import redirect
 from django.shortcuts import render
 from django.template import loader
 from django.urls import reverse_lazy
@@ -8,13 +9,13 @@ from django.views.generic import (
     DetailView,
     CreateView,
     UpdateView,
-    DeleteView,
+    DeleteView
 )
 
-from .models import Course, Syllabus, AcademicEvent
-#
-# def redirect_root_view(request):
-#     return HttpResponseRedirect(reverse_lazy("courses:course_list"))
+from .models import Course, Syllabus, AcademicEvent, StudyTool
+
+def redirect_root_view(request):
+    return redirect("dashboard")
 
 
 def course_summary_view(request):
@@ -43,6 +44,13 @@ def course_summary_view(request):
 
     return HttpResponse(output)
 
+class StudyToolListView(ListView):
+    """
+    Displays study tools generated for courses.
+    """
+    model = StudyTool
+    template_name = "courses/study_tool_list.html"
+    context_object_name = "study_tools"
 
 def course_list_view(request):
     """

@@ -5,14 +5,24 @@ ClassCompass is an academic planning application designed to help students organ
 python manage.py runserver --settings=ClassCompass.settings.development
 
 ## Status
-The main dashboard route (`/`) has been planned in the application
-structure, but its final dashboard template has not yet been implemented.
-So for now, the dashboard is incomplete and says template not found.
 
-For Assignment 2, the required Django view and template functionality
-is implemented and working through these routes:
+The dashboard route (`/`) is now fully implemented and serves as the
+application's home page, displaying an overview of the user's courses
+and upcoming academic events.
 
+### Section 1: URL Linking & Navigation
+
+Implemented a full URL → view → template flow: the home page (`/`)
+renders the dashboard, a navigation bar in `base.html` links between
+Home, Courses, Calendar, and Study Tools using `{% url %}` (no
+hardcoded paths), and course list items link to their detail pages
+via `get_absolute_url()` implemented on the `Course` model.
+
+Routes implemented and working:
+- `/` — Dashboard (home page)
 - `/courses/summary/`
 - `/courses/`
 - `/courses/overview/`
 - `/courses/<course_id>/`
+- `/calendar/`
+- `/study-tools/`

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | ClassCompass{% endblock %}
+
+{% block content %}
+    <h2>Dashboard</h2>
+
+    <h3>Your Courses</h3>
+    <ul>
+        {% for course in courses %}
+            <li><a href="{{ course.get_absolute_url }}">{{ course.course_code }} - {{ course.course_name }}</a></li>
+        {% empty %}
+            <li>No courses yet.</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Upcoming Events</h3>
+    <ul>
+        {% for event in events %}
+            <li>{{ event.title }} ({{ event.course.course_code }})</li>
+        {% empty %}
+            <li>No events yet.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
