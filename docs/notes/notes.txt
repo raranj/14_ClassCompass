@@ -159,3 +159,8 @@ We will expand the Course, Syllabus, and AcademicEvent models and planned views 
 
 ---------------------
 Section 1: URL Linking & Navigation
+get_absolute_url() is implemented on the Course model. It's useful because both the
+dashboard and the course list page need to link to a course's detail page (/courses/<pk>/).
+Without it, we'd have to manually build that URL string in every template that links to a course.
+Instead, both templates just call {{ course.get_absolute_url }}, and if the detail URL pattern ever changes,
+we only update it in one place (models.py) instead of every template.

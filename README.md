@@ -16,7 +16,9 @@ Implemented a full URL → view → template flow: the home page (`/`)
 renders the dashboard, a navigation bar in `base.html` links between
 Home, Courses, Calendar, and Study Tools using `{% url %}` (no
 hardcoded paths), and course list items link to their detail pages
-via `get_absolute_url()` implemented on the `Course` model.
+via `get_absolute_url()` implemented on the `Course` model. Course
+detail pages (`/courses/<int:pk>/`) are rendered by `CourseDetailView`
+and display a single course's full information.
 
 Routes implemented and working:
 - `/` — Dashboard (home page)
