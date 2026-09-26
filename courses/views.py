@@ -12,6 +12,10 @@ from django.views.generic import (
 )
 
 from .models import Course, Syllabus, AcademicEvent
+#
+# def redirect_root_view(request):
+#     return HttpResponseRedirect(reverse_lazy("courses:course_list"))
+
 
 def course_summary_view(request):
     """

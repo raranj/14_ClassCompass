@@ -7,6 +7,8 @@ app_name = "courses"
 
 
 urlpatterns = [
+    # path('', views.redirect_root_view()),
+
     path(
         "courses/summary/",
         views.course_summary_view,
