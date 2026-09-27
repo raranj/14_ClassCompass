@@ -14,6 +14,15 @@
         Total courses: {{ course_count }}
     </p>
 
+    <h3>Courses by Term</h3>
+
+    <ul>
+        {% for row in courses_by_term %}
+            <li>{{ row.term }}: {{ row.course_count }}</li>
+        {% empty %}
+            <li>No data available.</li>
+        {% endfor %}
+    </ul>
 
     <ul>
 

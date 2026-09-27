@@ -31,6 +31,17 @@ urlpatterns = [
         name="course_detail",
     ),
 
+    path(
+        "courses/search/",
+        views.CourseListView.as_view(),
+        name="course_search"
+    ),
+
+    path(
+        "events/search/",
+        views.event_search_view,
+        name="event_search"
+    ),
 
     path(
         "",

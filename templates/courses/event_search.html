@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Search Events | ClassCompass{% endblock %}
+
+{% block content %}
+    <h2>Search Events</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="course_code" value="{{ course_code }}" placeholder="Course code">
+
+        <select name="status">
+            <option value="">Any status</option>
+            {% for value, label in status_choices %}
+                <option value="{{ value }}" {% if value == status %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Search</button>
+    </form>
+
+    {% if results_for_looping is not None %}
+        <ul>
+            {% for event in results_for_looping %}
+                <li>{{ event.title }} — {{ event.course.course_code }} ({{ event.get_status_display }})</li>
+            {% empty %}
+                <li>No events match your search.</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

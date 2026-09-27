@@ -4,6 +4,8 @@ from django.shortcuts import render
 from django.template import loader
 from django.urls import reverse_lazy
 from django.views import View
+from django.db.models import Count, Q
+from django.views.generic import ListView
 from django.views.generic import (
     ListView,
     DetailView,
@@ -13,6 +15,57 @@ from django.views.generic import (
 )
 
 from .models import Course, Syllabus, AcademicEvent, StudyTool
+
+class CourseListView(ListView):
+    model = Course
+    template_name = "courses/course_search.html"
+    context_object_name = "course_rows_for_looping"
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        q = self.request.GET.get("q")
+        term = self.request.GET.get("term")
+
+        if q:
+            search_qs = Course.objects.filter(
+                Q(course_code__icontains=q) | Q(course_name__icontains=q)
+            )
+        else:
+            search_qs = Course.objects.all()
+
+        if term:
+            search_qs = search_qs.filter(term__exact=term)
+
+        ctx["q"] = q
+        ctx["term"] = term
+        ctx["term_choices"] = Course.TERM_CHOICES
+        ctx["search_results"] = search_qs
+
+        ctx["total_courses"] = Course.objects.count()
+        ctx["total_events"] = AcademicEvent.objects.count()
+
+        ctx["courses_per_term"] = (
+            Course.objects
+            .values("term")
+            .annotate(n_courses=Count("id"))
+            .order_by("term")
+        )
+
+        ctx["events_per_course"] = (
+            Course.objects
+            .values("course_code")
+            .annotate(
+                n_events=Count("academicevent"),
+                n_completed=Count(
+                    "academicevent",
+                    filter=Q(academicevent__status="completed"),
+                ),
+            )
+            .order_by("course_code")
+        )
+
+        return ctx
+
 
 def redirect_root_view(request):
     return redirect("dashboard")
@@ -88,6 +141,53 @@ class CourseOverviewView(View):
             "courses/course_list.html",
             context,
         )
+
+
+def event_search_view(request):
+    if request.method == "POST":
+        course_code = request.POST.get("course_code", "").strip()
+        status = request.POST.get("status", "").strip()
+
+        results_for_looping = AcademicEvent.objects.all()
+
+        if course_code:
+            results_for_looping = results_for_looping.filter(
+                course__course_code__icontains=course_code
+            )
+        if status:
+            results_for_looping = results_for_looping.filter(status__exact=status)
+    else:
+        results_for_looping = None
+        course_code = ""
+        status = ""
+
+    return render(
+        request,
+        "courses/event_search.html",
+        {
+            "results_for_looping": results_for_looping,
+            "course_code": course_code,
+            "status": status,
+            "status_choices": AcademicEvent.STATUS_CHOICES,
+        },
+    )
+
+def course_summary_view(request):
+    courses = Course.objects.all()
+
+    courses_by_term = (
+        Course.objects.values("term")
+        .annotate(course_count=Count("id"))
+        .order_by("term")
+    )
+    template = loader.get_template("courses/course_summary.html")
+    context = {
+        "courses": courses,
+        "course_count": courses.count(),
+        "courses_by_term": courses_by_term,
+    }
+    output = template.render(context, request)
+    return HttpResponse(output)
 
 class CourseDetailView(DetailView):
     """
