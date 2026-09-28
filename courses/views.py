@@ -5,7 +5,6 @@ from django.template import loader
 from django.urls import reverse_lazy
 from django.views import View
 from django.db.models import Count, Q
-from django.views.generic import ListView
 from django.views.generic import (
     ListView,
     DetailView,
@@ -14,6 +13,7 @@ from django.views.generic import (
     DeleteView
 )
 
+from .forms import CourseForm
 from .models import Course, Syllabus, AcademicEvent, StudyTool
 
 class CourseListView(ListView):
@@ -127,6 +127,18 @@ def course_list_view(request):
         "courses/course_list.html",
         context,
     )
+
+def add_course(request):
+    if request.method == "POST":
+        form = CourseForm(request.POST)
+        if form.is_valid():
+            course = form.save(commit=False)
+            course.user = request.user
+            course.save()
+            return redirect("courses:course_list")
+    else:
+        form = CourseForm()
+    return render(request, "courses/course_form.html", {"form": form})
 
 class CourseOverviewView(View):
     def get(self, request):
@@ -245,22 +257,9 @@ class CourseCreateView(CreateView):
     """
 
     model = Course
-
-    fields = [
-        "course_code",
-        "course_name",
-        "term",
-        "year",
-        "office_hours",
-        "meeting_schedule",
-        "description",
-    ]
-
+    form_class = CourseForm
     template_name = "courses/course_form.html"
-
-    success_url = reverse_lazy(
-        "courses:course_list"
-    )
+    success_url = reverse_lazy("courses:course_list")
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -273,22 +272,9 @@ class CourseUpdateView(UpdateView):
     """
 
     model = Course
-
-    fields = [
-        "course_code",
-        "course_name",
-        "term",
-        "year",
-        "office_hours",
-        "meeting_schedule",
-        "description",
-    ]
-
+    form_class = CourseForm
     template_name = "courses/course_form.html"
-
-    success_url = reverse_lazy(
-        "courses:course_list"
-    )
+    success_url = reverse_lazy("courses:course_list")
 
 
 class CourseDeleteView(DeleteView):

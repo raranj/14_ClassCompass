@@ -7,6 +7,13 @@ app_name = "courses"
 
 
 urlpatterns = [
+
+    path(
+        "courses/add-form/",
+         views.add_course,
+         name="add_course"
+    ),
+
     path(
         "courses/summary/",
         views.course_summary_view,
