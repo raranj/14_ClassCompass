@@ -402,6 +402,7 @@ def academic_event_chart(request):
     ax.set_xlabel('Date', fontsize=12)
     ax.locator_params(axis='y', integer=True)
     ax.set_ylabel('Number\nof\nEvents', fontsize=12, rotation=0, labelpad=25)
+    ax.legend()
     plt.tight_layout()
     buffer = BytesIO()
     plt.savefig(buffer, format='png')

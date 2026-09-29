@@ -18,10 +18,10 @@
         {% for course in courses %}
 
 
-            <li>
+            <li class="course_list">
                 <a href="{{ course.get_absolute_url }}">
                     <strong>{{ course.course_code }}</strong>
-                </a>
+
                 -
                 {{ course.course_name }}
 
@@ -29,6 +29,7 @@
 
                 {{ course.term }}
                 {{ course.year }}
+                </a>
             </li>
 
         {% empty %}
