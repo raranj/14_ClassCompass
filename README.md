@@ -28,3 +28,14 @@ Routes implemented and working:
 - `/courses/<course_id>/`
 - `/calendar/`
 - `/study-tools/`
+
+### UI ###
+Currently still in progress. 
+For the font, chose to use Marcellus SC due to how the capital C looked,
+also considering how clean it looked. Font was imported from google fonts(no licensing fee). 
+Regarding heading 1, chose a dark color background to make it seem a bit more interesting. The color was chosen 
+due to it being similar to black but not quite. Using just black made overall site seem too drab and black and white.
+Made the navigations buttons to make it easier to click, due to there being an increased area
+as opposed to just a word/sentence with a link attached. Also centered the navigation components within button. Added hover
+feature, when cursor hovers over button button changes to a shade of gray. Got rid of the line that
+shows for hyperlinks. 

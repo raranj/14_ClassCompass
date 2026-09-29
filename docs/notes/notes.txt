@@ -164,3 +164,12 @@ dashboard and the course list page need to link to a course's detail page (/cour
 Without it, we'd have to manually build that URL string in every template that links to a course.
 Instead, both templates just call {{ course.get_absolute_url }}, and if the detail URL pattern ever changes,
 we only update it in one place (models.py) instead of every template.
+
+Section 3 : Static files & UI Styling
+We chose to put all the static files inside the same folder, as we thought it would
+make calling the css files more simple and to avoid having to call files with increasingly
+long pathnames. We used normalize to make it so that the UI would not end up breaking or malfunctioning
+in different browsers, and used a framework of skeleton to define a few components that we thought
+would be used many times. Style was used to actually make the overall UI look different, usig {% load static %}
+to apply the style file on the corresponding html files.
+
