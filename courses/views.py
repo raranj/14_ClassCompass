@@ -397,7 +397,7 @@ def academic_event_chart(request):
     dates = [str(item['event_date']) for item in event_data]
     counts = [item['count'] for item in event_data]
     fig, ax = plt.subplots(figsize=(8, 5))
-    ax.bar(dates, counts, color='#93c5fd', edgecolor='#1d4ed8', linewidth=1.5)
+    ax.bar(dates, counts, color='#93c5fd', edgecolor='#1d4ed8', linewidth=1.5,label='Scheduled Events')
     ax.set_title('Academic Events by Date', fontsize=14, fontweight='bold')
     ax.set_xlabel('Date', fontsize=12)
     ax.locator_params(axis='y', integer=True)
