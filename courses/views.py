@@ -15,6 +15,13 @@ from django.views.generic import (
 
 from .forms import CourseForm
 from .models import Course, Syllabus, AcademicEvent, StudyTool
+from io import BytesIO
+from django.http import HttpResponse
+from django.db.models import Count
+from django.db.models.functions import TruncDate
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
 
 class CourseListView(ListView):
     model = Course
@@ -393,3 +400,26 @@ class EventDeleteView(DeleteView):
     success_url = reverse_lazy(
         "courses:calendar"
     )
+def academic_event_chart(request):
+    events = AcademicEvent.objects.all()
+    event_data = (
+        events
+        .annotate(event_date=TruncDate('scheduled_at'))
+        .values('event_date')
+        .annotate(count=Count('id'))
+        .order_by('event_date')
+    )
+    dates = [str(item['event_date']) for item in event_data]
+    counts = [item['count'] for item in event_data]
+    fig, ax = plt.subplots(figsize=(8, 5))
+    ax.bar(dates, counts, color='#93c5fd', edgecolor='#1d4ed8', linewidth=1.5)
+    ax.set_title('Academic Events by Date', fontsize=14, fontweight='bold')
+    ax.set_xlabel('Date', fontsize=12)
+    ax.locator_params(axis='y', integer=True)
+    ax.set_ylabel('Number\nof\nEvents', fontsize=12, rotation=0, labelpad=25)
+    plt.tight_layout()
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    plt.close(fig)
+    return HttpResponse(buffer.getvalue(), content_type='image/png')

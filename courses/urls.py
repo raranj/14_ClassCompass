@@ -124,4 +124,10 @@ urlpatterns = [
         views.EventDeleteView.as_view(),
         name="event_delete",
     ),
+
+    path(
+    'events.png/', views.academic_event_chart , name='event_chart',
+
+    ),
+
 ]

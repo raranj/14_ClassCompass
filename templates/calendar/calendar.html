@@ -5,6 +5,10 @@
 {% block content %}
     <h2>Calendar</h2>
 
+    <div class="container">
+        <img src="{% url 'courses:event_chart' %}" alt="Academic Events Bar Chart" style="max-width: 100%; height: auto;">
+    </div>
+
     <ul>
         {% for event in events %}
             <li>{{ event.title }} — {{ event.scheduled_at }}</li>

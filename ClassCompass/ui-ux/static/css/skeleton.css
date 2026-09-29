@@ -1,6 +1,6 @@
 /* these are theme tweaks (colors/spacing/controls) */
 
-a { color: var(--il-orange); text-decoration: none; }
+a {text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 /* Buttons */
