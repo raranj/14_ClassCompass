@@ -18,6 +18,13 @@
         <button type="submit">Search</button>
     </form>
 
+    <h3>Add a Course</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
     <ul>
         {% for course in search_results %}
             <li>

@@ -70,39 +70,24 @@ class CourseListView(ListView):
             )
             .order_by("course_code")
         )
-
+        ctx["form"] = CourseForm()
         return ctx
+
+    def post(self, request, *args, **kwargs):
+        form = CourseForm(request.POST)
+        if form.is_valid():
+            course = form.save(commit=False)
+            course.user = request.user
+            course.save()
+            return redirect("courses:course_search")
+        self.object_list = self.get_queryset()
+        ctx = self.get_context_data()
+        ctx["form"] = form
+        return self.render_to_response(ctx)
 
 
 def redirect_root_view(request):
-    return redirect("dashboard")
-
-
-def course_summary_view(request):
-    """
-    Displays a summary of the courses in ClassCompass.
-
-    This view demonstrates the manual template-loading approach:
-    1. Query the Course model
-    2. Load the template manually
-    3. Render the template manually with context
-    4. Wrap the result in HttpResponse
-    """
-
-    courses = Course.objects.all()
-
-    template = loader.get_template(
-        "courses/course_summary.html"
-    )
-
-    context = {
-        "courses": courses,
-        "course_count": courses.count(),
-    }
-
-    output = template.render(context, request)
-
-    return HttpResponse(output)
+    return redirect("courses:dashboard")
 
 class StudyToolListView(ListView):
     """
