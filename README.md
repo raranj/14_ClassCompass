@@ -39,3 +39,9 @@ Made the navigations buttons to make it easier to click, due to there being an i
 as opposed to just a word/sentence with a link attached. Also centered the navigation components within button. Added hover
 feature, when cursor hovers over button button changes to a shade of gray. Got rid of the line that
 shows for hyperlinks. 
+
+### API ###
+## API
+
+We have a JSON API endpoint at `/api/courses/` for accessing course data. The endpoint returns course ID, course code, course name, term, and year, and supports filtering, such as `/api/courses/?q=CS`.
+The API is implemented with an FBV using JsonResponse.

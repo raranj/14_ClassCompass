@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.template import loader
@@ -409,3 +409,17 @@ def academic_event_chart(request):
     buffer.seek(0)
     plt.close(fig)
     return HttpResponse(buffer.getvalue(), content_type='image/png')
+
+def api_courses(request):
+    q = (request.GET.get("q") or "").strip()
+    qs = Course.objects.all()
+
+    if q:
+        qs = Course.objects.filter(
+            Q(course_code__icontains=q) |
+            Q(course_name__icontains=q)
+        )
+    qs = qs.values("id", "course_code", "course_name", "term", "year")
+    data = list(qs.order_by("course_code"))
+
+    return JsonResponse({"count": len(data), "results": data})

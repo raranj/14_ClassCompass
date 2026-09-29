@@ -127,7 +127,7 @@ urlpatterns = [
 
     path(
     'events.png/', views.academic_event_chart , name='event_chart',
-
     ),
 
+    path("api/courses/", views.api_courses, name="api_courses",),
 ]

@@ -173,3 +173,29 @@ in different browsers, and used a framework of skeleton to define a few componen
 would be used many times. Style was used to actually make the overall UI look different, usig {% load static %}
 to apply the style file on the corresponding html files.
 
+Section 6: Creating APIs
+
+HttpResponse vs JsonResponse: HttpResponse is a general response and it can be used for HTML,
+images, and more. We used HttpResponse for the Matplotlib chart endpoint with the MIME type image/png.
+JsonResponse is used for structured JSON data and automatically sets the
+response content type to application/json. We used JsonResponse for the course API.
+
+For ClassCompass, we will create more APIs that expose important project data
+in JSON format so that the frontend or other applications can access the data
+without relying on the HTML pages.
+
+We currently have a Course API that returns course information from the database and allows for filtering.
+We plan to create additional API endpoints for other ClassCompass features, including the Courses, Academic
+events and deadlines, Grades, Syllabi and syllabus processing information, and Study tools.
+
+The type of data served will depend on the feature. Course APIs
+will return course code, course name, term, and year. Academic event APIs will
+return event titles, event types, dates, estimated workload, and completion
+status. Grade APIs will return assignment or exam information and points or
+weights. Study tool APIs will return generated study guides, summaries, or
+practice-question information.
+
+The current implemented endpoint is:
+/api/courses/
+Example filtered request:
+/api/courses/?q=CS
