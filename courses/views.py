@@ -455,3 +455,9 @@ def api_events(request):
         "count": len(results),
         "results": results,
     })
+
+def vega_bar_chart_view(request):
+    return render(request, "courses/vega_bar_chart.html",)
+
+def vega_scatter_chart_view(request):
+    return render(request, "courses/vega_scatter_chart.html",)

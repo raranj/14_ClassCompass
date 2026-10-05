@@ -130,4 +130,10 @@ urlpatterns = [
     ),
 
     path("api/courses/", views.api_courses, name="api_courses",),
+
+    path("api/events/", views.api_events, name="api_events",),
+
+    path("vega-lite/chart1/", views.vega_bar_chart_view, name="vega_bar_chart",),
+    path("vega-lite/chart2/", views.vega_scatter_chart_view, name="vega_scatter_chart",),
+
 ]
