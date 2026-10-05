@@ -423,3 +423,35 @@ def api_courses(request):
     data = list(qs.order_by("course_code"))
 
     return JsonResponse({"count": len(data), "results": data})
+
+def api_events(request):
+    events = AcademicEvent.objects.select_related("course").order_by(
+        "scheduled_at",
+        "title"
+    )
+
+    results = []
+
+    for event in events:
+        results.append({
+            "id": event.id,
+            "course": event.course.course_code,
+            "title": event.title,
+            "event_type": event.event_type,
+            "scheduled_at": (
+                event.scheduled_at.isoformat()
+                if event.scheduled_at
+                else None
+            ),
+            "estimated_hours": (
+                float(event.estimated_hours)
+                if event.estimated_hours is not None
+                else None
+            ),
+            "status": event.status,
+        })
+
+    return JsonResponse({
+        "count": len(results),
+        "results": results,
+    })
