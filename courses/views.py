@@ -22,6 +22,8 @@ from django.db.models.functions import TruncDate
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import csv
+from django.utils import timezone
 
 class CourseListView(ListView):
     model = Course
@@ -455,6 +457,112 @@ def api_events(request):
         "count": len(results),
         "results": results,
     })
+
+
+def reports_view(request):
+    courses_by_term = (
+        Course.objects
+        .values("term")
+        .annotate(course_count=Count("id"))
+        .order_by("term")
+    )
+
+    events_by_course = (
+        Course.objects
+        .values("course_code")
+        .annotate(
+            total_events=Count("academicevent"),
+            completed_events=Count(
+                "academicevent",
+                filter=Q(academicevent__status="completed")
+            ),
+        )
+        .order_by("course_code")
+    )
+
+    total_courses = Course.objects.count()
+    total_events = AcademicEvent.objects.count()
+
+    context = {
+        "courses_by_term": courses_by_term,
+        "events_by_course": events_by_course,
+        "total_courses": total_courses,
+        "total_events": total_events,
+    }
+
+    return render(request, "courses/reports.html", context)
+
+def export_courses_csv(request):
+    courses = Course.objects.all().order_by(
+        "year",
+        "term",
+        "course_code"
+    )
+
+    timestamp = timezone.now().strftime("%Y-%m-%d_%H-%M")
+
+    response = HttpResponse(
+        content_type="text/csv"
+    )
+
+    response["Content-Disposition"] = (
+        f'attachment; filename="courses_{timestamp}.csv"'
+    )
+
+    writer = csv.writer(response)
+
+    writer.writerow([
+        "Course Code",
+        "Course Name",
+        "Term",
+        "Year",
+    ])
+
+    for course in courses:
+        writer.writerow([
+            course.course_code,
+            course.course_name,
+            course.term,
+            course.year,
+        ])
+
+    return response
+
+def export_courses_json(request):
+    courses = Course.objects.all().order_by(
+        "year",
+        "term",
+        "course_code"
+    )
+
+    course_data = []
+
+    for course in courses:
+        course_data.append({
+            "course_code": course.course_code,
+            "course_name": course.course_name,
+            "term": course.term,
+            "year": course.year,
+        })
+
+    data = {
+        "generated_at": timezone.now().isoformat(),
+        "record_count": len(course_data),
+        "courses": course_data,
+    }
+
+    timestamp = timezone.now().strftime("%Y-%m-%d_%H-%M")
+
+    response = JsonResponse(
+        data,
+        json_dumps_params={"indent": 2}
+    )
+
+    response["Content-Disposition"] = (
+        f'attachment; filename="courses_{timestamp}.json"'
+    )
+
+    return response
 
 def vega_bar_chart_view(request):
     return render(request, "courses/vega_bar_chart.html",)

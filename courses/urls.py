@@ -15,6 +15,24 @@ urlpatterns = [
     ),
 
     path(
+        "reports/",
+        views.reports_view,
+        name="reports",
+    ),
+
+    path(
+        "export/courses/csv/",
+        views.export_courses_csv,
+        name="export_courses_csv",
+    ),
+
+    path(
+        "export/courses/json/",
+        views.export_courses_json,
+        name="export_courses_json",
+    ),
+
+    path(
         "courses/summary/",
         views.course_summary_view,
         name="course_summary",

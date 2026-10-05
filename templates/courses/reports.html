@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ClassCompass Reports</title>
+</head>
+
+<body>
+
+    <h1>ClassCompass Reports</h1>
+
+    <h2>Course Exports</h2>
+
+    <a href="{% url 'courses:export_courses_csv' %}">
+        <button>Download CSV</button>
+    </a>
+
+    <a href="{% url 'courses:export_courses_json' %}">
+        <button>Download JSON</button>
+    </a>
+
+
+    <h2>Courses by Term</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Term</th>
+                <th>Total Courses</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for item in courses_by_term %}
+                <tr>
+                    <td>{{ item.term }}</td>
+                    <td>{{ item.total }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="2">No courses found.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+    <h2>Courses by Year</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Year</th>
+                <th>Total Courses</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for item in courses_by_year %}
+                <tr>
+                    <td>{{ item.year }}</td>
+                    <td>{{ item.total }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="2">No courses found.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+    <h2>Total Courses</h2>
+
+    <p>Total courses: {{ total_courses }}</p>
+
+</body>
+</html>
