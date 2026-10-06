@@ -1,77 +1,68 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>ClassCompass Reports</title>
-</head>
+<h1>ClassCompass Reports</h1>
 
-<body>
+<h2>Course Exports</h2>
 
-    <h1>ClassCompass Reports</h1>
+<a href="{% url 'courses:export_courses_csv' %}">
+    Download CSV
+</a>
 
-    <h2>Course Exports</h2>
+<a href="{% url 'courses:export_courses_json' %}">
+    Download JSON
+</a>
 
-    <a href="{% url 'courses:export_courses_csv' %}">
-        <button>Download CSV</button>
-    </a>
-
-    <a href="{% url 'courses:export_courses_json' %}">
-        <button>Download JSON</button>
-    </a>
+<p>
+    Total Courses: {{ total_courses }} |
+    Total Events: {{ total_events }}
+</p>
 
 
-    <h2>Courses by Term</h2>
+<h2>Courses by Term</h2>
 
-    <table>
-        <thead>
+<table>
+    <thead>
+        <tr>
+            <th>Term</th>
+            <th>Course Count</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for item in courses_by_term %}
             <tr>
-                <th>Term</th>
-                <th>Total Courses</th>
+                <td>{{ item.term }}</td>
+                <td>{{ item.course_count }}</td>
             </tr>
-        </thead>
-
-        <tbody>
-            {% for item in courses_by_term %}
-                <tr>
-                    <td>{{ item.term }}</td>
-                    <td>{{ item.total }}</td>
-                </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="2">No courses found.</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-
-    <h2>Courses by Year</h2>
-
-    <table>
-        <thead>
+        {% empty %}
             <tr>
-                <th>Year</th>
-                <th>Total Courses</th>
+                <td colspan="2">No courses found.</td>
             </tr>
-        </thead>
-
-        <tbody>
-            {% for item in courses_by_year %}
-                <tr>
-                    <td>{{ item.year }}</td>
-                    <td>{{ item.total }}</td>
-                </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="2">No courses found.</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        {% endfor %}
+    </tbody>
+</table>
 
 
-    <h2>Total Courses</h2>
+<h2>Events by Course</h2>
 
-    <p>Total courses: {{ total_courses }}</p>
+<table>
+    <thead>
+        <tr>
+            <th>Course</th>
+            <th>Total Events</th>
+            <th>Completed Events</th>
+        </tr>
+    </thead>
 
-</body>
-</html>
+    <tbody>
+        {% for item in events_by_course %}
+            <tr>
+                <td>{{ item.course_code }}</td>
+                <td>{{ item.total_events }}</td>
+                <td>{{ item.completed_events }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="3">No events found.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
