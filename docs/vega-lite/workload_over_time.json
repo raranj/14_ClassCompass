@@ -1,0 +1,34 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "title": "Estimated Workload Over Time",
+  "data": {
+    "url": "http://127.0.0.1:8000/api/events/",
+    "format": {
+      "type": "json",
+      "property": "results"
+    }
+  },
+  "transform": [
+    {
+      "filter": "datum.scheduled_at != null && datum.estimated_hours != null"
+    }
+  ],
+  "mark": "point",
+  "encoding": {
+    "x": {
+      "field": "scheduled_at",
+      "type": "temporal",
+      "title": "Scheduled Date"
+    },
+    "y": {
+      "field": "estimated_hours",
+      "type": "quantitative",
+      "title": "Estimated Hours"
+    },
+    "color": {
+      "field": "course",
+      "type": "nominal",
+      "title": "Course"
+    }
+  }
+}
