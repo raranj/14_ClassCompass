@@ -111,5 +111,5 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / "ClassCompass/ui-ux/static"]
-STATIC_ROOT = BASE_DIR / "illinois/ui-ux/staticfiles"
+STATIC_ROOT = BASE_DIR / "ClassCompass/ui-ux/staticfiles"
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
