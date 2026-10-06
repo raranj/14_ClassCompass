@@ -199,3 +199,28 @@ The current implemented endpoint is:
 /api/courses/
 Example filtered request:
 /api/courses/?q=CS
+
+Assignment 4
+
+Part 1: Internal API and Vega-Lite Charts (Ranjana)
+- Reused and expanded the internal JSON API for academic event data
+- Added `/api/events/` to return event information from the AcademicEvent model in JSON
+- Created two Vega-Lite visualizations using our API:
+  1. Bar chart showing the number of academic events per course
+  2. Scatter plot showing estimated workload over time
+
+Part 2: External API Integration (Ranjana)
+- Integrated the Open Library Search API external API
+- Added `/api/resources/?q=...` for searching study resources
+- The view accepts a query parameter and calls Open Library
+- Combined Open Library book results with matching Course records from our database
+
+Part 3: CSV and JSON Export + Reports (Laasya)
+- Added CSV and JSON exports for Course records
+- JSON export includes `generated_at`, `record_count`, and course data
+- Added a Reports page with visible Download CSV and Download JSON buttons
+- Added two grouped summaries:
+  1. Courses grouped by term.
+  2. Events grouped by course
+
+Part 4: Deployment (Haan + Laasya)
