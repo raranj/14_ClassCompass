@@ -1,10 +1,10 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.template import loader
 from django.urls import reverse_lazy
 from django.views import View
-from django.db.models import Count, Q
+from django.db.models import Q
 from django.views.generic import (
     ListView,
     DetailView,
