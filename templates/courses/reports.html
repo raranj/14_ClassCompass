@@ -3,11 +3,15 @@
 <h2>Course Exports</h2>
 
 <a href="{% url 'courses:export_courses_csv' %}">
-    Download CSV
+    <button type="button">
+        Download CSV
+    </button>
 </a>
 
 <a href="{% url 'courses:export_courses_json' %}">
-    Download JSON
+    <button type="button">
+        Download JSON
+    </button>
 </a>
 
 <p>
