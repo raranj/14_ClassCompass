@@ -573,27 +573,22 @@ def vega_scatter_chart_view(request):
     return render(request, "courses/vega_scatter_chart.html",)
 
 def external_resources(request):
-    q = (request.GET.get("q") or "").strip()
+    q = request.GET.get("q", "").strip()
 
     if not q:
         return JsonResponse(
-            {"error": "A q query parameter is required."},
+            {"error": "Missing q parameter"},
             status=400
         )
 
-    matching_courses = (
-        Course.objects
-        .filter(
+    courses = list(
+        Course.objects.filter(
             Q(course_code__icontains=q) |
             Q(course_name__icontains=q)
-        )
-        .values(
+        ).values(
             "course_code",
-            "course_name",
-            "term",
-            "year"
+            "course_name"
         )
-        .order_by("course_code")
     )
 
     try:
@@ -602,36 +597,27 @@ def external_resources(request):
             params={
                 "q": q,
                 "limit": 5,
-                "fields": "title,author_name,first_publish_year"
             },
             timeout=5
         )
-
         response.raise_for_status()
-
-        external_data = response.json()
 
     except requests.RequestException:
         return JsonResponse(
-            {"error": "The external API request failed."},
+            {"error": "Could not retrieve book data"},
             status=502
         )
 
-    resources = []
-
-    for book in external_data.get("docs", []):
-        resources.append({
+    books = []
+    for book in response.json().get("docs", []):
+        books.append({
             "title": book.get("title"),
             "authors": book.get("author_name", []),
             "first_publish_year": book.get("first_publish_year"),
         })
 
-    courses = list(matching_courses)
-
     return JsonResponse({
         "query": q,
-        "course_count": len(courses),
-        "resource_count": len(resources),
-        "matching_courses": courses,
-        "resources": resources,
+        "courses": courses,
+        "books": books,
     })
