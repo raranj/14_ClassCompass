@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Academic Events by Course
+{% endblock %}
+
+{% block content %}
+
+<h2>Academic Events by Course</h2>
+
+<div id="vis"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/vega@6"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@6"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
+
+<script>
+    var vlSpec = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+
+        "title": "Academic Events by Course",
+
+        "data": {
+            "url": "{% url 'courses:api_events' %}",
+            "format": {
+                "type": "json",
+                "property": "results"
+            }
+        },
+
+        "mark": "bar",
+
+        "encoding": {
+            "x": {
+                "field": "course",
+                "type": "nominal",
+                "title": "Course"
+            },
+
+            "y": {
+                "aggregate": "count",
+                "title": "Number of Events"
+            }
+        }
+    };
+
+    vegaEmbed("#vis", vlSpec);
+</script>
+
+{% endblock %}

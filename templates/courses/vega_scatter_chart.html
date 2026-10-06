@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Estimated Workload Over Time
+{% endblock %}
+
+{% block content %}
+
+<h2>Estimated Workload Over Time</h2>
+
+<div id="vis"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/vega@6"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@6"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
+
+<script>
+    var vlSpec = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+
+        "title": "Estimated Workload Over Time",
+
+        "data": {
+            "url": "{% url 'courses:api_events' %}",
+            "format": {
+                "type": "json",
+                "property": "results"
+            }
+        },
+
+        "transform": [
+            {
+                "filter": "datum.scheduled_at != null && datum.estimated_hours != null"
+            }
+        ],
+
+        "mark": "point",
+
+        "encoding": {
+            "x": {
+                "field": "scheduled_at",
+                "type": "temporal",
+                "title": "Scheduled Date"
+            },
+
+            "y": {
+                "field": "estimated_hours",
+                "type": "quantitative",
+                "title": "Estimated Hours"
+            },
+
+            "color": {
+                "field": "course",
+                "type": "nominal",
+                "title": "Course"
+            }
+        }
+    };
+
+    vegaEmbed("#vis", vlSpec);
+</script>
+
+{% endblock %}
