@@ -24,8 +24,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import csv
 from django.utils import timezone
-
 import requests
+from django.contrib.auth.decorators import login_required
 
 class CourseListView(ListView):
     model = Course
@@ -124,7 +124,8 @@ def course_list_view(request):
         context,
     )
 
-def add_course(request):
+@login_required
+def add_course( request):
     if request.method == "POST":
         form = CourseForm(request.POST)
         if form.is_valid():

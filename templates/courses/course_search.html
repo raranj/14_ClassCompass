@@ -17,14 +17,17 @@
 
         <button type="submit">Search</button>
     </form>
+    {% if user.is_authenticated %}
 
-    <h3>Add a Course</h3>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save</button>
-    </form>
-
+        <h3>Add a Course</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Save</button>
+        </form>
+    {% else %}
+        <p><a href="{% url 'login' %}">Log in</a> to add courses to your academic plan.</p>
+    {% endif %}
     <ul>
         {% for course in search_results %}
             <li>
