@@ -40,8 +40,8 @@ class CourseListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        q = self.request.user.GET.get("q")
-        term = self.request.user.GET.get("term")
+        q = self.request.GET.get("q")
+        term = self.request.GET.get("term")
 
         if q:
             search_qs = Course.objects.filter(
@@ -300,6 +300,11 @@ class CourseUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "courses/course_form.html"
     success_url = reverse_lazy("courses:course_list")
 
+    def get_queryset(self):
+        return Course.objects.filter(
+            user=self.request.user
+        )
+
 
 class CourseDeleteView(LoginRequiredMixin, DeleteView):
     """
@@ -314,7 +319,12 @@ class CourseDeleteView(LoginRequiredMixin, DeleteView):
         "courses:course_list"
     )
 
+    def get_queryset(self):
+        return Course.objects.filter(
+            user=self.request.user
+        )
 
+    
 class SyllabusListView(LoginRequiredMixin, ListView):
     """
     Displays uploaded syllabi.
@@ -453,14 +463,25 @@ def api_courses(request):
     qs = Course.objects.filter(user=request.user)
 
     if q:
-        qs = Course.objects.filter(
+        qs = qs.filter(
             Q(course_code__icontains=q) |
             Q(course_name__icontains=q)
         )
-    qs = qs.values("id", "course_code", "course_name", "term", "year")
+
+    qs = qs.values(
+        "id",
+        "course_code",
+        "course_name",
+        "term",
+        "year"
+    )
+
     data = list(qs.order_by("course_code"))
 
-    return JsonResponse({"count": len(data), "results": data})
+    return JsonResponse({
+        "count": len(data),
+        "results": data
+    })
 
 
 @login_required
