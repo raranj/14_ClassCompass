@@ -324,7 +324,7 @@ class CourseDeleteView(LoginRequiredMixin, DeleteView):
             user=self.request.user
         )
 
-    
+
 class SyllabusListView(LoginRequiredMixin, ListView):
     """
     Displays uploaded syllabi.
@@ -358,6 +358,11 @@ class EventDetailView(LoginRequiredMixin, DetailView):
     model = AcademicEvent
     template_name = "events/event_detail.html"
     context_object_name = "event"
+
+    def get_queryset(self):
+        return AcademicEvent.objects.filter(
+            course__user=self.request.user
+        )
 
 
 class EventCreateView(LoginRequiredMixin, CreateView):
@@ -415,6 +420,11 @@ class EventUpdateView(LoginRequiredMixin, UpdateView):
         "courses:calendar"
     )
 
+    def get_queryset(self):
+        return AcademicEvent.objects.filter(
+            course__user=self.request.user
+        )
+
 
 class EventDeleteView(LoginRequiredMixin, DeleteView):
     """
@@ -428,6 +438,11 @@ class EventDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy(
         "courses:calendar"
     )
+
+    def get_queryset(self):
+        return AcademicEvent.objects.filter(
+            course__user=self.request.user
+        )
 
 
 @login_required
