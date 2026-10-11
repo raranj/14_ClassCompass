@@ -48,7 +48,7 @@ class CourseListView(LoginRequiredMixin, ListView):
                 Q(course_code__icontains=q) | Q(course_name__icontains=q)
             )
         else:
-            search_qs = Course.objects.filter(user=request.user)
+            search_qs = Course.objects.filter(user=self.request.user)
 
         if term:
             search_qs = search_qs.filter(term__exact=term)
