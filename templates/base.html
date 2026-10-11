@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}?v={{ ts }}">
     <title>
         {% block title %}
-            ClassCompass
+        ClassCompass
         {% endblock %}
     </title>
 </head>
@@ -18,56 +18,81 @@
 
 <body>
 
-    <header>
-        <h1>ClassCompass</h1>
+<header>
+    <h1>ClassCompass</h1>
 
-        <nav>
-            <a href="{% url 'courses:dashboard' %}">
-                Home
-            </a>
+    <nav>
+        {% if user.is_authenticated %}
 
-            <a href="{% url 'courses:study_tool_list' %}">
-                Study Tools
-            </a>
+        <a href="{% url 'courses:dashboard' %}">
+            Home
+        </a>
 
-            <a href="{% url 'courses:course_list' %}">
-                Courses
-            </a>
+        <a href="{% url 'courses:study_tool_list' %}">
+            Study Tools
+        </a>
 
-            <a href="{% url 'courses:calendar' %}">
-                Calendar
-            </a>
+        <a href="{% url 'courses:course_list' %}">
+            Courses
+        </a>
 
-            <a href="{% url 'courses:event_search' %}">
-                Search Events
-            </a>
+        <a href="{% url 'courses:calendar' %}">
+            Calendar
+        </a>
 
-            <a href="{% url 'courses:course_search' %}">
-                Search Courses
-            </a>
+        <a href="{% url 'courses:event_search' %}">
+            Search Events
+        </a>
 
-            <a href="{% url 'courses:reports' %}">
-                Reports
-            </a>
+        <a href="{% url 'courses:course_search' %}">
+            Search Courses
+        </a>
 
-        </nav>
+        <a href="{% url 'courses:reports' %}">
+            Reports
+        </a>
 
-        <hr>
-    </header>
+        <form
+                method="POST"
+                action="{% url 'logout' %}"
+                style="display: inline;"
+        >
+            {% csrf_token %}
+
+            <button type="submit">
+                Logout ({{ user.username }})
+            </button>
+        </form>
+
+        {% else %}
+
+        <a href="{% url 'login' %}">
+            Login
+        </a>
+
+        <a href="{% url 'signup' %}">
+            Sign Up
+        </a>
+
+        {% endif %}
+    </nav>
+
+    <hr>
+</header>
 
 
-    <main>
+<main>
 
-        {% block content %}
-        {% endblock %}
+    {% block content %}
+    {% endblock %}
 
-    </main>
+</main>
 
 
-    <footer>
-        <hr>
-        <p>ClassCompass</p>
-    </footer>
+<footer>
+    <hr>
+    <p>ClassCompass</p>
+</footer>
 
 </body>
 

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}
+Sign Up - ClassCompass
+{% endblock %}
+
+{% block content %}
+
+<h2>Create an Account</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    {{ form.non_field_errors }}
+
+    {% for field in form %}
+        <div>
+            <label for="{{ field.id_for_label }}">
+                {{ field.label }}
+            </label>
+
+            {{ field }}
+
+            {{ field.errors }}
+
+            {% if field.help_text %}
+                <small>
+                    {{ field.help_text }}
+                </small>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    <button type="submit">
+        Sign Up
+    </button>
+</form>
+
+<p>
+    Already have an account?
+    <a href="{% url 'login' %}">Login</a>
+</p>
+
+{% endblock %}

@@ -113,3 +113,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / "ClassCompass/ui-ux/static"]
 STATIC_ROOT = BASE_DIR / "ClassCompass/ui-ux/staticfiles"
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "courses:dashboard"
+LOGOUT_REDIRECT_URL = "login"

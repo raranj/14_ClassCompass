@@ -20,29 +20,35 @@ from django.http import HttpResponse
 from django.db.models import Count
 from django.db.models.functions import TruncDate
 import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import csv
 from django.utils import timezone
 import requests
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class CourseListView(ListView):
+from django.contrib.auth import login
+from .forms_auth import StudentSignUpForm
+
+
+class CourseListView(LoginRequiredMixin, ListView):
     model = Course
     template_name = "courses/course_search.html"
     context_object_name = "course_rows_for_looping"
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        q = self.request.GET.get("q")
-        term = self.request.GET.get("term")
+        q = self.request.user.GET.get("q")
+        term = self.request.user.GET.get("term")
 
         if q:
             search_qs = Course.objects.filter(
                 Q(course_code__icontains=q) | Q(course_name__icontains=q)
             )
         else:
-            search_qs = Course.objects.all()
+            search_qs = Course.objects.filter(user=request.user)
 
         if term:
             search_qs = search_qs.filter(term__exact=term)
@@ -90,10 +96,12 @@ class CourseListView(ListView):
         return self.render_to_response(ctx)
 
 
+@login_required
 def redirect_root_view(request):
     return redirect("courses:dashboard")
 
-class StudyToolListView(ListView):
+
+class StudyToolListView(LoginRequiredMixin, ListView):
     """
     Displays study tools generated for courses.
     """
@@ -101,6 +109,8 @@ class StudyToolListView(ListView):
     template_name = "courses/study_tool_list.html"
     context_object_name = "study_tools"
 
+
+@login_required
 def course_list_view(request):
     """
     Displays all courses.
@@ -111,8 +121,7 @@ def course_list_view(request):
     3. Call render()
     """
 
-    courses = Course.objects.all()
-
+    courses = Course.objects.filter(user=request.user)
 
     context = {
         "courses": courses,
@@ -124,8 +133,9 @@ def course_list_view(request):
         context,
     )
 
+
 @login_required
-def add_course( request):
+def add_course(request):
     if request.method == "POST":
         form = CourseForm(request.POST)
         if form.is_valid():
@@ -137,7 +147,8 @@ def add_course( request):
         form = CourseForm()
     return render(request, "courses/course_form.html", {"form": form})
 
-class CourseOverviewView(View):
+
+class CourseOverviewView(LoginRequiredMixin, View):
     def get(self, request):
         courses = Course.objects.order_by("course_code")
 
@@ -152,12 +163,13 @@ class CourseOverviewView(View):
         )
 
 
+@login_required
 def event_search_view(request):
     if request.method == "POST":
         course_code = request.POST.get("course_code", "").strip()
         status = request.POST.get("status", "").strip()
 
-        results_for_looping = AcademicEvent.objects.all()
+        results_for_looping = AcademicEvent.objects.filter(course__user=request.user)
 
         if course_code:
             results_for_looping = results_for_looping.filter(
@@ -181,8 +193,10 @@ def event_search_view(request):
         },
     )
 
+
+@login_required
 def course_summary_view(request):
-    courses = Course.objects.all()
+    courses = Course.objects.filter(user=request.user)
 
     courses_by_term = (
         Course.objects.values("term")
@@ -198,7 +212,8 @@ def course_summary_view(request):
     output = template.render(context, request)
     return HttpResponse(output)
 
-class CourseDetailView(DetailView):
+
+class CourseDetailView(LoginRequiredMixin, DetailView):
     """
     Displays one specific Course.
 
@@ -210,14 +225,22 @@ class CourseDetailView(DetailView):
     template_name = "courses/course_detail.html"
     context_object_name = "course"
 
-class DashboardView(View):
+    def get_queryset(self):
+        return Course.objects.filter(
+            user=self.request.user
+        )
+
+
+class DashboardView(LoginRequiredMixin, View):
     """
     Displays the main ClassCompass dashboard.
     """
 
     def get(self, request):
-        courses = Course.objects.all()
-        events = AcademicEvent.objects.all()
+        courses = Course.objects.filter(user=request.user)
+        events = AcademicEvent.objects.filter(
+            course__user=request.user
+        )
 
         context = {
             "courses": courses,
@@ -230,13 +253,16 @@ class DashboardView(View):
             context,
         )
 
-class CalendarView(View):
+
+class CalendarView(LoginRequiredMixin, View):
     """
     Displays academic events in the calendar.
     """
 
     def get(self, request):
-        events = AcademicEvent.objects.all()
+        events = AcademicEvent.objects.filter(
+            course__user=request.user
+        )
 
         context = {
             "events": events,
@@ -248,7 +274,8 @@ class CalendarView(View):
             context,
         )
 
-class CourseCreateView(CreateView):
+
+class CourseCreateView(LoginRequiredMixin, CreateView):
     """
     Creates a new Course.
     """
@@ -263,7 +290,7 @@ class CourseCreateView(CreateView):
         return super().form_valid(form)
 
 
-class CourseUpdateView(UpdateView):
+class CourseUpdateView(LoginRequiredMixin, UpdateView):
     """
     Updates an existing Course.
     """
@@ -274,7 +301,7 @@ class CourseUpdateView(UpdateView):
     success_url = reverse_lazy("courses:course_list")
 
 
-class CourseDeleteView(DeleteView):
+class CourseDeleteView(LoginRequiredMixin, DeleteView):
     """
     Deletes an existing Course.
     """
@@ -287,7 +314,8 @@ class CourseDeleteView(DeleteView):
         "courses:course_list"
     )
 
-class SyllabusListView(ListView):
+
+class SyllabusListView(LoginRequiredMixin, ListView):
     """
     Displays uploaded syllabi.
     """
@@ -297,7 +325,7 @@ class SyllabusListView(ListView):
     context_object_name = "syllabi"
 
 
-class SyllabusUploadView(View):
+class SyllabusUploadView(LoginRequiredMixin, View):
     """
     Displays the syllabus upload page.
 
@@ -312,7 +340,7 @@ class SyllabusUploadView(View):
         )
 
 
-class EventDetailView(DetailView):
+class EventDetailView(LoginRequiredMixin, DetailView):
     """
     Displays one AcademicEvent.
     """
@@ -322,7 +350,7 @@ class EventDetailView(DetailView):
     context_object_name = "event"
 
 
-class EventCreateView(CreateView):
+class EventCreateView(LoginRequiredMixin, CreateView):
     """
     Creates a new AcademicEvent.
     """
@@ -350,7 +378,7 @@ class EventCreateView(CreateView):
     )
 
 
-class EventUpdateView(UpdateView):
+class EventUpdateView(LoginRequiredMixin, UpdateView):
     """
     Updates an existing AcademicEvent.
     """
@@ -378,7 +406,7 @@ class EventUpdateView(UpdateView):
     )
 
 
-class EventDeleteView(DeleteView):
+class EventDeleteView(LoginRequiredMixin, DeleteView):
     """
     Deletes an AcademicEvent.
     """
@@ -390,8 +418,11 @@ class EventDeleteView(DeleteView):
     success_url = reverse_lazy(
         "courses:calendar"
     )
+
+
+@login_required
 def academic_event_chart(request):
-    events = AcademicEvent.objects.all()
+    events = AcademicEvent.objects.filter(course__user=request.user)
     event_data = (
         events
         .annotate(event_date=TruncDate('scheduled_at'))
@@ -402,7 +433,7 @@ def academic_event_chart(request):
     dates = [str(item['event_date']) for item in event_data]
     counts = [item['count'] for item in event_data]
     fig, ax = plt.subplots(figsize=(8, 5))
-    ax.bar(dates, counts, color='#93c5fd', edgecolor='#1d4ed8', linewidth=1.5,label='Scheduled Events')
+    ax.bar(dates, counts, color='#93c5fd', edgecolor='#1d4ed8', linewidth=1.5, label='Scheduled Events')
     ax.set_title('Academic Events by Date', fontsize=14, fontweight='bold')
     ax.set_xlabel('Date', fontsize=12)
     ax.locator_params(axis='y', integer=True)
@@ -415,9 +446,11 @@ def academic_event_chart(request):
     plt.close(fig)
     return HttpResponse(buffer.getvalue(), content_type='image/png')
 
+
+@login_required
 def api_courses(request):
     q = (request.GET.get("q") or "").strip()
-    qs = Course.objects.all()
+    qs = Course.objects.filter(user=request.user)
 
     if q:
         qs = Course.objects.filter(
@@ -429,6 +462,8 @@ def api_courses(request):
 
     return JsonResponse({"count": len(data), "results": data})
 
+
+@login_required
 def api_events(request):
     events = AcademicEvent.objects.select_related("course").order_by(
         "scheduled_at",
@@ -462,6 +497,7 @@ def api_events(request):
     })
 
 
+@login_required
 def reports_view(request):
     courses_by_term = (
         Course.objects
@@ -495,8 +531,10 @@ def reports_view(request):
 
     return render(request, "courses/reports.html", context)
 
+
+@login_required
 def export_courses_csv(request):
-    courses = Course.objects.all().order_by(
+    courses = Course.objects.filter(user=request.user).order_by(
         "year",
         "term",
         "course_code"
@@ -531,8 +569,10 @@ def export_courses_csv(request):
 
     return response
 
+
+@login_required
 def export_courses_json(request):
-    courses = Course.objects.all().order_by(
+    courses = Course.objects.filter(user=request.user).order_by(
         "year",
         "term",
         "course_code"
@@ -567,12 +607,18 @@ def export_courses_json(request):
 
     return response
 
+
+@login_required
 def vega_bar_chart_view(request):
-    return render(request, "courses/vega_bar_chart.html",)
+    return render(request, "courses/vega_bar_chart.html", )
 
+
+@login_required
 def vega_scatter_chart_view(request):
-    return render(request, "courses/vega_scatter_chart.html",)
+    return render(request, "courses/vega_scatter_chart.html", )
 
+
+@login_required
 def external_resources(request):
     q = request.GET.get("q", "").strip()
 
@@ -622,3 +668,27 @@ def external_resources(request):
         "courses": courses,
         "books": books,
     })
+
+
+def signup_view(request):
+    if request.user.is_authenticated:
+        return redirect("courses:dashboard")
+
+    if request.method == "POST":
+        form = StudentSignUpForm(request.POST)
+
+        if form.is_valid():
+            new_user = form.save()
+
+            login(request, new_user)
+
+            return redirect("courses:dashboard")
+
+    else:
+        form = StudentSignUpForm()
+
+    return render(
+        request,
+        "registration/signup.html",
+        {"form": form},
+    )
