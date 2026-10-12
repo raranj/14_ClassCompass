@@ -72,3 +72,61 @@ li.course_list a:hover {
   border-color: #888888;
   background-color: #f5f5f5;
 }
+
+/* Google sign-in button */
+a.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 360px;
+    min-height: 48px;
+    margin: 20px 0;
+    padding: 12px 20px;
+    box-sizing: border-box;
+
+    background-color: #ffffff;
+    border: 1px solid #dadce0;
+    border-radius: 8px;
+    color: #3c4043;
+
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+}
+
+a.google-btn:hover {
+    background-color: #f8faff;
+    box-shadow: 0 1px 3px rgba(60, 64, 67, 0.2);
+}
+
+a.google-btn svg.google-icon {
+    display: block;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    flex: 0 0 20px;
+    overflow: hidden;
+}
+
+.auth-divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    max-width: 360px;
+    margin: 24px 0;
+    color: #777777;
+    font-size: 13px;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background-color: #e0e0e0;
+}

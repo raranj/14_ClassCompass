@@ -27,5 +27,8 @@ urlpatterns = [
         name="signup",
     ),
 
-    path("", include("courses.urls")),
+    path("accounts/", include("allauth.urls")),
+
+    path("", include("courses.urls"))
+
 ]

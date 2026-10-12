@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load socialaccount %}
 
 {% block title %}
 Login - ClassCompass
@@ -39,6 +40,17 @@ Login - ClassCompass
         Login
     </button>
 </form>
+
+<p class="auth-divider">OR</p>
+
+<a href="{% provider_login_url 'google' %}" class="google-btn">
+    <img
+        src="https://developers.google.com/identity/images/g-logo.png"
+        alt="Google Logo"
+        class="google-icon"
+    >
+    Sign in with Google
+</a>
 
 <p>
     Don't have an account?

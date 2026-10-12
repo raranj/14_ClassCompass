@@ -6,7 +6,7 @@ from pathlib import Path
 # and expose them as OS environment variables.
 env = environ.Env()
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent
 
 # Load .env from project root
 environ.Env.read_env(BASE_DIR / ".env")
