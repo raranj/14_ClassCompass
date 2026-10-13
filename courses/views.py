@@ -810,5 +810,5 @@ def public_api(request):
         })
 
     return JsonResponse({
-        "data": data
+        "values": data
     })
