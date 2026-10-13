@@ -224,3 +224,35 @@ Part 3: CSV and JSON Export + Reports (Laasya)
   2. Events grouped by course
 
 Part 4: Deployment (Haan + Laasya)
+- Deployed ClassCompass to PythonAnywhere
+- Configured the production website to run the Django application
+- Updated the production environment as the project continued to develop
+The deployed website is available at:
+https://lrangu2.pythonanywhere.com/
+
+Assignment 5
+
+Part 1: Team Project Planning and System Profiles (Ranjana)
+- Implemented custom login and signup pages for ClassCompass
+- Added username/password authentication using Django
+- Added logout functionality
+- Protected private website pages so users must log in before accessing them
+- Protected API endpoints that return user-specific course and academic event information
+- Updated navigation in base.html so protected navigation links are only visible to authenticated users
+- Added a custom signup view using StudentSignUpForm
+- After successful registration, users are logged in and redirected to the dashboard
+
+Part 2: Google OAuth Integration (Laasya)
+- Integrated Google OAuth using django-allauth
+- Configured Google Cloud OAuth credentials for local development and the deployed production website
+- Added the local and production redirect URIs to support Google sign-in
+- Added a "Continue with Google" option to the login and signup pages
+- Configured the required authentication dependencies, including django-allauth and PyJWT
+- Updated the PythonAnywhere deployment configuration to support Google OAuth in production
+- Tested the Google sign-in flow and worked through configuration issues involving redirect URIs and missing dependencies
+
+Part 3: Public API (Haan)
+- Created a public API that returns monthly user signups and cumulative user totals as JSON
+- Connected a Vega-Lite chart to the API instead of using hardcoded data
+- Demonstrated three alternative uses of the API using Python, Excel/Google Sheets, and pandas
+- Tested the API on the deployed website
