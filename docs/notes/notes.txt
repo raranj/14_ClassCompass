@@ -256,3 +256,9 @@ Part 3: Public API (Haan)
 - Connected a Vega-Lite chart to the API instead of using hardcoded data
 - Demonstrated three alternative uses of the API using Python, Excel/Google Sheets, and pandas
 - Tested the API on the deployed website
+- 3 uses for public API ->
+    1. Notebook use : Used to show various statistics regarding the number of new users per month.
+    overall mean number of new users. This can be used to analyze the average increase in new members.
+    2. Excel use : Used excel so as to make the raw data more easily readable.
+    3. Used python to graph the total number of overall users per month, to see how our overall community size grows
+    over time, could also be used to find the average rate of change.
