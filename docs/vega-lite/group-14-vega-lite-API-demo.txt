@@ -1,0 +1,40 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Monthly new user sign-ups",
+  "width": 450,
+  "height": 300,
+  "data": {
+  "url": "https://lrangu2.pythonanywhere.com/api/public/",
+  "format": {
+    "type": "json",
+    "property": "values"
+  }
+  },
+  "mark": {
+    "type": "bar",
+    "cornerRadiusTopLeft": 4,
+    "cornerRadiusTopRight": 4,
+    "color": "#2563eb"
+  },
+  "encoding": {
+    "x": {
+      "field": "month",
+      "type": "ordinal",
+      "title": "Month",
+      "axis": {
+        "labelAngle": 0
+      }
+    },
+    "y": {
+      "field": "new_users",
+      "type": "quantitative",
+      "title": "New Users",
+      "stack": null
+    },
+    "tooltip": [
+      { "field": "month", "title": "Month" },
+      { "field": "new_users", "title": "New Sign-ups" },
+      { "field": "total_users", "title": "Total Users" }
+    ]
+  }
+}
