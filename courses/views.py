@@ -760,7 +760,11 @@ def signup_view(request):
         if form.is_valid():
             new_user = form.save()
 
-            login(request, new_user)
+            login(
+                request,
+                new_user,
+                backend="django.contrib.auth.backends.ModelBackend"
+            )
 
             return redirect("courses:dashboard")
 
