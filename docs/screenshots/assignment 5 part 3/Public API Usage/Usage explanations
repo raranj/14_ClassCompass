@@ -1,0 +1,5 @@
+1. Notebook use : Used to show various statistics regarding the number of new users per month.
+overall mean number of new users. This can be used to analyze the average increase in new members.
+2. Excel use : Used excel so as to make the raw data more easily readable.
+3. Used python to graph the total number of overall users per month, to see how our overall community size grows
+over time, could also be used to find the average rate of change.

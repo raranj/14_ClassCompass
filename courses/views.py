@@ -810,6 +810,5 @@ def public_api(request):
         })
 
     return JsonResponse({
-        "success": True,
-        "data": data,
+        "data": data
     })
