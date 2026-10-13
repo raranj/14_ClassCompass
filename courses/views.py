@@ -31,7 +31,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.contrib.auth import login, get_user_model
 from .forms_auth import StudentSignUpForm
-from django.contrib.auth import get_user_model
+
 from django.db.models.functions import TruncMonth
 
 User = get_user_model()
