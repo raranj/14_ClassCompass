@@ -155,4 +155,5 @@ urlpatterns = [
     path("vega-lite/chart2/", views.vega_scatter_chart_view, name="vega_scatter_chart",),
 
     path("api/resources/", views.external_resources, name="external_resources",),
+    path('api/public/', views.public_api, name='public_api'),
 ]

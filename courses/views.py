@@ -1,3 +1,4 @@
+
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -18,7 +19,7 @@ from .models import Course, Syllabus, AcademicEvent, StudyTool
 from io import BytesIO
 from django.http import HttpResponse
 from django.db.models import Count
-from django.db.models.functions import TruncDate
+from django.db.models.functions import TruncDate, TruncMonth
 import matplotlib
 
 matplotlib.use("Agg")
@@ -29,9 +30,9 @@ import requests
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from django.contrib.auth import login
+from django.contrib.auth import login, get_user_model
 from .forms_auth import StudentSignUpForm
-
+User = get_user_model()
 
 class CourseListView(LoginRequiredMixin, ListView):
     model = Course
@@ -776,3 +777,39 @@ def signup_view(request):
         "registration/signup.html",
         {"form": form},
     )
+
+def public_api(request):
+    try:
+        monthly_signups = (
+            User.objects.annotate(month=TruncMonth('date_joined'))
+            .values('month')
+            .annotate(new_users=Count('id'))
+            .order_by('month')
+        )
+
+        data = []
+        cumulative_total = 0
+
+        for entry in monthly_signups:
+            if entry['month']:
+                # Format month as "YYYY-MM" (ideal for Vega-Lite temporal scale)
+                month_str = entry['month'].strftime('%Y-%m')
+                new_users = entry['new_users']
+                cumulative_total += new_users
+
+                data.append({
+                    "month": month_str,
+                    "new_users": new_users,
+                    "total_users": cumulative_total
+                })
+
+        return JsonResponse({
+            "success": True,
+            "data": data
+        }, status=200, safe=False)
+
+    except Exception as error:
+        return JsonResponse({
+            "success": False,
+            "error": "Internal Server Error"
+        }, status=500)
