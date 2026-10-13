@@ -1,78 +1,119 @@
 {% extends "base.html" %}
 
-{% block title %}Reports - ClassCompass{% endblock %}
+{% block title %}Reports | ClassCompass{% endblock %}
 
 {% block content %}
-<h1>ClassCompass Reports</h1>
+<div class="cc-page">
 
-<h2>Course Exports</h2>
+    <div class="cc-page-header">
+        <div>
+            <p class="cc-page-eyebrow">ACADEMIC OVERVIEW</p>
+            <h2>Reports</h2>
+            <p>
+                Explore your course and event statistics
+                and export your data.
+            </p>
+        </div>
+    </div>
 
-<a href="{% url 'courses:export_courses_csv' %}">
-    <button type="button">
-        Download CSV
-    </button>
-</a>
+    <div class="cc-report-stats">
 
-<a href="{% url 'courses:export_courses_json' %}">
-    <button type="button">
-        Download JSON
-    </button>
-</a>
+        <div class="cc-report-stat-card">
+            <span>Total Courses</span>
+            <strong>{{ total_courses }}</strong>
+            <p>Courses in your workspace</p>
+        </div>
 
-<p>
-    Total Courses: {{ total_courses }} |
-    Total Events: {{ total_events }}
-</p>
+        <div class="cc-report-stat-card">
+            <span>Total Events</span>
+            <strong>{{ total_events }}</strong>
+            <p>Academic events recorded</p>
+        </div>
 
+    </div>
 
-<h2>Courses by Term</h2>
+    <section class="cc-info-card cc-report-section">
+        <h3>Export Course Data</h3>
 
-<table>
-    <thead>
-    <tr>
-        <th>Term</th>
-        <th>Course Count</th>
-    </tr>
-    </thead>
+        <p>
+            Download your course information in
+            your preferred format.
+        </p>
 
-    <tbody>
-    {% for item in courses_by_term %}
-    <tr>
-        <td>{{ item.term }}</td>
-        <td>{{ item.course_count }}</td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td colspan="2">No courses found.</td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
+        <div class="cc-export-actions">
+            <a href="{% url 'courses:export_courses_csv' %}"
+               class="cc-action-btn">
+                Download CSV
+            </a>
 
+            <a href="{% url 'courses:export_courses_json' %}"
+               class="cc-secondary-btn">
+                Download JSON
+            </a>
+        </div>
+    </section>
 
-<h2>Events by Course</h2>
+    <section class="cc-info-card cc-report-section">
+        <h3>Courses by Term</h3>
 
-<table>
-    <thead>
-    <tr>
-        <th>Course</th>
-        <th>Total Events</th>
-        <th>Completed Events</th>
-    </tr>
-    </thead>
+        <div class="cc-table-wrap">
+            <table class="cc-report-table">
+                <thead>
+                <tr>
+                    <th>Term</th>
+                    <th>Course Count</th>
+                </tr>
+                </thead>
 
-    <tbody>
-    {% for item in events_by_course %}
-    <tr>
-        <td>{{ item.course_code }}</td>
-        <td>{{ item.total_events }}</td>
-        <td>{{ item.completed_events }}</td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td colspan="3">No events found.</td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
+                <tbody>
+                {% for item in courses_by_term %}
+                <tr>
+                    <td>{{ item.term }}</td>
+                    <td>{{ item.course_count }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="2">
+                        No courses found.
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="cc-info-card cc-report-section">
+        <h3>Events by Course</h3>
+
+        <div class="cc-table-wrap">
+            <table class="cc-report-table">
+                <thead>
+                <tr>
+                    <th>Course</th>
+                    <th>Total Events</th>
+                    <th>Completed Events</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for item in events_by_course %}
+                <tr>
+                    <td>{{ item.course_code }}</td>
+                    <td>{{ item.total_events }}</td>
+                    <td>{{ item.completed_events }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">
+                        No events found.
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+</div>
 {% endblock %}

@@ -1,45 +1,64 @@
 {% extends "base.html" %}
 
-
-{% block title %}
-    Courses | ClassCompass
-{% endblock %}
-
+{% block title %}Courses | ClassCompass{% endblock %}
 
 {% block content %}
+<div class="cc-page">
 
-    <h2>Courses</h2>
+    <div class="cc-page-header">
+        <div>
+            <p class="cc-page-eyebrow">YOUR ACADEMIC WORKSPACE</p>
+            <h2>My Courses</h2>
+            <p>View and manage your courses in one place.</p>
+        </div>
 
-    <p>View the courses currently stored in ClassCompass.</p>
+        <a href="{% url 'courses:course_create' %}" class="cc-action-btn">
+            + Add Course
+        </a>
+    </div>
 
-
-    <ul>
-
+    <div class="cc-course-grid">
         {% for course in courses %}
 
+        <a href="{{ course.get_absolute_url }}"
+           class="cc-course-card">
 
-            <li class="course_list">
-                <a href="{{ course.get_absolute_url }}">
-                    <strong>{{ course.course_code }}</strong>
+            <div class="cc-course-card-top">
+                    <span class="cc-course-badge">
+                        {{ course.course_code }}
+                    </span>
 
-                -
-                {{ course.course_name }}
+                <span class="cc-term">
+                        {{ course.term|title }} {{ course.year }}
+                    </span>
+            </div>
 
-                <br>
+            <h3>{{ course.course_name }}</h3>
 
-                {{ course.term }}
-                {{ course.year }}
-                </a>
-            </li>
+            <div class="cc-course-card-footer">
+                <span>View Course Details</span>
+                <span>→</span>
+            </div>
+
+        </a>
 
         {% empty %}
 
-            <li>
-                No courses have been added yet.
-            </li>
+        <div class="cc-empty-panel">
+            <h3>No courses yet</h3>
+            <p>
+                Add your first course to start organizing
+                your academic schedule.
+            </p>
+
+            <a href="{% url 'courses:course_create' %}"
+               class="cc-action-btn">
+                Add Your First Course
+            </a>
+        </div>
 
         {% endfor %}
+    </div>
 
-    </ul>
-
+</div>
 {% endblock %}

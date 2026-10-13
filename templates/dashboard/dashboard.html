@@ -3,23 +3,144 @@
 {% block title %}Dashboard | ClassCompass{% endblock %}
 
 {% block content %}
-    <h2>Dashboard</h2>
+<div class="cc-dashboard">
 
-    <h3>Your Courses</h3>
-    <ul>
-        {% for course in courses %}
-            <li><a href="{{ course.get_absolute_url }}">{{ course.course_code }} - {{ course.course_name }}</a></li>
-        {% empty %}
-            <li>No courses yet.</li>
-        {% endfor %}
-    </ul>
+    <section class="cc-welcome">
+        <div>
+            <p class="cc-eyebrow">YOUR ACADEMIC WORKSPACE</p>
+            <h2>Welcome back, {{ user.username }}!</h2>
+            <p>
+                Stay organized, track your courses, and keep
+                up with your academic schedule.
+            </p>
+        </div>
+        <a href="{% url 'courses:course_list' %}" class="cc-primary-btn">
+            View Courses
+        </a>
+    </section>
 
-    <h3>Upcoming Events</h3>
-    <ul>
-        {% for event in events %}
-            <li>{{ event.title }} ({{ event.course.course_code }})</li>
-        {% empty %}
-            <li>No events yet.</li>
-        {% endfor %}
-    </ul>
+    <section class="cc-stats">
+        <div class="cc-stat-card">
+            <span class="cc-stat-label">My Courses</span>
+            <strong class="cc-stat-number">{{ courses|length }}</strong>
+            <span class="cc-stat-description">Courses in your workspace</span>
+        </div>
+
+        <div class="cc-stat-card">
+            <span class="cc-stat-label">Academic Events</span>
+            <strong class="cc-stat-number">{{ events|length }}</strong>
+            <span class="cc-stat-description">Events shown on your dashboard</span>
+        </div>
+
+        <div class="cc-stat-card">
+            <span class="cc-stat-label">Quick Access</span>
+            <strong class="cc-stat-number">Reports</strong>
+            <a href="{% url 'courses:reports' %}" class="cc-text-link">
+                View academic summary →
+            </a>
+        </div>
+    </section>
+
+    <section class="cc-dashboard-grid">
+
+        <div class="cc-panel">
+            <div class="cc-panel-header">
+                <div>
+                    <h3>Your Courses</h3>
+                    <p>Courses you're currently managing</p>
+                </div>
+                <a href="{% url 'courses:course_list' %}">
+                    View all →
+                </a>
+            </div>
+
+            <div class="cc-panel-content">
+                {% for course in courses %}
+                <a href="{{ course.get_absolute_url }}"
+                   class="cc-course-item">
+                    <span class="cc-course-icon">C</span>
+                    <span class="cc-course-info">
+                            <strong>{{ course.course_code }}</strong>
+                            <small>{{ course.course_name }}</small>
+                        </span>
+                    <span class="cc-item-arrow">→</span>
+                </a>
+                {% empty %}
+                <div class="cc-empty">
+                    <h4>No courses yet</h4>
+                    <p>
+                        Your courses will appear here once
+                        they've been added.
+                    </p>
+                    <a href="{% url 'courses:course_list' %}"
+                       class="cc-text-link">
+                        Go to Courses →
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="cc-panel">
+            <div class="cc-panel-header">
+                <div>
+                    <h3>Academic Events</h3>
+                    <p>Keep track of your schedule</p>
+                </div>
+                <a href="{% url 'courses:calendar' %}">
+                    View calendar →
+                </a>
+            </div>
+
+            <div class="cc-panel-content">
+                {% for event in events %}
+                <div class="cc-event-item">
+                    <span class="cc-event-icon">D</span>
+                    <span class="cc-event-info">
+                            <strong>{{ event.title }}</strong>
+                            <small>
+                                {{ event.course.course_code }}
+                                {% if event.scheduled_at %}
+                                    · {{ event.scheduled_at|date:"M j, Y" }}
+                                {% endif %}
+                            </small>
+                        </span>
+                </div>
+                {% empty %}
+                <div class="cc-empty">
+                    <h4>No events yet</h4>
+                    <p>
+                        Your academic events will appear here
+                        when they're scheduled.
+                    </p>
+                    <a href="{% url 'courses:calendar' %}"
+                       class="cc-text-link">
+                        Open Calendar →
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </section>
+
+    <section class="cc-shortcuts">
+        <h3>Explore ClassCompass</h3>
+        <div class="cc-shortcut-grid">
+            <a href="{% url 'courses:course_search' %}">
+                <strong>Search Courses</strong>
+                <span>Find courses in your workspace →</span>
+            </a>
+            <a href="{% url 'courses:event_search' %}">
+                <strong>Search Events</strong>
+                <span>Find academic events →</span>
+            </a>
+            <a href="{% url 'courses:study_tool_list' %}">
+                <strong>Study Tools</strong>
+                <span>Explore your study resources →</span>
+            </a>
+        </div>
+    </section>
+
+</div>
 {% endblock %}

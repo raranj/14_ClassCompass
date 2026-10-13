@@ -1,65 +1,96 @@
 {% extends "base.html" %}
 
-
 {% block title %}
-    {{ course.course_code }} | ClassCompass
+{{ course.course_code }} | ClassCompass
 {% endblock %}
 
-
 {% block content %}
+<div class="cc-page">
 
-    <h2>
-        {{ course.course_code }}
-        -
-        {{ course.course_name }}
-    </h2>
+    <a href="{% url 'courses:course_list' %}"
+       class="cc-back-link">
+        ← Back to Courses
+    </a>
 
+    <div class="cc-detail-header">
+        <div>
+            <p class="cc-page-eyebrow">COURSE DETAILS</p>
+            <h2>{{ course.course_code }}</h2>
+            <p>{{ course.course_name }}</p>
+        </div>
 
-    <p>
-        <strong>Term:</strong>
-        {{ course.term }}
-    </p>
+        <span class="cc-detail-term">
+            {{ course.term|title }} {{ course.year }}
+        </span>
+    </div>
 
-    <p>
-        <strong>Year:</strong>
-        {{ course.year }}
-    </p>
+    <div class="cc-detail-grid">
 
-    <p>
-        <strong>Office Hours:</strong>
+        <section class="cc-info-card">
+            <h3>Course Information</h3>
 
-        {% if course.office_hours %}
-            {{ course.office_hours }}
-        {% else %}
-            Not provided
-        {% endif %}
-    </p>
+            <div class="cc-info-row">
+                <span>Course Code</span>
+                <strong>{{ course.course_code }}</strong>
+            </div>
 
-    <p>
-        <strong>Meeting Schedule:</strong>
+            <div class="cc-info-row">
+                <span>Course Name</span>
+                <strong>{{ course.course_name }}</strong>
+            </div>
 
-        {% if course.meeting_schedule %}
-            {{ course.meeting_schedule }}
-        {% else %}
-            Not provided
-        {% endif %}
-    </p>
+            <div class="cc-info-row">
+                <span>Semester</span>
+                <strong>{{ course.term|title }}</strong>
+            </div>
 
-    <p>
-        <strong>Description:</strong>
+            <div class="cc-info-row">
+                <span>Year</span>
+                <strong>{{ course.year }}</strong>
+            </div>
+        </section>
 
-        {% if course.description %}
+        <section class="cc-info-card">
+            <h3>Schedule & Office Hours</h3>
+
+            <div class="cc-info-block">
+                <span>Meeting Schedule</span>
+
+                <p>
+                    {% if course.meeting_schedule %}
+                    {{ course.meeting_schedule }}
+                    {% else %}
+                    Not provided
+                    {% endif %}
+                </p>
+            </div>
+
+            <div class="cc-info-block">
+                <span>Office Hours</span>
+
+                <p>
+                    {% if course.office_hours %}
+                    {{ course.office_hours }}
+                    {% else %}
+                    Not provided
+                    {% endif %}
+                </p>
+            </div>
+        </section>
+
+    </div>
+
+    <section class="cc-info-card cc-description-card">
+        <h3>Course Description</h3>
+
+        <p>
+            {% if course.description %}
             {{ course.description }}
-        {% else %}
+            {% else %}
             No description provided.
-        {% endif %}
-    </p>
+            {% endif %}
+        </p>
+    </section>
 
-
-    <p>
-        <a href="{% url 'courses:course_list' %}">
-            Back to Courses
-        </a>
-    </p>
-
+</div>
 {% endblock %}
