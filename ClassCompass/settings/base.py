@@ -15,8 +15,12 @@ from secrets_environment import env
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # If using Vite / React frontend
     "http://127.0.0.1:5173",
-    "https://lrangu2.pythonanywhere.com/",
+    "https://lrangu2.pythonanywhere.com",
+    "https://vega.github.io",
 ]
+
+CORS_URLS_REGEX = r"^/api/public/$"
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -81,7 +85,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ClassCompass.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
@@ -91,7 +94,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'data' / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
@@ -111,7 +113,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
@@ -122,7 +123,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
