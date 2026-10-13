@@ -43,33 +43,39 @@ class CourseListView(LoginRequiredMixin, ListView):
         q = self.request.GET.get("q")
         term = self.request.GET.get("term")
 
+        search_qs = Course.objects.filter(user=self.request.user)
+
         if q:
-            search_qs = Course.objects.filter(
-                Q(course_code__icontains=q) | Q(course_name__icontains=q)
+            search_qs = search_qs.filter(
+                Q(course_code__icontains=q) |
+                Q(course_name__icontains=q)
             )
-        else:
-            search_qs = Course.objects.filter(user=self.request.user)
 
         if term:
             search_qs = search_qs.filter(term__exact=term)
+
+        user_courses = Course.objects.filter(user=self.request.user)
+        user_events = AcademicEvent.objects.filter(
+            course__user=self.request.user
+        )
 
         ctx["q"] = q
         ctx["term"] = term
         ctx["term_choices"] = Course.TERM_CHOICES
         ctx["search_results"] = search_qs
 
-        ctx["total_courses"] = Course.objects.count()
-        ctx["total_events"] = AcademicEvent.objects.count()
+        ctx["total_courses"] = user_courses.count()
+        ctx["total_events"] = user_events.count()
 
         ctx["courses_per_term"] = (
-            Course.objects
+            user_courses
             .values("term")
             .annotate(n_courses=Count("id"))
             .order_by("term")
         )
 
         ctx["events_per_course"] = (
-            Course.objects
+            user_courses
             .values("course_code")
             .annotate(
                 n_events=Count("academicevent"),
@@ -80,6 +86,7 @@ class CourseListView(LoginRequiredMixin, ListView):
             )
             .order_by("course_code")
         )
+
         ctx["form"] = CourseForm()
         return ctx
 
@@ -108,6 +115,11 @@ class StudyToolListView(LoginRequiredMixin, ListView):
     model = StudyTool
     template_name = "courses/study_tool_list.html"
     context_object_name = "study_tools"
+
+    def get_queryset(self):
+        return StudyTool.objects.filter(
+            course__user=self.request.user
+        )
 
 
 @login_required
@@ -150,7 +162,9 @@ def add_course(request):
 
 class CourseOverviewView(LoginRequiredMixin, View):
     def get(self, request):
-        courses = Course.objects.order_by("course_code")
+        courses = Course.objects.filter(
+            user=request.user
+        ).order_by("course_code")
 
         context = {
             "courses": courses,
@@ -199,7 +213,7 @@ def course_summary_view(request):
     courses = Course.objects.filter(user=request.user)
 
     courses_by_term = (
-        Course.objects.values("term")
+        courses.values("term")
         .annotate(course_count=Count("id"))
         .order_by("term")
     )
@@ -334,6 +348,11 @@ class SyllabusListView(LoginRequiredMixin, ListView):
     template_name = "courses/syllabus_list.html"
     context_object_name = "syllabi"
 
+    def get_queryset(self):
+        return Syllabus.objects.filter(
+            course__user=self.request.user
+        )
+
 
 class SyllabusUploadView(LoginRequiredMixin, View):
     """
@@ -392,6 +411,20 @@ class EventCreateView(LoginRequiredMixin, CreateView):
         "courses:calendar"
     )
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields["course"].queryset = Course.objects.filter(
+            user=self.request.user
+        )
+        return form
+
+    def form_valid(self, form):
+        if form.cleaned_data["course"].user_id != self.request.user.id:
+            form.add_error("course", "Invalid course selected.")
+            return self.form_invalid(form)
+
+        return super().form_valid(form)
+
 
 class EventUpdateView(LoginRequiredMixin, UpdateView):
     """
@@ -424,6 +457,13 @@ class EventUpdateView(LoginRequiredMixin, UpdateView):
         return AcademicEvent.objects.filter(
             course__user=self.request.user
         )
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields["course"].queryset = Course.objects.filter(
+            user=self.request.user
+        )
+        return form
 
 
 class EventDeleteView(LoginRequiredMixin, DeleteView):
@@ -501,7 +541,9 @@ def api_courses(request):
 
 @login_required
 def api_events(request):
-    events = AcademicEvent.objects.select_related("course").order_by(
+    events = AcademicEvent.objects.filter(
+        course__user=request.user
+    ).select_related("course").order_by(
         "scheduled_at",
         "title"
     )
@@ -535,15 +577,18 @@ def api_events(request):
 
 @login_required
 def reports_view(request):
+    courses = Course.objects.filter(user=request.user)
+    events = AcademicEvent.objects.filter(course__user=request.user)
+
     courses_by_term = (
-        Course.objects
+        courses
         .values("term")
         .annotate(course_count=Count("id"))
         .order_by("term")
     )
 
     events_by_course = (
-        Course.objects
+        courses
         .values("course_code")
         .annotate(
             total_events=Count("academicevent"),
@@ -555,14 +600,11 @@ def reports_view(request):
         .order_by("course_code")
     )
 
-    total_courses = Course.objects.count()
-    total_events = AcademicEvent.objects.count()
-
     context = {
         "courses_by_term": courses_by_term,
         "events_by_course": events_by_course,
-        "total_courses": total_courses,
-        "total_events": total_events,
+        "total_courses": courses.count(),
+        "total_events": events.count(),
     }
 
     return render(request, "courses/reports.html", context)
@@ -666,6 +708,8 @@ def external_resources(request):
 
     courses = list(
         Course.objects.filter(
+            user=request.user
+        ).filter(
             Q(course_code__icontains=q) |
             Q(course_name__icontains=q)
         ).values(
