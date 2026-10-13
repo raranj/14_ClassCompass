@@ -1,56 +1,77 @@
 {% extends "base.html" %}
 {% load socialaccount %}
 
-{% block title %}
-Sign Up - ClassCompass
-{% endblock %}
+{% block title %}Sign Up | ClassCompass{% endblock %}
+{% block body_class %}auth-page{% endblock %}
 
 {% block content %}
 
-<h2>Create an Account</h2>
+<section class="auth-layout">
+    <div class="auth-card">
 
-<form method="POST">
-    {% csrf_token %}
-
-    {{ form.non_field_errors }}
-
-    {% for field in form %}
-        <div>
-            <label for="{{ field.id_for_label }}">
-                {{ field.label }}
-            </label>
-
-            {{ field }}
-
-            {{ field.errors }}
-
-            {% if field.help_text %}
-                <small>
-                    {{ field.help_text }}
-                </small>
-            {% endif %}
+        <div class="auth-heading">
+            <div class="auth-eyebrow">GET STARTED</div>
+            <h2>Create your account</h2>
+            <p>Plan your courses, manage deadlines,
+                and make the most of your semester.</p>
         </div>
-    {% endfor %}
 
-    <button type="submit">
-        Sign Up
-    </button>
-</form>
+        <form method="POST" class="auth-form">
+            {% csrf_token %}
 
-<p class="auth-divider">OR</p>
+            {% if form.non_field_errors %}
+            <div class="auth-errors">
+                {{ form.non_field_errors }}
+            </div>
+            {% endif %}
 
-<a href="{% provider_login_url 'google' %}" class="google-btn">
-    <img
-        src="https://developers.google.com/identity/images/g-logo.png"
-        alt="Google Logo"
-        class="google-icon"
-    >
-    Continue with Google
-</a>
+            {% for field in form %}
+            <div class="auth-field">
+                <label for="{{ field.id_for_label }}">
+                    {{ field.label }}
+                </label>
 
-<p>
-    Already have an account?
-    <a href="{% url 'login' %}">Login</a>
-</p>
+                {{ field }}
+
+                {% if field.errors %}
+                <div class="auth-field-errors">
+                    {{ field.errors }}
+                </div>
+                {% endif %}
+
+                {% if field.help_text %}
+                <div class="auth-help">
+                    {{ field.help_text }}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="auth-submit">
+                Create account
+            </button>
+        </form>
+
+        <div class="auth-divider">
+            <span>OR CONTINUE WITH</span>
+        </div>
+
+        <a href="{% provider_login_url 'google' %}"
+           class="google-btn">
+            <img
+                    src="https://developers.google.com/identity/images/g-logo.png"
+                    alt=""
+                    class="google-icon"
+            >
+            Continue with Google
+        </a>
+
+        <p class="auth-switch">
+            Already have an account?
+            <a href="{% url 'login' %}">Sign in</a>
+        </p>
+
+    </div>
+</section>
 
 {% endblock %}

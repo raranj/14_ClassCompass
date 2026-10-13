@@ -1,76 +1,76 @@
 body {
-  color: #111827;
-  background: #ffffff;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue",
+    color: #111827;
+    background: #ffffff;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue",
     Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  line-height: 1.55; /* Sets a maximum width so it doesn't stretch forever on giant screens */
-  margin: 0 auto;     /* Centers the whole page on the screen */
+    line-height: 1.55; /* Sets a maximum width so it doesn't stretch forever on giant screens */
+    margin: 0 auto; /* Centers the whole page on the screen */
 }
 
 h1 {
-  font-family: "Marcellus SC", serif;
-  font-weight: 400;
-  font-style: normal;
-  background: linear-gradient(180deg, #13294B, #0c1e35);
-  color: #fff;
+    font-family: "Marcellus SC", serif;
+    font-weight: 400;
+    font-style: normal;
+    background: linear-gradient(180deg, #13294B, #0c1e35);
+    color: #fff;
 }
 
-h1,h2,h3,h4,h5,h6 {
-  font-family: "Marcellus SC", serif;
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Marcellus SC", serif;
 }
 
 nav a {
-  display: inline-block;
-  height: 38px;
-  padding: 0 20px;
-  color: #555555;
-  text-align: center;
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 38px;
-  letter-spacing: .1rem;
-  text-transform: uppercase;
-  text-decoration: none; /* Removes the default blue link underline */
-  white-space: nowrap;
-  background-color: #ffffff;
-  border-radius: 4px;
-  border: 1px solid #bbb;
-  cursor: pointer;
-  box-sizing: border-box;
-  margin-right: 8px; /* Adds a little space between each button */
+    display: inline-block;
+    height: 38px;
+    padding: 0 20px;
+    color: #555555;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 38px;
+    letter-spacing: .1rem;
+    text-transform: uppercase;
+    text-decoration: none; /* Removes the default blue link underline */
+    white-space: nowrap;
+    background-color: #ffffff;
+    border-radius: 4px;
+    border: 1px solid #bbb;
+    cursor: pointer;
+    box-sizing: border-box;
+    margin-right: 8px; /* Adds a little space between each button */
 }
 
 /* Add a hover effect so they change color when the mouse goes over them */
 nav a:hover {
-  color: #333333;
-  border-color: #888888;
-  background-color: #f5f5f5;
+    color: #333333;
+    border-color: #888888;
+    background-color: #f5f5f5;
 }
 
 li.course_list {
-  list-style: none;
+    list-style: none;
 }
 
 li.course_list a {
-  display: inline-block;
-  height: 60px;
-  padding: 0 20px;
-  color: #555555;
-  text-align: center;
-  white-space: nowrap;
-  background-color: #ffffff;
-  border-radius: 4px;
-  border: 1px solid #bbb;
-  cursor: pointer;
-  box-sizing: border-box;
-  margin-right: 20px; /* Adds a little space between each button */
+    display: inline-block;
+    height: 60px;
+    padding: 0 20px;
+    color: #555555;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #ffffff;
+    border-radius: 4px;
+    border: 1px solid #bbb;
+    cursor: pointer;
+    box-sizing: border-box;
+    margin-right: 20px; /* Adds a little space between each button */
 }
 
 /* Add a hover effect so they change color when the mouse goes over them */
 li.course_list a:hover {
-  color: #333333;
-  border-color: #888888;
-  background-color: #f5f5f5;
+    color: #333333;
+    border-color: #888888;
+    background-color: #f5f5f5;
 }
 
 /* Google sign-in button */
@@ -129,4 +129,375 @@ a.google-btn svg.google-icon {
     flex: 1;
     height: 1px;
     background-color: #e0e0e0;
+}
+
+
+/* ==========================================
+   CLASSCOMPASS AUTHENTICATION PAGES
+   ========================================== */
+
+.auth-page {
+    background: #f5f7fc;
+    color: #1e293b;
+    min-height: 100vh;
+    font-family: system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+}
+
+/* Header */
+
+.auth-page header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 20px 6%;
+    background: #ffffff;
+    border-bottom: 1px solid #e6eaf2;
+}
+
+.auth-page header h1 {
+    margin: 0;
+    padding: 0;
+    background: none;
+    color: #13294b;
+    font-size: 25px;
+    line-height: 1.4;
+    font-weight: 600;
+}
+
+.auth-page header nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.auth-page header nav a {
+    margin: 0;
+    padding: 0 18px;
+    border: none;
+    background: transparent;
+    color: #475569;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    text-transform: none;
+    border-radius: 8px;
+}
+
+.auth-page header nav a:hover {
+    color: #13294b;
+    background: #f1f5f9;
+    text-decoration: none;
+}
+
+.auth-page header nav a:last-child {
+    background: #13294b;
+    color: #ffffff;
+}
+
+.auth-page header nav a:last-child:hover {
+    background: #1e4071;
+}
+
+.auth-page header hr {
+    display: none;
+}
+
+/* Center the authentication card */
+
+.auth-layout {
+    min-height: calc(100vh - 180px);
+    padding: 65px 20px 75px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 430px;
+    padding: 42px;
+
+    background: #ffffff;
+    border: 1px solid #e3e8f0;
+    border-radius: 18px;
+
+    box-shadow: 0 12px 40px rgba(19, 41, 75, 0.06);
+    box-sizing: border-box;
+}
+
+/* Heading */
+
+.auth-heading {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.auth-eyebrow {
+    margin-bottom: 12px;
+    color: #64748b;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.17em;
+}
+
+.auth-heading h2 {
+    margin: 0 0 10px;
+    color: #13294b;
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.025em;
+}
+
+.auth-heading p {
+    margin: 0 auto;
+    max-width: 310px;
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* Form */
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 19px;
+    margin: 0;
+}
+
+.auth-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.auth-field label {
+    display: block;
+    color: #334155;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.auth-field input {
+    width: 100%;
+    min-width: 0;
+    height: 46px;
+    padding: 0 14px;
+
+    border: 1px solid #dce3ef;
+    border-radius: 9px;
+    background: #ffffff;
+
+    color: #1e293b;
+    font: inherit;
+    font-size: 14px;
+
+    box-sizing: border-box;
+    transition: border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.auth-field input:focus {
+    outline: none;
+    border-color: #5279b5;
+    box-shadow: 0 0 0 3px rgba(82, 121, 181, 0.13);
+}
+
+.auth-field input:hover {
+    border-color: #b8c7db;
+}
+
+/* Primary sign-in / signup button */
+
+.auth-form .auth-submit {
+    width: 100%;
+    min-height: 47px;
+    margin: 6px 0 0;
+    padding: 12px 20px;
+
+    background: #13294b;
+    border: 1px solid #13294b;
+    border-radius: 9px;
+
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: none;
+
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.auth-form .auth-submit:hover,
+.auth-form .auth-submit:focus {
+    background: #1e4071;
+    border-color: #1e4071;
+}
+
+/* OR separator */
+
+.auth-card .auth-divider {
+    width: 100%;
+    max-width: none;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 27px 0 22px;
+
+    color: #94a3b8;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    white-space: nowrap;
+}
+
+.auth-card .auth-divider::before,
+.auth-card .auth-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #e2e8f0;
+}
+
+/* Google OAuth button */
+
+.auth-card a.google-btn {
+    width: 100%;
+    max-width: none;
+    min-height: 47px;
+    margin: 0;
+    padding: 12px 16px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+
+    border: 1px solid #dce3ef;
+    border-radius: 9px;
+    background: #ffffff;
+
+    color: #334155;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+
+    box-sizing: border-box;
+}
+
+.auth-card a.google-btn:hover {
+    background: #f8fafc;
+    border-color: #b8c7db;
+}
+
+.auth-card .google-icon {
+    display: block;
+    width: 19px;
+    height: 19px;
+    object-fit: contain;
+}
+
+/* Bottom link */
+
+.auth-switch {
+    margin: 27px 0 0;
+    text-align: center;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.auth-switch a {
+    color: #13294b;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.auth-switch a:hover {
+    text-decoration: underline;
+}
+
+/* Form validation and password help */
+
+.auth-errors,
+.auth-field-errors {
+    color: #b42318;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.auth-errors {
+    background: #fef3f2;
+    border: 1px solid #fecdca;
+    border-radius: 8px;
+    padding: 10px 12px;
+}
+
+.auth-errors ul,
+.auth-field-errors ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.auth-help {
+    color: #94a3b8;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.auth-help ul {
+    margin: 6px 0 0;
+    padding-left: 17px;
+}
+
+/* Footer */
+
+.auth-page footer {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 12px;
+    padding: 0 20px 22px;
+}
+
+.auth-page footer hr {
+    display: none;
+}
+
+/* Small screens */
+
+@media (max-width: 600px) {
+    .auth-page header {
+        padding: 16px 20px;
+    }
+
+    .auth-page header h1 {
+        font-size: 21px;
+    }
+
+    .auth-page header nav {
+        gap: 5px;
+    }
+
+    .auth-page header nav a {
+        padding: 0 10px;
+    }
+
+    .auth-layout {
+        padding: 30px 16px 45px;
+        min-height: auto;
+    }
+
+    .auth-card {
+        padding: 30px 23px;
+        border-radius: 14px;
+    }
+
+    .auth-heading h2 {
+        font-size: 26px;
+    }
 }

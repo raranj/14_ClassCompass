@@ -1,60 +1,72 @@
 {% extends "base.html" %}
 {% load socialaccount %}
 
-{% block title %}
-Login - ClassCompass
-{% endblock %}
+{% block title %}Login | ClassCompass{% endblock %}
+{% block body_class %}auth-page{% endblock %}
 
 {% block content %}
 
-<h2>Login</h2>
+<section class="auth-layout">
+    <div class="auth-card">
 
-<form method="POST">
-    {% csrf_token %}
+        <div class="auth-heading">
+            <div class="auth-eyebrow">YOUR ACADEMIC WORKSPACE</div>
+            <h2>Welcome back</h2>
+            <p>Sign in to stay on top of your semester.</p>
+        </div>
 
-    {{ form.non_field_errors }}
+        <form method="POST" class="auth-form">
+            {% csrf_token %}
 
-    <div>
-        <label for="{{ form.username.id_for_label }}">
-            Username
-        </label>
-        {{ form.username }}
-        {{ form.username.errors }}
+            {% if form.non_field_errors %}
+            <div class="auth-errors">
+                {{ form.non_field_errors }}
+            </div>
+            {% endif %}
+
+            <div class="auth-field">
+                <label for="{{ form.username.id_for_label }}">
+                    Username
+                </label>
+                {{ form.username }}
+                {{ form.username.errors }}
+            </div>
+
+            <div class="auth-field">
+                <label for="{{ form.password.id_for_label }}">
+                    Password
+                </label>
+                {{ form.password }}
+                {{ form.password.errors }}
+            </div>
+
+            <input type="hidden" name="next" value="{{ next }}">
+
+            <button type="submit" class="auth-submit">
+                Sign in
+            </button>
+        </form>
+
+        <div class="auth-divider">
+            <span>OR CONTINUE WITH</span>
+        </div>
+
+        <a href="{% provider_login_url 'google' %}"
+           class="google-btn">
+            <img
+                    src="https://developers.google.com/identity/images/g-logo.png"
+                    alt=""
+                    class="google-icon"
+            >
+            Continue with Google
+        </a>
+
+        <p class="auth-switch">
+            New to ClassCompass?
+            <a href="{% url 'signup' %}">Create an account</a>
+        </p>
+
     </div>
-
-    <div>
-        <label for="{{ form.password.id_for_label }}">
-            Password
-        </label>
-        {{ form.password }}
-        {{ form.password.errors }}
-    </div>
-
-    <input
-        type="hidden"
-        name="next"
-        value="{{ next }}"
-    >
-
-    <button type="submit">
-        Login
-    </button>
-</form>
-
-<p class="auth-divider">OR</p>
-
-<a href="{% provider_login_url 'google' %}" class="google-btn">
-    <img
-        src="https://developers.google.com/identity/images/g-logo.png"
-        alt="Google Logo"
-        class="google-icon"
-    >
-    Sign in with Google
-</a>
-
-<p>
-    Don't have an account?
-    <a href="{% url 'signup' %}">Sign Up</a>
-</p>
+</section>
 
 {% endblock %}
