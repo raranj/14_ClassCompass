@@ -1,4 +1,3 @@
-
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -32,7 +31,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.contrib.auth import login, get_user_model
 from .forms_auth import StudentSignUpForm
+from django.contrib.auth import get_user_model
+from django.db.models.functions import TruncMonth
+
 User = get_user_model()
+
 
 class CourseListView(LoginRequiredMixin, ListView):
     model = Course
@@ -778,38 +781,35 @@ def signup_view(request):
         {"form": form},
     )
 
+
 def public_api(request):
-    try:
-        monthly_signups = (
-            User.objects.annotate(month=TruncMonth('date_joined'))
-            .values('month')
-            .annotate(new_users=Count('id'))
-            .order_by('month')
-        )
+    User = get_user_model()
 
-        data = []
-        cumulative_total = 0
+    monthly_signups = (
+        User.objects
+        .annotate(month=TruncMonth("date_joined"))
+        .values("month")
+        .annotate(new_users=Count("id"))
+        .order_by("month")
+    )
 
-        for entry in monthly_signups:
-            if entry['month']:
-                # Format month as "YYYY-MM" (ideal for Vega-Lite temporal scale)
-                month_str = entry['month'].strftime('%Y-%m')
-                new_users = entry['new_users']
-                cumulative_total += new_users
+    data = []
+    cumulative_total = 0
 
-                data.append({
-                    "month": month_str,
-                    "new_users": new_users,
-                    "total_users": cumulative_total
-                })
+    for entry in monthly_signups:
+        if entry["month"] is None:
+            continue
 
-        return JsonResponse({
-            "success": True,
-            "data": data
-        }, status=200, safe=False)
+        new_users = entry["new_users"]
+        cumulative_total += new_users
 
-    except Exception as error:
-        return JsonResponse({
-            "success": False,
-            "error": "Internal Server Error"
-        }, status=500)
+        data.append({
+            "month": entry["month"].strftime("%Y-%m"),
+            "new_users": new_users,
+            "total_users": cumulative_total,
+        })
+
+    return JsonResponse({
+        "success": True,
+        "data": data,
+    })
