@@ -59,7 +59,14 @@ node_modules/
 dist/
 build/
 
-
 *.pyc
+
+# Hugging Face model weights
+model_cache/
+*.bin
+*.safetensors
+*.pt
+*.pth
+*.gguf
 
 
