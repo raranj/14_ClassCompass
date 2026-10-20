@@ -1,3 +1,6 @@
+import json
+from django.views.decorators.csrf import csrf_exempt
+from .ai_prototype import get_model_and_tokenizer, build_prompt, generate_text, extract_json
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -812,3 +815,34 @@ def public_api(request):
     return JsonResponse({
         "values": data
     })
+
+@csrf_exempt  # Use token-based or proper CSRF setup for production apps
+def extract_syllabus_view(request):
+    if request.method == "POST":
+        try:
+            body = json.loads(request.body)
+            syllabus_text = body.get("syllabus", "")
+            method = body.get("method", "zero_shot")
+
+            if not syllabus_text:
+                return JsonResponse({"error": "Missing 'syllabus' field in request body."}, status=400)
+
+            tokenizer, model = get_model_and_tokenizer()
+
+            prompt = build_prompt(syllabus_text, method=method)
+            raw_output, latency, token_count = generate_text(tokenizer, model, prompt)
+
+            parsed_data = extract_json(raw_output)
+
+            return JsonResponse({
+                "status": "success",
+                "parsed_data": parsed_data,
+                "raw_output": raw_output,
+                "latency_seconds": round(latency, 3),
+                "generated_tokens": token_count
+            })
+
+        except Exception as e:
+            return JsonResponse({"status": "error", "message": str(e)}, status=500)
+
+    return JsonResponse({"error": "Only POST requests are allowed."}, status=405)
