@@ -1,0 +1,6 @@
+category,models_tested,avg_accuracy,avg_strict_json,avg_latency
+13B+,3,100.0,33.33,10.99
+1B–<3B,3,87.5,33.33,14.38
+3B–<7B,3,98.96,33.33,7.08
+7B–<13B,3,98.96,66.67,3.72
+<1B,3,73.96,0.0,4.7

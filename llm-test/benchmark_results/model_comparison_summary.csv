@@ -1,0 +1,16 @@
+model,category,params_b,accuracy,json_validity,strict_json,avg_latency,tests_completed
+Mistral-7B-Instruct-v0.3,7B–<13B,7.0,100.0,100.0,100.0,4.55,8
+Qwen2.5-14B-Instruct,13B+,14.0,100.0,100.0,100.0,5.28,8
+Qwen2.5-7B-Instruct,7B–<13B,7.0,100.0,100.0,100.0,3.23,8
+Qwen3-4B-Instruct-2507,3B–<7B,4.0,100.0,100.0,100.0,3.84,8
+DeepSeek-R1-Distill-Qwen-14B,13B+,14.0,100.0,100.0,0.0,9.35,8
+Phi-3.5-mini-instruct,3B–<7B,3.8,100.0,100.0,0.0,7.45,8
+Qwen3-14B,13B+,14.0,100.0,100.0,0.0,18.34,8
+Falcon3-7B-Instruct,7B–<13B,7.0,96.88,100.0,0.0,3.39,8
+Qwen2.5-3B-Instruct,3B–<7B,3.0,96.88,100.0,0.0,9.95,8
+Qwen2.5-1.5B-Instruct,1B–<3B,1.5,90.62,100.0,0.0,17.27,8
+Qwen2-1.5B-Instruct,1B–<3B,1.5,87.5,100.0,87.5,3.6,8
+SmolLM2-1.7B-Instruct,1B–<3B,1.7,84.38,100.0,12.5,22.28,8
+Qwen2.5-0.5B-Instruct,<1B,0.5,81.25,100.0,0.0,4.11,8
+Qwen3-0.6B,<1B,0.6,81.25,100.0,0.0,5.71,8
+SmolLM2-360M-Instruct,<1B,0.36,59.38,100.0,0.0,4.27,8
