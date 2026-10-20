@@ -1,0 +1,57 @@
+model_id,prompt_method,case_id,latency_seconds,generated_tokens,raw_output,json_valid,strict_json,course_correct,assignment_correct,due_date_correct,estimated_hours_correct,field_accuracy
+Qwen/Qwen2.5-7B-Instruct,zero_shot,CC-01,5.005,45,"{""course"": ""CS 101"", ""assignment"": ""Homework 1"", ""due_date"": ""2026-09-18"", ""estimated_hours"": 2.0}",1,1,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,zero_shot,CC-02,3.044,43,"{""course"": ""STAT 200"", ""assignment"": ""project proposal"", ""due_date"": ""2026-10-02"", ""estimated_hours"": 3.5}",1,1,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,zero_shot,CC-03,3.066,44,"{""course"": ""INFO 490"", ""assignment"": ""usability report"", ""due_date"": ""2026-11-12"", ""estimated_hours"": 4.0}",1,1,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,zero_shot,CC-04,2.887,42,"{""course"": ""MATH 241"", ""assignment"": ""Quiz 3"", ""due_date"": ""2026-10-20"", ""estimated_hours"": null}",1,1,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,zero_shot,CC-05,3.065,44,"{""course"": ""ECE 210"", ""assignment"": ""lab report"", ""due_date"": ""2026-12-04"", ""estimated_hours"": 1.5}",1,1,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,zero_shot,CC-06,2.411,35,"{""course"": ""CS 225"", ""assignment"": ""Machine Problem 3"", ""due_date"": null, ""estimated_hours"": 6.0}",1,1,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,zero_shot,CC-07,3.033,45,"{""course"": ""CS 357"", ""assignment"": ""Homework 4"", ""due_date"": ""2026-11-06"", ""estimated_hours"": 2.5}",1,1,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,zero_shot,CC-08,2.764,39,"{""course"": null, ""assignment"": ""final research paper"", ""due_date"": ""2026-12-10"", ""estimated_hours"": 8.0}",1,1,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,one_shot,CC-01,2.528,36,"{""course"":""CS 101"",""assignment"":""Homework 1"",""due_date"":""2026-09-18"",""estimated_hours"":2}",1,1,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,one_shot,CC-02,2.591,36,"{""course"":""STAT 200"",""assignment"":""project proposal"",""due_date"":""2026-10-02"",""estimated_hours"":3.5}",1,1,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,one_shot,CC-03,2.482,35,"{""course"":""INFO 490"",""assignment"":""usability report"",""due_date"":""2026-11-12"",""estimated_hours"":4}",1,1,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,one_shot,CC-04,5.235,75,"{""course"":""MATH 241"",""assignment"":""Quiz 3"",""due_date"":""2026-10-20"",""estimated_hours"":null} ```json
+{""course"":""MATH 241"",""assignment"":""Quiz 3"",""due_date"":""2026-10-20"",""estimated_hours"":null}
+```",1,0,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,one_shot,CC-05,2.679,37,"{""course"":""ECE 210"",""assignment"":""lab report"",""due_date"":""2026-12-04"",""estimated_hours"":1.5}",1,1,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,one_shot,CC-06,12.03,180,"{""course"":""CS 225"",""assignment"":""Machine Problem 3"",""due_date"":null,""estimated_hours"":6} To extract the required information from the given syllabus text and format it into a JSON object, we need to identify the relevant details:
+
+### Syllabus Text:
+""CS 225: Machine Problem 3 requires approximately 6 hours of work. The deadline has not been announced.""
+
+### Extracted Information:
+- **Course**: CS 225
+- **Assignment**: Machine Problem 3
+- **Due Date**: Not announced (use `null`)
+- **Estimated Hours**: 6 hours
+
+### JSON Object:
+```json
+{""course"":""CS 225"",""assignment"":""Machine Problem 3"",""due_date"":null,""estimated_hours"":6}
+``` 
+
+This JSON object accurately represents the extracted information from the provided syllabus text.",1,0,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,one_shot,CC-07,2.746,38,"{""course"":""CS 357"",""assignment"":""Homework 4"",""due_date"":""2026-11-06"",""estimated_hours"":2.5}",1,1,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,one_shot,CC-08,6.281,93,"{""course"":null,""assignment"":""The final research paper"",""due_date"":""2026-12-10"",""estimated_hours"":8} The provided syllabus text does not include a course code. Therefore, we will set the `course` key to `null`.
+
+```json
+{""course"":null,""assignment"":""The final research paper"",""due_date"":""2026-12-10"",""estimated_hours"":8}
+```",1,0,1,0,1,1,0.75
+Qwen/Qwen2.5-7B-Instruct,few_shot,CC-01,2.679,36,"{""course"":""CS 101"",""assignment"":""Homework 1"",""due_date"":""2026-09-18"",""estimated_hours"":2}",1,1,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,few_shot,CC-02,2.808,36,"{""course"":""STAT 200"",""assignment"":""project proposal"",""due_date"":""2026-10-02"",""estimated_hours"":3.5}",1,1,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,few_shot,CC-03,2.645,35,"{""course"":""INFO 490"",""assignment"":""usability report"",""due_date"":""2026-11-12"",""estimated_hours"":4}",1,1,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,few_shot,CC-04,2.76,36,"{""course"":""MATH 241"",""assignment"":""Quiz 3"",""due_date"":""2026-10-20"",""estimated_hours"":null}",1,1,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,few_shot,CC-05,2.786,37,"{""course"":""ECE 210"",""assignment"":""lab report"",""due_date"":""2026-12-04"",""estimated_hours"":1.5}",1,1,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,few_shot,CC-06,2.051,27,"{""course"":""CS 225"",""assignment"":""Machine Problem 3"",""due_date"":null,""estimated_hours"":6}",1,1,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,few_shot,CC-07,2.774,38,"{""course"":""CS 357"",""assignment"":""Homework 4"",""due_date"":""2026-11-06"",""estimated_hours"":2.5}",1,1,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,few_shot,CC-08,2.356,31,"{""course"":null,""assignment"":""Final research paper"",""due_date"":""2026-12-10"",""estimated_hours"":8}",1,1,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,many_shot,CC-01,2.849,36,"{""course"":""CS 101"",""assignment"":""Homework 1"",""due_date"":""2026-09-18"",""estimated_hours"":2}",1,1,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,many_shot,CC-02,2.782,36,"{""course"":""STAT 200"",""assignment"":""project proposal"",""due_date"":""2026-10-02"",""estimated_hours"":3.5}",1,1,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,many_shot,CC-03,2.668,35,"{""course"":""INFO 490"",""assignment"":""usability report"",""due_date"":""2026-11-12"",""estimated_hours"":4}",1,1,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,many_shot,CC-04,2.814,36,"{""course"":""MATH 241"",""assignment"":""Quiz 3"",""due_date"":""2026-10-20"",""estimated_hours"":null}",1,1,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,many_shot,CC-05,2.938,37,"{""course"":""ECE 210"",""assignment"":""lab report"",""due_date"":""2026-12-04"",""estimated_hours"":1.5}",1,1,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,many_shot,CC-06,2.203,27,"{""course"":""CS 225"",""assignment"":""Machine Problem 3"",""due_date"":null,""estimated_hours"":6}",1,1,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,many_shot,CC-07,2.961,38,"{""course"":""CS 357"",""assignment"":""Homework 4"",""due_date"":""2026-11-06"",""estimated_hours"":2.5}",1,1,1,1,1,1,1.0
+Qwen/Qwen2.5-7B-Instruct,many_shot,CC-08,4.811,65,"{""course"":null,""assignment"":""Final research paper"",""due_date"":""2026-12-10"",""estimated_hours"":8} ```json
+{""course"":null,""assignment"":""Final research paper"",""due_date"":""2026-12-10"",""estimated_hours"":8}
+```",1,0,1,1,1,1,1.0
