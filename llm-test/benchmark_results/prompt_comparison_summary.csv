@@ -1,0 +1,9 @@
+model_id,prompt_method,field_accuracy,json_validity,strict_json,avg_latency,tests_completed
+Qwen/Qwen2.5-7B-Instruct,few_shot,100.0,100.0,100.0,2.61,8
+Qwen/Qwen2.5-7B-Instruct,many_shot,100.0,100.0,87.5,3.0,8
+Qwen/Qwen2.5-7B-Instruct,one_shot,96.88,100.0,62.5,4.57,8
+Qwen/Qwen2.5-7B-Instruct,zero_shot,100.0,100.0,100.0,3.16,8
+Qwen/Qwen3-4B-Instruct-2507,few_shot,100.0,100.0,100.0,3.35,8
+Qwen/Qwen3-4B-Instruct-2507,many_shot,100.0,100.0,100.0,3.46,8
+Qwen/Qwen3-4B-Instruct-2507,one_shot,100.0,100.0,25.0,13.96,8
+Qwen/Qwen3-4B-Instruct-2507,zero_shot,100.0,100.0,100.0,5.94,8
