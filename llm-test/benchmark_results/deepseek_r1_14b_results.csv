@@ -1,0 +1,73 @@
+model,model_id,category,params_b,case_id,latency_seconds,generated_tokens,raw_output,json_valid,strict_json,course_correct,assignment_correct,due_date_correct,estimated_hours_correct,field_accuracy,status,error
+DeepSeek-R1-Distill-Qwen-14B,deepseek-ai/DeepSeek-R1-Distill-Qwen-14B,13B+,14.0,CC-01,9.366,87,"{""course"": ""CS 101"", ""assignment"": ""Homework 1"", ""due_date"": ""2026-09-18"", ""estimated_hours"": 2}
+</think>
+
+{""course"": ""CS 101"", ""assignment"": ""Homework 1"", ""due_date"": ""2026-09-18"", ""estimated_hours"": 2}",1,0,1,1,1,1,1.0,ok,
+DeepSeek-R1-Distill-Qwen-14B,deepseek-ai/DeepSeek-R1-Distill-Qwen-14B,13B+,14.0,CC-02,10.834,99,"{
+  ""course"": ""STAT 200"",
+  ""assignment"": ""project proposal"",
+  ""due_date"": ""2026-10-02"",
+  ""estimated_hours"": 3.5
+}
+</think>
+
+{
+  ""course"": ""STAT 200"",
+  ""assignment"": ""project proposal"",
+  ""due_date"": ""2026-10-02"",
+  ""estimated_hours"": 3.5
+}",1,0,1,1,1,1,1.0,ok,
+DeepSeek-R1-Distill-Qwen-14B,deepseek-ai/DeepSeek-R1-Distill-Qwen-14B,13B+,14.0,CC-03,10.238,97,"{
+  ""course"": ""INFO 490"",
+  ""assignment"": ""usability report"",
+  ""due_date"": ""2026-11-12"",
+  ""estimated_hours"": 4
+}
+</think>
+
+{
+  ""course"": ""INFO 490"",
+  ""assignment"": ""usability report"",
+  ""due_date"": ""2026-11-12"",
+  ""estimated_hours"": 4
+}",1,0,1,1,1,1,1.0,ok,
+DeepSeek-R1-Distill-Qwen-14B,deepseek-ai/DeepSeek-R1-Distill-Qwen-14B,13B+,14.0,CC-04,8.984,85,"{""course"": ""MATH 241"", ""assignment"": ""Quiz 3"", ""due_date"": ""2026-10-20"", ""estimated_hours"": null}
+</think>
+
+{""course"": ""MATH 241"", ""assignment"": ""Quiz 3"", ""due_date"": ""2026-10-20"", ""estimated_hours"": null}",1,0,1,1,1,1,1.0,ok,
+DeepSeek-R1-Distill-Qwen-14B,deepseek-ai/DeepSeek-R1-Distill-Qwen-14B,13B+,14.0,CC-05,10.279,101,"{
+  ""course"": ""ECE 210"",
+  ""assignment"": ""lab report"",
+  ""due_date"": ""2026-12-04"",
+  ""estimated_hours"": 1.5
+}
+</think>
+
+{
+  ""course"": ""ECE 210"",
+  ""assignment"": ""lab report"",
+  ""due_date"": ""2026-12-04"",
+  ""estimated_hours"": 1.5
+}",1,0,1,1,1,1,1.0,ok,
+DeepSeek-R1-Distill-Qwen-14B,deepseek-ai/DeepSeek-R1-Distill-Qwen-14B,13B+,14.0,CC-06,6.842,67,"{""course"": ""CS 225"", ""assignment"": ""Machine Problem 3"", ""due_date"": null, ""estimated_hours"": 6}
+</think>
+
+{""course"": ""CS 225"", ""assignment"": ""Machine Problem 3"", ""due_date"": null, ""estimated_hours"": 6}",1,0,1,1,1,1,1.0,ok,
+DeepSeek-R1-Distill-Qwen-14B,deepseek-ai/DeepSeek-R1-Distill-Qwen-14B,13B+,14.0,CC-07,9.306,91,"{""course"": ""CS 357"", ""assignment"": ""Homework 4"", ""due_date"": ""2026-11-06"", ""estimated_hours"": 2.5}
+</think>
+
+{""course"": ""CS 357"", ""assignment"": ""Homework 4"", ""due_date"": ""2026-11-06"", ""estimated_hours"": 2.5}",1,0,1,1,1,1,1.0,ok,
+DeepSeek-R1-Distill-Qwen-14B,deepseek-ai/DeepSeek-R1-Distill-Qwen-14B,13B+,14.0,CC-08,8.974,87,"{
+  ""course"": null,
+  ""assignment"": ""Final Research Paper"",
+  ""due_date"": ""2026-12-10"",
+  ""estimated_hours"": 8
+}
+</think>
+
+{
+  ""course"": null,
+  ""assignment"": ""Final Research Paper"",
+  ""due_date"": ""2026-12-10"",
+  ""estimated_hours"": 8
+}",1,0,1,1,1,1,1.0,ok,

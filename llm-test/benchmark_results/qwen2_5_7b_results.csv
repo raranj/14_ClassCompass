@@ -1,0 +1,24 @@
+model,model_id,category,params_b,case_id,latency_seconds,generated_tokens,raw_output,json_valid,strict_json,course_correct,assignment_correct,due_date_correct,estimated_hours_correct,field_accuracy,status,error
+Qwen2.5-7B-Instruct,Qwen/Qwen2.5-7B-Instruct,7B–<13B,7.0,CC-01,3.802,50,"{
+  ""course"": ""CS 101"",
+  ""assignment"": ""Homework 1"",
+  ""due_date"": ""2026-09-18"",
+  ""estimated_hours"": 2
+}",1,1,1,1,1,1,1.0,ok,
+Qwen2.5-7B-Instruct,Qwen/Qwen2.5-7B-Instruct,7B–<13B,7.0,CC-02,3.099,43,"{""course"": ""STAT 200"", ""assignment"": ""project proposal"", ""due_date"": ""2026-10-02"", ""estimated_hours"": 3.5}",1,1,1,1,1,1,1.0,ok,
+Qwen2.5-7B-Instruct,Qwen/Qwen2.5-7B-Instruct,7B–<13B,7.0,CC-03,2.997,42,"{""course"": ""INFO 490"", ""assignment"": ""usability report"", ""due_date"": ""2026-11-12"", ""estimated_hours"": 4}",1,1,1,1,1,1,1.0,ok,
+Qwen2.5-7B-Instruct,Qwen/Qwen2.5-7B-Instruct,7B–<13B,7.0,CC-04,3.631,49,"{
+  ""course"": ""MATH 241"",
+  ""assignment"": ""Quiz 3"",
+  ""due_date"": ""2026-10-20"",
+  ""estimated_hours"": null
+}",1,1,1,1,1,1,1.0,ok,
+Qwen2.5-7B-Instruct,Qwen/Qwen2.5-7B-Instruct,7B–<13B,7.0,CC-05,3.173,44,"{""course"": ""ECE 210"", ""assignment"": ""lab report"", ""due_date"": ""2026-12-04"", ""estimated_hours"": 1.5}",1,1,1,1,1,1,1.0,ok,
+Qwen2.5-7B-Instruct,Qwen/Qwen2.5-7B-Instruct,7B–<13B,7.0,CC-06,2.581,35,"{""course"": ""CS 225"", ""assignment"": ""Machine Problem 3"", ""due_date"": null, ""estimated_hours"": 6.0}",1,1,1,1,1,1,1.0,ok,
+Qwen2.5-7B-Instruct,Qwen/Qwen2.5-7B-Instruct,7B–<13B,7.0,CC-07,3.327,45,"{""course"": ""CS 357"", ""assignment"": ""Homework 4"", ""due_date"": ""2026-11-06"", ""estimated_hours"": 2.5}",1,1,1,1,1,1,1.0,ok,
+Qwen2.5-7B-Instruct,Qwen/Qwen2.5-7B-Instruct,7B–<13B,7.0,CC-08,3.219,44,"{
+  ""course"": null,
+  ""assignment"": ""final research paper"",
+  ""due_date"": ""2026-12-10"",
+  ""estimated_hours"": 8
+}",1,1,1,1,1,1,1.0,ok,
