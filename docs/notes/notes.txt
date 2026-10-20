@@ -267,6 +267,33 @@ Part 3: Public API (Haan)
 
 Assignment 6 – Part 3: Production Reflection
 
+QUESTION 1
+The Size vs. Quality Trade-off: Based on our testing of 15 Hugging Face models, the 3B–7B parameter category
+provided the best balance between performance and computational requirements for ClassCompass. Our application
+focuses on extracting assignment names, deadlines, and estimated workload from syllabus text, so we prioritize
+accurate and consistently formatted JSON outputs. Qwen3-4B-Instruct achieved 100% field accuracy and 100% strict
+JSON compliance, matching the performance of larger models such as Qwen2.5-14B-Instruct. This showed that a much
+larger model was not necessarily better for our specific task. Some other 14B models achieved 100% field accuracy
+but failed to return strictly formatted JSON.
+
+Estimated computational requirements and hosting costs:
+
+Model size       | Approx. memory for weights (FP16) | Estimated monthly GPU hosting cost
+-----------------|-----------------------------------|-----------------------------------
+Under 1B         | Under 2 GB                        | $50-$150
+1B-3B            | 2-6 GB                            | $100-$300
+3B-7B            | 6-14 GB                           | $200-$600
+7B-13B           | 14-26 GB                          | $400-$900
+13B+ (14B tested)| Around 28 GB                      | $700-$1,500+
+
+These are rough illustrative monthly estimates, not measured cloud prices. They assume an appropriate server
+configuration and usage-dependent hosting, rather than a continuously running dedicated GPU. Actual costs depend
+on hardware, quantization, traffic, and provider pricing.
+
+Conclusion: We would choose Qwen3-4B for ClassCompass because it achieved the same accuracy and JSON reliability
+as our best larger models while requiring substantially less memory and computation. This makes it a more practical
+option for local deployment, subject to available server resources.
+
 QUESTION 2
 Cost & Scaling: So for our app, Hugging Face models are used for syllabus-information extraction.
 If ClassCompass scaled to 10,000 users, the app would need to handle way more AI requests, including simultaneous syllabus uploads.
