@@ -263,3 +263,117 @@ Part 3: Public API (Haan)
     3. Used python to graph the total number of overall users per month, to see how our overall community size grows
     over time, could also be used to find the average rate of change.
 
+
+
+Assignment 6 – Part 3: Production Reflection
+
+QUESTION 2
+Cost & Scaling: So for our app, Hugging Face models are used for syllabus-information extraction.
+If ClassCompass scaled to 10,000 users, the app would need to handle way more AI requests, including simultaneous syllabus uploads.
+
+Assumptions
+
+Daily active users: 10,000
+AI requests per user per day: 2
+Average input tokens per request: 1,000
+Average output tokens per request: 200
+Monthly AI requests: 600,000
+Monthly input tokens: 600 million
+Monthly output tokens: 120 million
+
+These are just assumptions, but the actual cost would depend on how often students use the AI features.
+The number of monthly requests is: 10,000 users × 2 requests/day × 30 days = 600,000 requests/month
+The monthly token usage is:
+- Input: 600,000 × 1,000 = 600,000,000 tokens
+- Output: 600,000 × 200 = 120,000,000 tokens
+
+Running a Local Model:
+For local deployment, Django would use the transformers library to run a pretrained model
+on a GPU-equipped server such as an AWS EC2 instance. This gives us greater control over the model, keeps student
+syllabus data private, and eliminates per-token API fees. However, we would still need to cover GPU computing,
+storage, and server maintenance costs, even when usage is low. Running a AWS EC2 instance continuously
+would cost probably $1200 per month, with maybe an additional $100 for 1,000 GB of storage. This brings the estimated
+monthly cost to ~ $1300, excluding additional expenses such as database hosting, networking, maintenance, etc.
+This estimate assumes one GPU server can handle all 600,000 monthly requests, but demand could spike to more.
+
+Using a paid external API:
+With an API, ClassCompass would send requests to an external provider. We calcualted these costs based on the number of
+input and output tokens processed, and pricing varies across providers and models. Here is a pricing comparison:
+
+API Model               Input / 1M Tokens   Output / 1M Tokens
+GPT-6 Luna (standard)   $0.10               $0.50
+GPT-5 Mini              $0.25               $2.00
+GPT-6 Sol (standard)    $2.00               $10.00
+
+ESTIMATED MONTHLY API COSTS BY NUMBER OF USERS
+
+Daily Users | Monthly AI Requests | GPT-6 Luna | GPT-5 Mini | GPT-6 Sol
+------------|---------------------|------------|------------|----------
+100         | 6,000               | $1.20      | $3.90      | $24
+1,000       | 60,000              | $12        | $39        | $240
+10,000      | 600,000             | $120       | $390       | $2,400
+50,000      | 3,000,000           | $600       | $1,950     | $12,000
+
+For GPT-5 Mini, the calculation is:
+Input cost = 600 × $0.25 = $150
+Output cost = 120 × $2.00 = $240
+Total monthly API cost = $390
+
+For an increase to 10,000 daily users, we would choose using an external API
+as the primary service, but have the local model as a possible component of a hybrid system. This is because
+a low-cost API could be less expensive than operating even one dedicated GPU server continuously, and an API provider
+reduces the need to maintain GPU infrastructure, scaling, etc.
+
+QUESTION 3
+Hybrid Potential: Instead of relying entirely on a local model or a paid API, we could use a hybrid approach for ClassCompass.
+Our local Hugging Face model would handle simpler tasks, like extracting assignments, deadlines, and workload estimates from
+uploaded syllabi. We would then validate the results before adding them to the student's calendar, checking that the output
+is valid JSON, includes all required fields, and contains information supported by the original syllabus. If the local model
+produces invalid output, misses important deadlines, or struggles with ambiguous information, we could send
+the relevant text to an external API for a second attempt.
+
+This approach would help us minimize costs because most routine requests would be handled locally, and we would only pay for
+API usage when necessary. We could also compare the results of both models during testing to determine when API fallback
+actually improves accuracy. This would allow us to balance cost, and reliability as our app grows.
+
+QUESTION 4
+Cost Comparison: Hosting a pre-trained model ourselves would require paying for a server, even when the application has few
+users. A paid API, on the other hand, generally charges based on the number of input and output tokens processed.
+
+For our comparison, we considered an AWS EC2 g5.4xlarge server with 16 vCPUs, one NVIDIA A10G GPU, 64 GiB RAM, and 1
+TB of storage. Based on our earlier calculations, this would cost approximately $1300 per month.
+
+Expense          | Local Pre-trained Model                                  | Paid API
+-----------------|----------------------------------------------------------|-----------------------------------------
+Initial setup    | Requires configuring the server and model                | Simple integration
+Monthly cost     | Approximately $1300 for one continuously running         | Depends on token usage and model pricing
+                 | GPU-enabled server                                       |
+Cost per request | No separate API charge; server costs are shared          | Charged based on input/output tokens
+                 | across requests                                          |
+Scaling          | May require additional servers as usage increases        | Provider handles much of the scaling
+Maintenance      | We manage model updates, errors, and performance         | Provider manages model infrastructure
+Data privacy     | More direct control over how data is processed           | Data is sent to an external provider
+
+
+For ClassCompass, local hosting would be a good option if we had consistently high usage and our Hugging Face model
+performed accurately. However, we would also be responsible for server maintenance and ensuring that our GPU could
+handle the number of requests.
+
+A paid API would be better if we had fewer users or unpredictable traffic, especially since syllabus uploads might
+increase significantly at the beginning of each semester. For 10,000 daily users making two requests each, we would
+process approximately 600,000 requests monthly.
+
+Estimated Monthly Cost FOR 10,000 Users
+
+Deployment                       | Estimated Monthly Cost
+---------------------------------|-----------------------
+Local GPU-enabled server         | $1300 or more
+Paid API at $0.0005/request      | $300
+Paid API at $0.001/request       | $600
+Paid API at $0.002/request       | $1,200
+
+These API costs are hypothetical and depend on token usage and model pricing. We would also need to compare models
+with similar capabilities and benchmark whether a single GPU server could handle peak demand before determining which
+option is cheaper. Overall, we would initially choose a paid API because it requires less maintenance and scales more
+easily. However, if ClassCompass grew and usage became consistent, we could consider local hosting if benchmarks showed
+that it provided similar accuracy and performance at a lower total cost.
