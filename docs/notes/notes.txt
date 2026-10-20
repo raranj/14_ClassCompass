@@ -332,6 +332,8 @@ GPT-6 Luna (standard)   $0.10               $0.50
 GPT-5 Mini              $0.25               $2.00
 GPT-6 Sol (standard)    $2.00               $10.00
 
+https://developers.openai.com/api/docs/pricing?utm_source=chatgpt.com
+
 ESTIMATED MONTHLY API COSTS BY NUMBER OF USERS
 
 Daily Users | Monthly AI Requests | GPT-6 Luna | GPT-5 Mini | GPT-6 Sol
