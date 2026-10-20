@@ -1355,3 +1355,19 @@ DeepSeek-R1-Distill-Qwen-14B,deepseek-ai/DeepSeek-R1-Distill-Qwen-14B,13B+,14.0,
   ""due_date"": ""2026-12-10"",
   ""estimated_hours"": 8
 }",1,0,1,1,1,1,1.0,ok,
+Falcon3-7B-Instruct,tiiuae/Falcon3-7B-Instruct,7B–<13B,7.0,CC-01,4.918,56,"<|assistant|>
+{""course"": ""CS 101"", ""assignment"": ""Homework 1"", ""due_date"": ""2026-09-18"", ""estimated_hours"": 2}",1,0,1,1,1,1,1.0,ok,
+Falcon3-7B-Instruct,tiiuae/Falcon3-7B-Instruct,7B–<13B,7.0,CC-02,3.31,57,"<|assistant|>
+{""course"": ""STAT 200"", ""assignment"": ""project proposal"", ""due_date"": ""2026-10-02"", ""estimated_hours"": 3.5}",1,0,1,1,1,1,1.0,ok,
+Falcon3-7B-Instruct,tiiuae/Falcon3-7B-Instruct,7B–<13B,7.0,CC-03,3.289,56,"<|assistant|>
+{""course"": ""INFO 490"", ""assignment"": ""usability report"", ""due_date"": ""2026-11-12"", ""estimated_hours"": 4}",1,0,1,1,1,1,1.0,ok,
+Falcon3-7B-Instruct,tiiuae/Falcon3-7B-Instruct,7B–<13B,7.0,CC-04,3.161,55,"<|assistant|>
+{""course"": ""MATH 241"", ""assignment"": ""Quiz 3"", ""due_date"": ""2026-10-20"", ""estimated_hours"": null}",1,0,1,1,1,1,1.0,ok,
+Falcon3-7B-Instruct,tiiuae/Falcon3-7B-Instruct,7B–<13B,7.0,CC-05,3.317,57,"<|assistant|>
+{""course"": ""ECE 210"", ""assignment"": ""lab report"", ""due_date"": ""2026-12-04"", ""estimated_hours"": 1.5}",1,0,1,1,1,1,1.0,ok,
+Falcon3-7B-Instruct,tiiuae/Falcon3-7B-Instruct,7B–<13B,7.0,CC-06,2.686,46,"<|assistant|>
+{""course"": ""CS 225"", ""assignment"": ""Machine Problem 3"", ""due_date"": null, ""estimated_hours"": 6}",1,0,1,1,1,1,1.0,ok,
+Falcon3-7B-Instruct,tiiuae/Falcon3-7B-Instruct,7B–<13B,7.0,CC-07,3.383,58,"<|assistant|>
+{""course"": ""CS 357"", ""assignment"": ""Homework 4"", ""due_date"": ""2026-11-06"", ""estimated_hours"": 2.5}",1,0,1,1,1,1,1.0,ok,
+Falcon3-7B-Instruct,tiiuae/Falcon3-7B-Instruct,7B–<13B,7.0,CC-08,3.082,52,"<|assistant|>
+{""course"": ""null"", ""assignment"": ""final research paper"", ""due_date"": ""2026-12-10"", ""estimated_hours"": 8}",1,0,0,1,1,1,0.75,ok,
