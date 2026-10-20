@@ -1,7 +1,8 @@
 from .base import *
 
 DEBUG = False
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'lrangu2.pythonanywhere.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'lrangu2.pythonanywhere.com',
+                 'wheelinthesky.pythonanywhere.com']
 
 DATABASES = {
     'default': {
