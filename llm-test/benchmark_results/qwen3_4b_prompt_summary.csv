@@ -1,0 +1,5 @@
+prompt_method,accuracy,json_validity,strict_json,avg_latency,tests_completed
+few_shot,100.0,100.0,100.0,3.35,8
+many_shot,100.0,100.0,100.0,3.46,8
+one_shot,100.0,100.0,25.0,13.96,8
+zero_shot,100.0,100.0,100.0,5.94,8

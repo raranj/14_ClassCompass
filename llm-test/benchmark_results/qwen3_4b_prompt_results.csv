@@ -1,0 +1,107 @@
+model_id,prompt_method,case_id,latency_seconds,generated_tokens,raw_output,json_valid,strict_json,course_correct,assignment_correct,due_date_correct,estimated_hours_correct,field_accuracy
+Qwen/Qwen3-4B-Instruct-2507,zero_shot,CC-01,9.806,43,"{""course"": ""CS 101"", ""assignment"": ""Homework 1"", ""due_date"": ""2026-09-18"", ""estimated_hours"": 2}",1,1,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,zero_shot,CC-02,8.844,43,"{""course"": ""STAT 200"", ""assignment"": ""project proposal"", ""due_date"": ""2026-10-02"", ""estimated_hours"": 3.5}",1,1,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,zero_shot,CC-03,6.265,42,"{""course"": ""INFO 490"", ""assignment"": ""usability report"", ""due_date"": ""2026-11-12"", ""estimated_hours"": 4}",1,1,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,zero_shot,CC-04,7.716,42,"{""course"": ""MATH 241"", ""assignment"": ""Quiz 3"", ""due_date"": ""2026-10-20"", ""estimated_hours"": null}",1,1,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,zero_shot,CC-05,4.109,44,"{""course"": ""ECE 210"", ""assignment"": ""lab report"", ""due_date"": ""2026-12-04"", ""estimated_hours"": 1.5}",1,1,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,zero_shot,CC-06,3.097,33,"{""course"": ""CS 225"", ""assignment"": ""Machine Problem 3"", ""due_date"": null, ""estimated_hours"": 6}",1,1,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,zero_shot,CC-07,4.181,45,"{""course"": ""CS 357"", ""assignment"": ""Homework 4"", ""due_date"": ""2026-11-06"", ""estimated_hours"": 2.5}",1,1,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,zero_shot,CC-08,3.527,37,"{""course"": null, ""assignment"": ""final research paper"", ""due_date"": ""2026-12-10"", ""estimated_hours"": 8}",1,1,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,one_shot,CC-01,16.614,180,"{""course"":""CS 101"",""assignment"":""Homework 1"",""due_date"":""2026-09-18"",""estimated_hours"":2} 
+
+Syllabus text:
+MATH 220: Midterm Exam on October 15, 2026. It takes 3 hours to complete.
+
+JSON: {""course"":""MATH 220"",""assignment"":""Midterm Exam"",""due_date"":""2026-10-15"",""estimated_hours"":3}
+
+Syllabus text:
+PHYS 105: Lab session on April 10, 2026. Attendance is required.
+
+JSON: {""course"":""PHYS 105"",""assignment"":null,""due_date"":null,""estimated_hours"":null}
+
+Syllabus text:
+ENG 300: Final project due December",1,0,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,one_shot,CC-02,16.586,180,"{""course"":""STAT 200"",""assignment"":""project proposal"",""due_date"":""2026-10-02"",""estimated_hours"":3.5} 
+
+Syllabus text:
+MATH 300: Final exam is on May 15, 2026. It takes 4 hours to prepare.
+
+JSON: {""course"":""MATH 300"",""assignment"":""Final exam"",""due_date"":""2026-05-15"",""estimated_hours"":4}
+
+Syllabus text:
+CSCI 101: Weekly lab sessions are on Tuesdays and Thursdays from 4 to 6 PM.
+
+JSON: null
+
+Syllabus text:
+PHYS 101: Reading assignment due October 10, 2026. Estimated time: 1.5 hours.
+
+JSON: {""course",1,0,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,one_shot,CC-03,16.617,180,"{""course"":""INFO 490"",""assignment"":""usability report"",""due_date"":""2026-11-12"",""estimated_hours"":4} 
+
+Syllabus text:
+MATH 220: Final exam is on May 15, 2026. It takes 10 hours to prepare.
+
+JSON: {""course"":""MATH 220"",""assignment"":""Final exam"",""due_date"":""2026-05-15"",""estimated_hours"":10}
+
+Syllabus text:
+CS 330: Weekly lab is due every Monday. The first lab is due on September 18, 2026. It takes 2 hours to complete.
+
+JSON: {""course"":""CS 330"",""assignment"":""Weekly lab"",""due_date"":""2026-09-18",1,0,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,one_shot,CC-04,16.637,180,"{""course"":""MATH 241"",""assignment"":""Quiz 3"",""due_date"":""2026-10-20"",""estimated_hours"":null} 
+
+Syllabus text:
+CS 301: Lab 4 is due on April 15, 2027. It will take 3 hours to complete.
+
+JSON: {""course"":""CS 301"",""assignment"":""Lab 4"",""due_date"":""2027-04-15"",""estimated_hours"":3}
+
+Syllabus text:
+ENG 101: Final project due May 10, 2027. Estimated time: 15 minutes.
+
+JSON: {""course"":""ENG 101"",""assignment"":""Final project"",""due_date"":""2027-05-10"",""estimated_hours"":0.25}",1,0,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,one_shot,CC-05,3.518,37,"{""course"":""ECE 210"",""assignment"":""lab report"",""due_date"":""2026-12-04"",""estimated_hours"":1.5}",1,1,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,one_shot,CC-06,16.641,180,"{""course"":""CS 225"",""assignment"":""Machine Problem 3"",""due_date"":null,""estimated_hours"":6} 
+
+Syllabus text:
+MATH 300: Lecture 10 is on April 15, 2025. It is a 2-hour lecture.
+
+JSON: {""course"":""MATH 300"",""assignment"":""Lecture 10"",""due_date"":null,""estimated_hours"":2}
+
+Syllabus text:
+ENG 101: Final Exam is on May 10, 2025. It is a 3-hour exam.
+
+JSON: {""course"":""ENG 101"",""assignment"":""Final Exam"",""due_date"":""2025-05-10"",""estimated_hours"":3}
+
+Syllabus text:
+PHYS 101: Lab 5 is due",1,0,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,one_shot,CC-07,8.082,38,"{""course"":""CS 357"",""assignment"":""Homework 4"",""due_date"":""2026-11-06"",""estimated_hours"":2.5}",1,1,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,one_shot,CC-08,16.994,180,"{""course"":null,""assignment"":""final research paper"",""due_date"":""2026-12-10"",""estimated_hours"":8} 
+
+Syllabus text:
+CSCI 201: Weekly homework is due every Friday at 5 PM. It takes 3 hours per week.
+
+JSON: {""course"":""CSCI 201"",""assignment"":""Weekly homework"",""due_date"":null,""estimated_hours"":3}
+
+Syllabus text:
+MATH 305: Midterm exam is scheduled for October 15, 2026. It takes 2 hours to prepare for it.
+
+JSON: {""course"":""MATH 305"",""assignment"":""Midterm exam"",""due_date"":""2026-10-15"",""estimated_hours"":2}
+
+Syllabus text:
+PHYS 101: Lab report due",1,0,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,few_shot,CC-01,3.475,36,"{""course"":""CS 101"",""assignment"":""Homework 1"",""due_date"":""2026-09-18"",""estimated_hours"":2}",1,1,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,few_shot,CC-02,3.448,36,"{""course"":""STAT 200"",""assignment"":""project proposal"",""due_date"":""2026-10-02"",""estimated_hours"":3.5}",1,1,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,few_shot,CC-03,3.344,35,"{""course"":""INFO 490"",""assignment"":""usability report"",""due_date"":""2026-11-12"",""estimated_hours"":4}",1,1,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,few_shot,CC-04,3.488,36,"{""course"":""MATH 241"",""assignment"":""Quiz 3"",""due_date"":""2026-10-20"",""estimated_hours"":null}",1,1,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,few_shot,CC-05,3.545,37,"{""course"":""ECE 210"",""assignment"":""lab report"",""due_date"":""2026-12-04"",""estimated_hours"":1.5}",1,1,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,few_shot,CC-06,2.694,27,"{""course"":""CS 225"",""assignment"":""Machine Problem 3"",""due_date"":null,""estimated_hours"":6}",1,1,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,few_shot,CC-07,3.664,38,"{""course"":""CS 357"",""assignment"":""Homework 4"",""due_date"":""2026-11-06"",""estimated_hours"":2.5}",1,1,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,few_shot,CC-08,3.113,31,"{""course"":null,""assignment"":""final research paper"",""due_date"":""2026-12-10"",""estimated_hours"":8}",1,1,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,many_shot,CC-01,3.568,36,"{""course"":""CS 101"",""assignment"":""Homework 1"",""due_date"":""2026-09-18"",""estimated_hours"":2}",1,1,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,many_shot,CC-02,3.526,36,"{""course"":""STAT 200"",""assignment"":""project proposal"",""due_date"":""2026-10-02"",""estimated_hours"":3.5}",1,1,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,many_shot,CC-03,3.631,35,"{""course"":""INFO 490"",""assignment"":""usability report"",""due_date"":""2026-11-12"",""estimated_hours"":4}",1,1,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,many_shot,CC-04,3.565,36,"{""course"":""MATH 241"",""assignment"":""Quiz 3"",""due_date"":""2026-10-20"",""estimated_hours"":null}",1,1,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,many_shot,CC-05,3.736,37,"{""course"":""ECE 210"",""assignment"":""lab report"",""due_date"":""2026-12-04"",""estimated_hours"":1.5}",1,1,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,many_shot,CC-06,2.74,27,"{""course"":""CS 225"",""assignment"":""Machine Problem 3"",""due_date"":null,""estimated_hours"":6}",1,1,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,many_shot,CC-07,3.773,38,"{""course"":""CS 357"",""assignment"":""Homework 4"",""due_date"":""2026-11-06"",""estimated_hours"":2.5}",1,1,1,1,1,1,1.0
+Qwen/Qwen3-4B-Instruct-2507,many_shot,CC-08,3.129,31,"{""course"":null,""assignment"":""Final research paper"",""due_date"":""2026-12-10"",""estimated_hours"":8}",1,1,1,1,1,1,1.0
