@@ -38,3 +38,4 @@ Input length limits and output token limits prevent excessively large inference 
 The generated response is parsed and validated to ensure it contains the required fields with the expected data types.
 If the response cannot be parsed or fails validation, the application returns an error instead of treating the output as reliable assignment information.
 The model does not automatically save extracted deadlines. Students can review and correct any results before using them.
+

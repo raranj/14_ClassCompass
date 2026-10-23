@@ -1,0 +1,162 @@
+
+{% extends "base.html" %}
+
+{% block title %}AI Syllabus Extractor | ClassCompass{% endblock %}
+
+{% block content %}
+
+<div style="max-width: 850px; margin: 30px auto;">
+
+    <h2>AI Syllabus Extractor</h2>
+
+    <p>
+        Extract assignment details using our local
+        Hugging Face Qwen3-4B model.
+    </p>
+
+    <form id="extract-form">
+        {% csrf_token %}
+
+        <label for="syllabus">
+            Paste syllabus text:
+        </label>
+
+        <textarea
+            id="syllabus"
+            rows="7"
+            maxlength="5000"
+            required
+            style="width: 100%;"
+            placeholder="CS 225: MP1 is due September 5, 2026. Estimated time: 6 hours."
+        ></textarea>
+
+        <label for="method">
+            Prompting method:
+        </label>
+
+        <select id="method">
+            <option value="zero_shot">Zero Shot</option>
+            <option value="few_shot">Few Shot</option>
+        </select>
+
+        <br><br>
+
+        <button type="submit" id="submit-btn">
+            Extract Assignment
+        </button>
+    </form>
+
+    <div id="loading" style="display:none; margin-top:20px;">
+        Running local model inference...
+    </div>
+
+    <div id="error" role="alert"
+         style="color:#b91c1c; margin-top:20px;"></div>
+
+    <div id="results" style="display:none; margin-top:30px;">
+
+        <h3>Extracted Assignment</h3>
+
+        <p><strong>Course:</strong> <span id="course"></span></p>
+
+        <p><strong>Assignment:</strong> <span id="assignment"></span></p>
+
+        <p><strong>Due Date:</strong> <span id="due_date"></span></p>
+
+        <p><strong>Estimated Hours:</strong> <span id="hours"></span></p>
+
+        <hr>
+
+        <p><strong>Model:</strong> <span id="model"></span></p>
+
+        <p><strong>Inference Time:</strong> <span id="latency"></span></p>
+
+        <p><strong>Generated Tokens:</strong> <span id="tokens"></span></p>
+
+        <p>
+            Review AI-generated information before
+            adding it to your calendar.
+        </p>
+
+    </div>
+
+</div>
+
+<script>
+document.getElementById("extract-form")
+    .addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    const button = document.getElementById("submit-btn");
+    const loading = document.getElementById("loading");
+    const error = document.getElementById("error");
+    const results = document.getElementById("results");
+
+    button.disabled = true;
+    loading.style.display = "block";
+    error.textContent = "";
+    results.style.display = "none";
+
+    const csrfToken = document.querySelector(
+        '[name=csrfmiddlewaretoken]'
+    ).value;
+
+    try {
+        const response = await fetch(
+            "{% url 'courses:extract_syllabus' %}",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": csrfToken
+                },
+                credentials: "same-origin",
+                body: JSON.stringify({
+                    syllabus: document.getElementById("syllabus").value,
+                    method: document.getElementById("method").value
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok || data.status !== "success") {
+            throw new Error(data.error || "Extraction failed.");
+        }
+
+        const parsed = data.parsed_data;
+
+        document.getElementById("course").textContent =
+            parsed.course ?? "Not found";
+
+        document.getElementById("assignment").textContent =
+            parsed.assignment ?? "Not found";
+
+        document.getElementById("due_date").textContent =
+            parsed.due_date ?? "Not found";
+
+        document.getElementById("hours").textContent =
+            parsed.estimated_hours ?? "Not found";
+
+        document.getElementById("model").textContent =
+            data.model;
+
+        document.getElementById("latency").textContent =
+            data.latency_seconds + " seconds";
+
+        document.getElementById("tokens").textContent =
+            data.generated_tokens;
+
+        results.style.display = "block";
+
+    } catch (err) {
+        error.textContent = err.message;
+    } finally {
+        button.disabled = false;
+        loading.style.display = "none";
+    }
+});
+</script>
+
+{% endblock %}

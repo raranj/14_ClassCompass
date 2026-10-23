@@ -1,6 +1,13 @@
 import json
-from django.views.decorators.csrf import csrf_exempt
-from .ai_prototype import get_model_and_tokenizer, build_prompt, generate_text, extract_json, generate_flashcards
+from .ai_prototype import (
+    get_model_and_tokenizer,
+    build_prompt,
+    generate_text,
+    extract_json,
+    _model_lock,
+)
+import logging
+from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -817,36 +824,116 @@ def public_api(request):
         "values": data
     })
 
-@csrf_exempt  # Use token-based or proper CSRF setup for production apps
+@login_required
+def syllabus_extractor_page(request):
+    return render(
+        request,
+        "courses/syllabus_extractor.html",
+    )
+
+logger = logging.getLogger(__name__)
+
+@login_required
+@require_POST
 def extract_syllabus_view(request):
-    if request.method == "POST":
-        try:
-            body = json.loads(request.body)
-            syllabus_text = body.get("syllabus", "")
-            method = body.get("method", "zero_shot")
+    """
+    POST endpoint that invokes a local Hugging Face
+    model to extract assignment information.
+    """
 
-            if not syllabus_text:
-                return JsonResponse({"error": "Missing 'syllabus' field in request body."}, status=400)
+    if len(request.body) > 12000:
+        return JsonResponse(
+            {"error": "Request body is too large."},
+            status=413,
+        )
 
+    try:
+        body = json.loads(request.body)
+    except (ValueError, UnicodeDecodeError):
+        return JsonResponse(
+            {"error": "Invalid JSON."},
+            status=400,
+        )
+
+    if not isinstance(body, dict):
+        return JsonResponse(
+            {"error": "Expected a JSON object."},
+            status=400,
+        )
+
+    syllabus_text = body.get("syllabus", "")
+    method = body.get("method", "zero_shot")
+
+    if not isinstance(syllabus_text, str):
+        return JsonResponse(
+            {"error": "Syllabus must be a string."},
+            status=400,
+        )
+
+    syllabus_text = syllabus_text.strip()
+
+    if not syllabus_text:
+        return JsonResponse(
+            {"error": "Syllabus cannot be empty."},
+            status=400,
+        )
+
+    if len(syllabus_text) > 5000:
+        return JsonResponse(
+            {"error": "Maximum 5000 characters allowed."},
+            status=400,
+        )
+
+    if method not in ("zero_shot", "few_shot"):
+        return JsonResponse(
+            {"error": "Invalid prompting method."},
+            status=400,
+        )
+
+    try:
+        with _model_lock:
             tokenizer, model = get_model_and_tokenizer()
 
-            prompt = build_prompt(syllabus_text, method=method)
-            raw_output, latency, token_count = generate_text(tokenizer, model, prompt)
+            prompt = build_prompt(
+                syllabus_text,
+                method=method,
+            )
 
-            parsed_data = extract_json(raw_output)
+            raw_output, latency, token_count = generate_text(
+                tokenizer,
+                model,
+                prompt,
+            )
 
-            return JsonResponse({
-                "status": "success",
-                "parsed_data": parsed_data,
-                "raw_output": raw_output,
-                "latency_seconds": round(latency, 3),
-                "generated_tokens": token_count
-            })
+        parsed_data = extract_json(raw_output)
 
-        except Exception as e:
-            return JsonResponse({"status": "error", "message": str(e)}, status=500)
+        if parsed_data is None:
+            return JsonResponse(
+                {
+                    "status": "error",
+                    "error": "Model did not return valid assignment JSON.",
+                },
+                status=422,
+            )
 
-    return JsonResponse({"error": "Only POST requests are allowed."}, status=405)
+        return JsonResponse({
+            "status": "success",
+            "model": "Qwen/Qwen3-4B-Instruct-2507",
+            "parsed_data": parsed_data,
+            "latency_seconds": round(latency, 3),
+            "generated_tokens": token_count,
+        })
+
+    except Exception:
+        logger.exception("Local Hugging Face inference failed")
+        return JsonResponse(
+            {
+                "status": "error",
+                "error": "Local model inference failed. Check server logs.",
+            },
+            status=500,
+        )
+
 
 @login_required
 def ai_study_tools_view(request):
