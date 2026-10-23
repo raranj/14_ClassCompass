@@ -5,6 +5,7 @@ from .ai_prototype import (
     generate_text,
     extract_json,
     _model_lock,
+    generate_flashcards,
 )
 import logging
 from django.views.decorators.http import require_POST
