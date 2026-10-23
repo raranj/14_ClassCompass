@@ -1,6 +1,6 @@
 import json
 from django.views.decorators.csrf import csrf_exempt
-from .ai_prototype import get_model_and_tokenizer, build_prompt, generate_text, extract_json
+from .ai_prototype import get_model_and_tokenizer, build_prompt, generate_text, extract_json, generate_flashcards
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -127,6 +127,7 @@ class StudyToolListView(LoginRequiredMixin, ListView):
         return StudyTool.objects.filter(
             course__user=self.request.user
         )
+
 
 
 @login_required
@@ -846,3 +847,22 @@ def extract_syllabus_view(request):
             return JsonResponse({"status": "error", "message": str(e)}, status=500)
 
     return JsonResponse({"error": "Only POST requests are allowed."}, status=405)
+
+@login_required
+def ai_study_tools_view(request):
+  flashcards = None
+  source_text = ""  # Default empty string
+
+  if request.method == "POST":
+    source_text = request.POST.get("source_text", "").strip()
+    if source_text:
+      flashcards = generate_flashcards(source_text)
+
+  return render(
+      request,
+      "courses/ai_generated_flashcards.html",
+      {
+          "flashcards": flashcards,
+          "source_text": source_text,  # <-- This fixes the text retention bug
+      },
+  )

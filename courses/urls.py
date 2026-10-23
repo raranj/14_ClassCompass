@@ -157,4 +157,7 @@ urlpatterns = [
     path("api/resources/", views.external_resources, name="external_resources",),
     path('api/public/', views.public_api, name='public_api'),
     path('api/extract-syllabus/', views.extract_syllabus_view, name='extract_syllabus'),
+    path("study-tools/flashcards/",views.ai_study_tools_view,name="ai_generated_flashcards"
+    ),
+
 ]

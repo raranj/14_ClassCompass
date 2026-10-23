@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Study Tools | ClassCompass{% endblock %}
+
+{% block content %}
+<div style="max-width: 900px; margin: 0 auto;">
+    <h2>Study Tools & AI Flashcards</h2>
+    <p>Generate interactive study flashcards using Google Gemini AI or browse your previously saved tools.</p>
+
+    <!-- AI Flashcard Generator Section -->
+    <div style="background: #ffffff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 30px; border: 1px solid #e5e7eb;">
+        <h3>🧠 AI Flashcard Generator</h3>
+        <form method="POST">
+            {% csrf_token %}
+            <textarea name="source_text" rows="4" placeholder="Paste your lecture notes, syllabus excerpt, or study text here..." style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #d1d5db; margin-bottom: 15px; font-family: inherit;">{% if source_text %}{{ source_text }}{% endif %}</textarea>
+            <br>
+            <button type="submit" style="background: #4f46e5; color: white; border: none; padding: 10px 20px; font-size: 16px; border-radius: 6px; cursor: pointer;">Generate Flashcards ✨</button>
+        </form>
+
+        {% if flashcards %}
+            <h4 style="margin-top: 25px;">Generated Flashcards (Click a card to flip):</h4>
+            <div style="display: grid; grid-template-columns: 1fr; gap: 15px;">
+                {% for card in flashcards %}
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')" style="background-color: transparent; width: 100%; height: 140px; perspective: 1000px; cursor: pointer;">
+                        <div class="flashcard-inner" style="position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-radius: 8px;">
+                            <div class="flashcard-front" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; border-radius: 8px; background-color: #f8fafc; color: #1f2937; border: 2px solid #e2e8f0; font-weight: bold;">
+                                <span>❓ {{ card.front }}</span>
+                            </div>
+                            <div class="flashcard-back" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; border-radius: 8px; background-color: #4f46e5; color: white; transform: rotateY(180deg);">
+                                <span>💡 {{ card.back }}</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Existing Saved Study Tools Section -->
+    <div style="background: #ffffff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border: 1px solid #e5e7eb;">
+        <h3>📁 Saved Study Tools</h3>
+        <ul>
+            {% for tool in study_tools %}
+                <li>
+                    <strong>{{ tool.title }}</strong> ({{ tool.get_tool_type_display }})
+                    — {{ tool.course.course_code }}
+                </li>
+            {% empty %}
+                <li>No study tools have been saved yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<!-- Card Flip Animation Style -->
+<style>
+    .flashcard.flipped .flashcard-inner {
+        transform: rotateY(180deg);
+    }
+</style>
+{% endblock %}

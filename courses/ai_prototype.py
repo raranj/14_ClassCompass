@@ -100,3 +100,67 @@ def extract_json(text):
         except json.JSONDecodeError:
             pass
     return None
+
+
+# Add or update in ClassCompass/ai_service.py
+from google import genai
+import json
+import os
+from dotenv import load_dotenv
+
+# Load variables from your .env file
+load_dotenv()
+
+
+def generate_flashcards(source_text):
+  """Sends course text to Google's Gemini API to generate structured flashcards."""
+  try:
+    # 1. Safely retrieve the API key using standard environment variables
+    api_key = os.getenv("GOOGLE_GEMINI_API_KEY")
+    if not api_key:
+      return [{
+          "front": "Configuration Error",
+          "back": (
+              "GOOGLE_GEMINI_API_KEY is missing. Check your .env file and"
+              " load_dotenv()."
+          ),
+      }]
+
+    # 2. Initialize the Gemini client
+    client = genai.Client(api_key=api_key)
+
+    prompt = f"""
+    You are an expert educator. Based on the following course syllabus or text material, generate a set of 5 to 8 high-yield study flashcards.
+
+    Return the result strictly as a valid JSON array of objects, where each object has "front" (the question/prompt) and "back" (the answer/explanation) keys. Do not include markdown code blocks, just raw JSON.
+
+    Source Material:
+    {source_text}
+    """
+
+    # 3. Call Gemini (using a stable flash model version)
+    response = client.models.generate_content(
+        model="gemini-3.8-flash",
+        contents=prompt,
+    )
+
+    raw_response = response.text.strip()
+
+    # Clean up markdown code wrappers if the model included them
+    if raw_response.startswith("```json"):
+      raw_response = raw_response[7:-3].strip()
+    elif raw_response.startswith("```"):
+      raw_response = raw_response[3:-3].strip()
+
+    return json.loads(raw_response)
+
+  except Exception as e:
+    # 4. Catch network freezes, timeouts, or JSON errors and show them clearly
+    print(f"\n[AI Service Error]: {str(e)}\n")
+    return [{
+        "front": "Error generating flashcards",
+        "back": (
+            f"An error occurred: {str(e)}. Check your terminal logs for"
+            " details."
+        ),
+    }]
