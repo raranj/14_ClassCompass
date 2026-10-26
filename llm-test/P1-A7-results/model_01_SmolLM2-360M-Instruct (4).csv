@@ -1,0 +1,116 @@
+model,model_id,category,params_b,prompt_id,prompt_type,prompt,raw_output,latency_seconds,generated_tokens,tokens_per_second,instruction_adherence,accuracy,clarity,structure,quality_score,status,error
+SmolLM2-360M-Instruct,HuggingFaceTB/SmolLM2-360M-Instruct,<1B,0.36,SE1,structured_extraction,"Extract the name, date, and location from: ""Maya has a biology exam on November 12 in Lincoln Hall."" Return JSON only.","{
+  ""name"": ""Maya"",
+  ""date"": ""November 12"",
+  ""location"": ""Lincoln Hall""
+}",1.16,29,24.999,,,,,,ok,
+SmolLM2-360M-Instruct,HuggingFaceTB/SmolLM2-360M-Instruct,<1B,0.36,SE2,structured_extraction,"Extract the task and deadline from: ""Submit the database project by Friday at 5 PM."" Return JSON only.","{
+  ""task"": ""Database Project"",
+  ""deadline"": ""Friday at 5 PM""",0.848,22,25.944,5.0,5.0,5.0,5.0,5.0,ok,
+SmolLM2-360M-Instruct,HuggingFaceTB/SmolLM2-360M-Instruct,<1B,0.36,SE3,structured_extraction,"Extract the course, credits, and instructor from: ""CS 124 is a 3-credit course taught by Professor Lee."" Return JSON only.","{
+  ""course"": ""CS 124"",
+  ""credits"": 3,
+  ""instructor"": ""Professor Lee""
+}",1.248,33,26.444,5.0,5.0,5.0,5.0,5.0,ok,
+SmolLM2-360M-Instruct,HuggingFaceTB/SmolLM2-360M-Instruct,<1B,0.36,SE4,structured_extraction,"Extract the product, quantity, and unit price from: ""I bought 2 notebooks for $6 each."" Return JSON only.","{
+  ""product"": ""notebooks"",
+  ""quantity"": 2,
+  ""unit_price"": 6
+}",1.047,27,25.799,,,,,,ok,
+SmolLM2-360M-Instruct,HuggingFaceTB/SmolLM2-360M-Instruct,<1B,0.36,SE5,structured_extraction,"Extract all events and their dates from: ""The workshop is on March 3, and the final presentation is on March 10."" Return JSON only.","{
+  ""events"": [
+    {
+      ""date"": ""March 3"",
+      ""start_time"": ""08:00"",
+      ""end_time"": ""10:00""
+    },
+    {
+      ""date"": ""March 10"",
+      ""start_time"": ""08:00"",
+      ""end_time"": ""10:00""
+    }
+  ]
+}",3.85,90,23.374,5.0,5.0,5.0,5.0,5.0,ok,
+SmolLM2-360M-Instruct,HuggingFaceTB/SmolLM2-360M-Instruct,<1B,0.36,CL1,classification,"Classify the sentiment as positive, negative, or neutral: ""The lecture was clear and helpful.""",The sentiment of the given sentence is neutral.,0.412,10,24.251,5.0,5.0,5.0,5.0,5.0,ok,
+SmolLM2-360M-Instruct,HuggingFaceTB/SmolLM2-360M-Instruct,<1B,0.36,CL2,classification,"Classify this request as academic, administrative, or personal: ""I need to change my course registration.""",Personal,0.083,2,24.137,,,,,,ok,
+SmolLM2-360M-Instruct,HuggingFaceTB/SmolLM2-360M-Instruct,<1B,0.36,CL3,classification,"Classify the urgency as low, medium, or high: ""My assignment is due in three weeks.""",Low.,0.149,3,20.16,5.0,5.0,5.0,5.0,5.0,ok,
+SmolLM2-360M-Instruct,HuggingFaceTB/SmolLM2-360M-Instruct,<1B,0.36,CL4,classification,"Classify this statement as a fact, opinion, or prediction: ""I think the next exam will be difficult.""",This statement is a prediction.,0.267,7,26.178,5.0,5.0,5.0,5.0,5.0,ok,
+SmolLM2-360M-Instruct,HuggingFaceTB/SmolLM2-360M-Instruct,<1B,0.36,CL5,classification,"Classify this activity as review, practice, or new learning: ""I am solving additional problems on a topic I already learned.""",Review,0.088,2,22.812,5.0,5.0,5.0,5.0,5.0,ok,
+SmolLM2-360M-Instruct,HuggingFaceTB/SmolLM2-360M-Instruct,<1B,0.36,SU1,summarization,"Summarize in exactly two bullet points: ""Students must complete weekly readings, submit homework every Thursday, attend discussion sections, and complete a final project during the last two weeks.""","* Students must complete weekly readings, submit homework every Thursday, attend discussion sections, and complete a final project during the last two weeks.",1.104,28,25.352,5.0,5.0,5.0,5.0,5.0,ok,
+SmolLM2-360M-Instruct,HuggingFaceTB/SmolLM2-360M-Instruct,<1B,0.36,SU2,summarization,"Summarize in one sentence: ""Model A was fastest, Model B was most accurate, and Model C used the least memory.""","""Model A was the fastest, Model B was the most accurate, and Model C used the least memory.""",0.931,23,24.708,5.0,5.0,5.0,5.0,5.0,ok,
+SmolLM2-360M-Instruct,HuggingFaceTB/SmolLM2-360M-Instruct,<1B,0.36,SU3,summarization,"Summarize the action items: ""Finish the interface by Monday, test the API on Tuesday, and fix critical bugs before Friday.""","1. Finish the interface by Monday
+2. Test the API on Tuesday
+3. Fix critical bugs before Friday",0.921,24,26.07,,,,,,ok,
+SmolLM2-360M-Instruct,HuggingFaceTB/SmolLM2-360M-Instruct,<1B,0.36,SU4,summarization,"Summarize in no more than 40 words: ""Quizzes account for 15% of the grade, midterms for 40%, and the cumulative final for 45%.""","Quizzes account for 15% of the grade, midterms for 40%, and the cumulative final for 45%",1.109,29,26.157,,,,,,ok,
+SmolLM2-360M-Instruct,HuggingFaceTB/SmolLM2-360M-Instruct,<1B,0.36,SU5,summarization,"Summarize the cause and result: ""The server received too many simultaneous requests, causing slow responses and timeouts. The team added caching and rate limiting, reducing timeouts.""","The server received too many simultaneous requests, causing slow responses and timeouts. The team added caching and rate limiting, reducing timeouts.",1.083,28,25.858,5.0,5.0,5.0,5.0,5.0,ok,
+SmolLM2-360M-Instruct,HuggingFaceTB/SmolLM2-360M-Instruct,<1B,0.36,RE1,reasoning_estimation,A student studies 2 hours per day for 5 days and then 3 hours on Saturday. How many hours did they study?,"To find out how many hours the student studied, we need to calculate the total hours they studied for the 5 days and then add the hours they studied on Saturday.
+
+The student studies for 2 hours per day for 5 days, so they studied for a total of 2 * 5 = 10 hours per day.
+
+On Saturday, they studied 3 hours. To find the total hours they studied on Saturday, we add the hours they studied on Saturday to the hours they studied on Friday: 10 + 3 = 13 hours.
+
+Therefore, the student studied a total of 10 + 13 = 23 hours.",5.487,143,26.061,5.0,5.0,5.0,5.0,5.0,ok,
+SmolLM2-360M-Instruct,HuggingFaceTB/SmolLM2-360M-Instruct,<1B,0.36,RE2,reasoning_estimation,"A project has 4 tasks requiring 2, 3, 5, and 4 hours. If 2 hours of work are completed each day, how many full days are needed?","To find out how many full days are needed, we need to divide the total number of hours required by the number of hours worked per day.
+
+First, let's calculate the total number of hours required: 2 hours per task * 4 tasks = 8 hours.
+
+Next, we need to divide the total hours required by the number of hours worked per day: 8 hours / 2 hours per day = 4 full days.
+
+So, 4 full days are needed to complete the project.",4.076,109,26.744,5.0,5.0,5.0,5.0,5.0,ok,
+SmolLM2-360M-Instruct,HuggingFaceTB/SmolLM2-360M-Instruct,<1B,0.36,RE3,reasoning_estimation,"A class has 80 students. If 25% miss a lecture, how many students attended?","25% of 80 students is 0.25 * 80 = 20 students. Therefore, 20 students attended the class.",1.325,35,26.413,5.0,5.0,5.0,5.0,5.0,ok,
+SmolLM2-360M-Instruct,HuggingFaceTB/SmolLM2-360M-Instruct,<1B,0.36,RE4,reasoning_estimation,A model processes 120 tokens in 6 seconds. What is its throughput in tokens per second?,"To calculate the model's throughput in tokens per second, we need to divide the number of tokens processed by the time taken.
+
+The model processes 120 tokens in 6 seconds. To calculate the throughput, we can divide the number of tokens processed by the time taken:
+
+Throughput = Number of tokens processed / Time taken
+Throughput = 120 tokens / 6 seconds
+Throughput = 20 tokens per second
+
+So, the model's throughput in tokens per second is 20 tokens per second.",4.466,114,25.525,5.0,5.0,5.0,5.0,5.0,ok,
+SmolLM2-360M-Instruct,HuggingFaceTB/SmolLM2-360M-Instruct,<1B,0.36,RE5,reasoning_estimation,"A student has 12 hours available and 4 assignments requiring 2, 3, 4, and 5 hours. Can all assignments be completed?","Yes, all assignments can be completed within the given 12 hours. The student has 4 assignments, each requiring 2, 3, 4, or 5 hours. Since the student has 4 assignments, they can complete all 4 assignments within the given time frame.",2.324,60,25.823,,,,,,ok,
+SmolLM2-360M-Instruct,HuggingFaceTB/SmolLM2-360M-Instruct,<1B,0.36,AH1,ambiguity_handling,"A student says, ""Schedule my study session for next Friday."" What information should you clarify before scheduling?","Before scheduling a study session, I would clarify the following information:
+
+1. The student's availability: I would ask the student to confirm their availability for the study session, including the time of day and any specific dates or times they are available.
+
+2. The student's goals: I would ask the student to clarify their goals for the study session, such as what they want to achieve or what they need to learn.
+
+3. The student's learning style: I would ask the student to clarify their learning style, such as whether they prefer a traditional classroom setting, a self-study approach, or a combination of both.
+
+4. The student's current workload: I would ask the student to clarify their current workload, including any other commitments or deadlines they need to meet.
+
+5. The student's preferred learning format: I would ask the student to clarify their preferred learning format, such as reading, watching videos, or taking notes.
+
+6. The student's preferred method of communication: I would ask the student to clarify their preferred method of communication, such as email, phone, or in-person.
+
+7. The student's preferred study environment: I would ask the student to clarify their preferred study environment, such as a quiet room, a",9.622,256,26.605,5.0,5.0,5.0,5.0,5.0,ok,
+SmolLM2-360M-Instruct,HuggingFaceTB/SmolLM2-360M-Instruct,<1B,0.36,AH2,ambiguity_handling,"A user asks, ""Which model is best?"" Explain what you need to clarify.","I need to clarify that I am designed to provide general guidance and recommendations based on the data I've been trained on. However, I don't have personal opinions or preferences. My purpose is to assist users in understanding the strengths and weaknesses of various models, such as TensorFlow, PyTorch, and scikit-learn, and to help them choose the best model for their specific use case.
+
+To provide more accurate and relevant guidance, I would need more information from the user, such as:
+
+1. The specific problem or task the user is trying to solve.
+2. The type of data the user is working with (e.g., image, text, audio).
+3. The desired output or outcome.
+4. Any specific requirements or constraints the user needs to consider.
+
+With this information, I can provide more tailored advice and recommendations.",6.723,176,26.18,,,,,,ok,
+SmolLM2-360M-Instruct,HuggingFaceTB/SmolLM2-360M-Instruct,<1B,0.36,AH3,ambiguity_handling,"A student says, ""I need more time for my project."" Respond helpfully without making assumptions.",I'd be happy to help you with your project. Can you tell me a bit more about what you're struggling with or what you're hoping to achieve?,1.285,33,25.675,,,,,,ok,
+SmolLM2-360M-Instruct,HuggingFaceTB/SmolLM2-360M-Instruct,<1B,0.36,AH4,ambiguity_handling,"A user says, ""Remind me before the exam."" What information is missing?","The missing information is the user's name, the exam they are preparing for, and the date of the exam.",0.937,24,25.621,,,,,,ok,
+SmolLM2-360M-Instruct,HuggingFaceTB/SmolLM2-360M-Instruct,<1B,0.36,AH5,ambiguity_handling,"A student asks, ""Will I pass this course?"" What information would help estimate this?","To estimate whether you'll pass this course, we need to consider several factors. Here are some key points to consider:
+
+1. **Course Requirements**: What are the specific requirements for the course? Are there any prerequisites, such as prior knowledge or skills?
+
+2. **Your Performance**: What is your current performance in the course? Are you meeting the expectations set by your instructor?
+
+3. **Your Learning Style**: How do you learn best? Do you prefer hands-on, self-paced, or interactive learning?
+
+4. **Your Motivation**: Are you motivated to succeed in the course? Are you looking forward to the material and the learning experience?
+
+5. **Your Study Habits**: What are your study habits? Are you organized, self-motivated, and disciplined?
+
+6. **Your Time Management**: How do you manage your time? Are you able to balance your coursework with other activities?
+
+7. **Your Support System**: Do you have a support system in place, such as a study group or a mentor?
+
+To estimate your chances of passing the course, we can use a combination of these factors. Here's a rough estimate:
+
+* If you're meeting the course requirements and have a good understanding of the",9.614,256,26.628,5.0,5.0,5.0,5.0,5.0,ok,

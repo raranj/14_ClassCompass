@@ -1,0 +1,123 @@
+model,model_id,category,params_b,prompt_id,prompt_type,prompt,raw_output,latency_seconds,generated_tokens,tokens_per_second,instruction_adherence,accuracy,clarity,structure,quality_score,status,error
+Qwen2-1.5B-Instruct,Qwen/Qwen2-1.5B-Instruct,1B–<3B,1.5,SE1,structured_extraction,"Extract the name, date, and location from: ""Maya has a biology exam on November 12 in Lincoln Hall."" Return JSON only.","{
+""name"": ""Maya"",
+""date"": ""November 12"",
+""location"": ""Lincoln Hall""
+}",1.096,26,23.72,10.0,9.0,9.0,9.0,9.25,ok,
+Qwen2-1.5B-Instruct,Qwen/Qwen2-1.5B-Instruct,1B–<3B,1.5,SE2,structured_extraction,"Extract the task and deadline from: ""Submit the database project by Friday at 5 PM."" Return JSON only.","{
+""task"": ""Submit the database project"",
+""deadline"": ""Friday at 5 PM""
+}",0.863,22,25.504,9.0,9.0,9.0,9.0,9.0,ok,
+Qwen2-1.5B-Instruct,Qwen/Qwen2-1.5B-Instruct,1B–<3B,1.5,SE3,structured_extraction,"Extract the course, credits, and instructor from: ""CS 124 is a 3-credit course taught by Professor Lee."" Return JSON only.","{
+""course"": ""CS 124"",
+""credits"": 3,
+""instructor"": ""Professor Lee""
+}",0.992,26,26.21,9.0,10.0,9.0,9.0,9.25,ok,
+Qwen2-1.5B-Instruct,Qwen/Qwen2-1.5B-Instruct,1B–<3B,1.5,SE4,structured_extraction,"Extract the product, quantity, and unit price from: ""I bought 2 notebooks for $6 each."" Return JSON only.","{
+""product"": ""notebook"",
+""quantity"": 2,
+""unit_price"": 6
+}",0.875,23,26.277,10.0,9.0,9.0,9.0,9.25,ok,
+Qwen2-1.5B-Instruct,Qwen/Qwen2-1.5B-Instruct,1B–<3B,1.5,SE5,structured_extraction,"Extract all events and their dates from: ""The workshop is on March 3, and the final presentation is on March 10."" Return JSON only.","{
+""events"": [
+    {
+        ""date"": ""March 3"",
+        ""event"": ""workshop""
+    },
+    {
+        ""date"": ""March 10"",
+        ""event"": ""final presentation""
+    }
+]
+}",1.873,51,27.235,10.0,9.0,9.0,9.0,9.25,ok,
+Qwen2-1.5B-Instruct,Qwen/Qwen2-1.5B-Instruct,1B–<3B,1.5,CL1,classification,"Classify the sentiment as positive, negative, or neutral: ""The lecture was clear and helpful.""",Positive.,0.151,3,19.834,10.0,10.0,9.0,9.0,9.5,ok,
+Qwen2-1.5B-Instruct,Qwen/Qwen2-1.5B-Instruct,1B–<3B,1.5,CL2,classification,"Classify this request as academic, administrative, or personal: ""I need to change my course registration.""",This request is classified as academic.,0.342,8,23.422,9.0,9.0,9.0,9.0,9.0,ok,
+Qwen2-1.5B-Instruct,Qwen/Qwen2-1.5B-Instruct,1B–<3B,1.5,CL3,classification,"Classify the urgency as low, medium, or high: ""My assignment is due in three weeks.""",Low,0.114,2,17.478,9.0,5.0,6.0,8.0,7.0,ok,
+Qwen2-1.5B-Instruct,Qwen/Qwen2-1.5B-Instruct,1B–<3B,1.5,CL4,classification,"Classify this statement as a fact, opinion, or prediction: ""I think the next exam will be difficult.""",This statement is an opinion.,0.302,7,23.182,9.0,9.0,9.0,9.0,9.0,ok,
+Qwen2-1.5B-Instruct,Qwen/Qwen2-1.5B-Instruct,1B–<3B,1.5,CL5,classification,"Classify this activity as review, practice, or new learning: ""I am solving additional problems on a topic I already learned.""","This activity can be classified as ""new learning"" because the person is actively engaging with a previously learned topic by practicing and solving additional problems.",1.131,29,25.642,9.0,9.0,9.0,9.0,9.0,ok,
+Qwen2-1.5B-Instruct,Qwen/Qwen2-1.5B-Instruct,1B–<3B,1.5,SU1,summarization,"Summarize in exactly two bullet points: ""Students must complete weekly readings, submit homework every Thursday, attend discussion sections, and complete a final project during the last two weeks.""","- Students must complete weekly readings.
+  - Students must submit homework every Thursday.",0.686,17,24.795,9.0,9.0,9.0,9.0,9.0,ok,
+Qwen2-1.5B-Instruct,Qwen/Qwen2-1.5B-Instruct,1B–<3B,1.5,SU2,summarization,"Summarize in one sentence: ""Model A was fastest, Model B was most accurate, and Model C used the least memory.""","The three models (A, B, C) were compared based on their performance metrics of speed, accuracy, and memory usage, with Model A being the fastest, Model B being most accurate, and Model C using the least amount of memory.",1.915,50,26.111,9.0,9.0,9.0,9.0,9.0,ok,
+Qwen2-1.5B-Instruct,Qwen/Qwen2-1.5B-Instruct,1B–<3B,1.5,SU3,summarization,"Summarize the action items: ""Finish the interface by Monday, test the API on Tuesday, and fix critical bugs before Friday.""","The summary of the action items is:
+
+- Finish the interface by Monday.
+- Test the API on Tuesday.
+- Fix critical bugs before Friday.",1.185,30,25.319,9.0,9.0,9.0,9.0,9.0,ok,
+Qwen2-1.5B-Instruct,Qwen/Qwen2-1.5B-Instruct,1B–<3B,1.5,SU4,summarization,"Summarize in no more than 40 words: ""Quizzes account for 15% of the grade, midterms for 40%, and the cumulative final for 45%.""","Quiz scores count for 15%, midterm grades for 40%, and the cumulative final for 45%.",0.988,25,25.297,9.0,9.0,9.0,9.0,9.0,ok,
+Qwen2-1.5B-Instruct,Qwen/Qwen2-1.5B-Instruct,1B–<3B,1.5,SU5,summarization,"Summarize the cause and result: ""The server received too many simultaneous requests, causing slow responses and timeouts. The team added caching and rate limiting, reducing timeouts.""","The server was receiving too many simultaneous requests, which caused slow responses and timeouts. To address this issue, the team implemented caching and rate limiting to reduce timeouts. Caching stores frequently accessed data in memory so that it can be quickly retrieved without having to send the request again. Rate limiting restricts the number of requests that can be made within a certain time frame, preventing the server from being overwhelmed with too many requests at once. By implementing these measures, the server's performance improved, resulting in faster response times and fewer timeouts for users.",4.181,109,26.073,9.0,9.0,9.0,9.0,9.0,ok,
+Qwen2-1.5B-Instruct,Qwen/Qwen2-1.5B-Instruct,1B–<3B,1.5,RE1,reasoning_estimation,A student studies 2 hours per day for 5 days and then 3 hours on Saturday. How many hours did they study?,The student studied a total of \(2 \times 5 + 3 = 10\) hours over the week.,1.095,26,23.741,9.0,9.0,9.0,9.0,9.0,ok,
+Qwen2-1.5B-Instruct,Qwen/Qwen2-1.5B-Instruct,1B–<3B,1.5,RE2,reasoning_estimation,"A project has 4 tasks requiring 2, 3, 5, and 4 hours. If 2 hours of work are completed each day, how many full days are needed?","To find out how many full days it would take to complete all the tasks with the given daily work rate, we need to calculate the total time required for all tasks and then divide that by the daily work rate.
+
+The total time required is:
+\[ \text{Total Time} = 2 + 3 + 5 + 4 = 14 \text{ hours} \]
+
+Given that 2 hours of work are completed each day, the number of full days needed can be calculated as follows:
+
+\[ \text{Number of Full Days} = \frac{\text{Total Time}}{\text{Daily Work Rate}} = \frac{14}{2} = 7 \]
+
+Therefore, 7 full days are needed to complete all the tasks with the given daily work rate.",6.145,163,26.527,9.0,9.0,9.0,9.0,9.0,ok,
+Qwen2-1.5B-Instruct,Qwen/Qwen2-1.5B-Instruct,1B–<3B,1.5,RE3,reasoning_estimation,"A class has 80 students. If 25% miss a lecture, how many students attended?","To find out how many students attended the lecture after 25% missed it, you can calculate:
+
+1. Calculate the number of students who missed the lecture: \(80 \times 25\% = 80 \times 0.25 = 20\) students.
+2. Subtract the number of students who missed from the total number of students to find out how many attended: \(80 - 20 = 60\) students.
+
+So, 60 students attended the lecture.",4.116,108,26.239,9.0,9.0,9.0,9.0,9.0,ok,
+Qwen2-1.5B-Instruct,Qwen/Qwen2-1.5B-Instruct,1B–<3B,1.5,RE4,reasoning_estimation,A model processes 120 tokens in 6 seconds. What is its throughput in tokens per second?,"To calculate the throughput of the model, you need to divide the total number of tokens processed by the time it took to process those tokens.
+
+So, if the model processes 120 tokens in 6 seconds, then:
+
+Throughput = Total Tokens Processed / Time Taken
+
+= 120 tokens / 6 seconds
+
+= 20 tokens/second
+
+Therefore, the model's throughput is 20 tokens per second.",3.454,91,26.343,9.0,9.0,9.0,9.0,9.0,ok,
+Qwen2-1.5B-Instruct,Qwen/Qwen2-1.5B-Instruct,1B–<3B,1.5,RE5,reasoning_estimation,"A student has 12 hours available and 4 assignments requiring 2, 3, 4, and 5 hours. Can all assignments be completed?","Yes, it is possible to complete all four assignments within the given time frame of 12 hours.
+
+To do this, the student can prioritize their work based on the amount of time required for each assignment:
+
+- The first two assignments require 2 and 3 hours respectively, so they can be completed in 2+3 = 5 hours.
+- The third assignment requires 4 hours, which can be completed in 4 hours.
+- The fourth assignment requires 5 hours, which cannot be completed in the remaining time.
+
+Therefore, by completing the first two assignments in 5 hours and the third assignment in 4 hours, the student will have used up all 12 hours of their available time.",5.571,145,26.027,9.0,10.0,9.0,9.0,9.25,ok,
+Qwen2-1.5B-Instruct,Qwen/Qwen2-1.5B-Instruct,1B–<3B,1.5,AH1,ambiguity_handling,"A student says, ""Schedule my study session for next Friday."" What information should you clarify before scheduling?","Before scheduling the study session for next Friday, it would be helpful to clarify the following information:
+
+1. The purpose of the study session: It is important to know why the student wants to schedule this session and what they hope to achieve from it.
+
+2. The duration of the study session: This will help determine how much time can be allocated to studying and whether there is enough time for breaks or other activities.
+
+3. The location of the study session: Knowing where the study session will take place can help ensure that everyone involved is comfortable with the setting and has access to necessary resources.
+
+4. The availability of the student: It's important to confirm the student's availability on the date requested, as well as any conflicts or commitments they may have.
+
+5. Any special requirements or accommodations: If the student has any specific needs or requirements related to their learning style or physical abilities, it's important to include them in the planning process.
+
+By clarifying these details, you can better ensure that the study session meets the student's needs and goals while also being efficient and effective.",8.29,217,26.176,9.0,9.0,9.0,9.0,9.0,ok,
+Qwen2-1.5B-Instruct,Qwen/Qwen2-1.5B-Instruct,1B–<3B,1.5,AH2,ambiguity_handling,"A user asks, ""Which model is best?"" Explain what you need to clarify.","To provide an accurate answer to the question of which model is best, I would need more information about the context and requirements of the user's query. 
+
+If the user is asking about a specific type of model such as a camera or computer, then I could suggest that they consider factors like resolution, image quality, processing speed, storage capacity, and price when making their decision.
+
+However, if the user is asking for advice on which model is better overall, without specifying any particular criteria, then it would be difficult for me to provide a definitive answer. Different users may have different priorities and preferences, so what one person considers to be the best model may not be the same for another.
+
+In general, it's important for users to do their own research and compare models based on their specific needs and budget before making a purchase.",6.314,167,26.449,9.0,9.0,9.0,9.0,9.0,ok,
+Qwen2-1.5B-Instruct,Qwen/Qwen2-1.5B-Instruct,1B–<3B,1.5,AH3,ambiguity_handling,"A student says, ""I need more time for my project."" Respond helpfully without making assumptions.","It sounds like you're feeling overwhelmed or stressed about your project. Is there anything specific that's causing this? It might be helpful to break down the task into smaller steps and set realistic deadlines for each part of it. Additionally, consider seeking support from peers or mentors who can offer guidance and encouragement. Remember, taking breaks and practicing self-care is also important in managing stress levels.",2.927,77,26.306,9.0,9.0,9.0,9.0,9.0,ok,
+Qwen2-1.5B-Instruct,Qwen/Qwen2-1.5B-Instruct,1B–<3B,1.5,AH4,ambiguity_handling,"A user says, ""Remind me before the exam."" What information is missing?","The user is asking for a reminder to be provided before an upcoming exam. The information that is missing in this scenario is the specific time or date of the exam. Without knowing when the exam will take place, it would not be possible to provide a proper reminder.",2.133,54,25.316,9.0,9.0,9.0,9.0,9.0,ok,
+Qwen2-1.5B-Instruct,Qwen/Qwen2-1.5B-Instruct,1B–<3B,1.5,AH5,ambiguity_handling,"A student asks, ""Will I pass this course?"" What information would help estimate this?","There are several factors that can affect whether or not a student will pass a course:
+
+1. Course content: The difficulty of the course material and its level of complexity.
+
+2. Student's prior knowledge: The student's background in the subject matter and their ability to understand and retain new information.
+
+3. Study habits: How much time the student spends studying and how effectively they use study techniques such as summarizing notes, practicing problems, and reviewing materials.
+
+4. Attendance: Whether or not the student attends class regularly and participates actively in discussions and activities.
+
+5. Test scores: If the student has taken any previous tests or quizzes related to the course material.
+
+6. Instructor feedback: The instructor's assessment of the student's performance and areas for improvement.
+
+7. Personal circumstances: Any personal challenges or distractions that may be affecting the student's ability to focus on the course material.
+
+By considering these factors, it is possible to make an educated guess about whether or not a student will pass a course. However, it is important to remember that individual differences and unexpected events can also play a role in determining success in a particular course.",8.435,227,26.911,9.0,9.0,9.0,9.0,9.0,ok,

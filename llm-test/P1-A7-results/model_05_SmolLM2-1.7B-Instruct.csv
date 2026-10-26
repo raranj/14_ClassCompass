@@ -1,0 +1,107 @@
+model,model_id,category,params_b,prompt_id,prompt_type,prompt,raw_output,latency_seconds,generated_tokens,tokens_per_second,instruction_adherence,accuracy,clarity,structure,quality_score,status,error
+SmolLM2-1.7B-Instruct,HuggingFaceTB/SmolLM2-1.7B-Instruct,1B–<3B,1.7,SE1,structured_extraction,"Extract the name, date, and location from: ""Maya has a biology exam on November 12 in Lincoln Hall."" Return JSON only.","{
+  ""name"": ""Maya"",
+  ""date"": ""November 12"",
+  ""location"": ""Lincoln Hall""
+}",1.333,29,21.753,10.0,10.0,10.0,10.0,10.0,ok,
+SmolLM2-1.7B-Instruct,HuggingFaceTB/SmolLM2-1.7B-Instruct,1B–<3B,1.7,SE2,structured_extraction,"Extract the task and deadline from: ""Submit the database project by Friday at 5 PM."" Return JSON only.","{
+  ""task"": ""Submit the database project"",
+  ""deadline"": ""Friday at 5 PM""
+}",0.944,27,28.607,1.0,1.0,1.0,1.0,1.0,ok,
+SmolLM2-1.7B-Instruct,HuggingFaceTB/SmolLM2-1.7B-Instruct,1B–<3B,1.7,SE3,structured_extraction,"Extract the course, credits, and instructor from: ""CS 124 is a 3-credit course taught by Professor Lee."" Return JSON only.","{
+  ""course"": ""CS 124"",
+  ""credits"": ""3"",
+  ""instructor"": ""Professor Lee""
+}",1.166,33,28.301,7.0,4.0,8.0,7.0,6.5,ok,
+SmolLM2-1.7B-Instruct,HuggingFaceTB/SmolLM2-1.7B-Instruct,1B–<3B,1.7,SE4,structured_extraction,"Extract the product, quantity, and unit price from: ""I bought 2 notebooks for $6 each."" Return JSON only.","{
+  ""product"": ""notebooks"",
+  ""quantity"": 2,
+  ""unit_price"": 6
+}",0.961,27,28.1,10.0,10.0,10.0,10.0,10.0,ok,
+SmolLM2-1.7B-Instruct,HuggingFaceTB/SmolLM2-1.7B-Instruct,1B–<3B,1.7,SE5,structured_extraction,"Extract all events and their dates from: ""The workshop is on March 3, and the final presentation is on March 10."" Return JSON only.","{
+  ""events"": [
+    {
+      ""date"": ""2022-03-03"",
+      ""event"": ""The workshop is on March 3""
+    },
+    {
+      ""date"": ""2022-03-10"",
+      ""event"": ""The final presentation is on March 10""
+    }
+  ]
+}",2.776,79,28.461,10.0,10.0,10.0,10.0,10.0,ok,
+SmolLM2-1.7B-Instruct,HuggingFaceTB/SmolLM2-1.7B-Instruct,1B–<3B,1.7,CL1,classification,"Classify the sentiment as positive, negative, or neutral: ""The lecture was clear and helpful.""","The sentiment of the statement ""The lecture was clear and helpful"" is positive.",0.629,17,27.015,1.0,1.0,1.0,1.0,1.0,ok,
+SmolLM2-1.7B-Instruct,HuggingFaceTB/SmolLM2-1.7B-Instruct,1B–<3B,1.7,CL2,classification,"Classify this request as academic, administrative, or personal: ""I need to change my course registration.""","The request ""I need to change my course registration"" falls under the category of academic.",0.692,19,27.44,1.0,10.0,10.0,10.0,7.75,ok,
+SmolLM2-1.7B-Instruct,HuggingFaceTB/SmolLM2-1.7B-Instruct,1B–<3B,1.7,CL3,classification,"Classify the urgency as low, medium, or high: ""My assignment is due in three weeks.""",Low,0.131,2,15.26,1.0,1.0,1.0,1.0,1.0,ok,
+SmolLM2-1.7B-Instruct,HuggingFaceTB/SmolLM2-1.7B-Instruct,1B–<3B,1.7,CL4,classification,"Classify this statement as a fact, opinion, or prediction: ""I think the next exam will be difficult.""",This statement is an opinion.,0.298,7,23.461,1.0,1.0,1.0,1.0,1.0,ok,
+SmolLM2-1.7B-Instruct,HuggingFaceTB/SmolLM2-1.7B-Instruct,1B–<3B,1.7,CL5,classification,"Classify this activity as review, practice, or new learning: ""I am solving additional problems on a topic I already learned.""","Based on the context of the activity, I would classify it as ""practice"". This is because the individual is already familiar with the topic and is now practicing or reinforcing their understanding of it by solving additional problems.",1.489,43,28.88,7.0,4.0,8.0,7.0,6.5,ok,
+SmolLM2-1.7B-Instruct,HuggingFaceTB/SmolLM2-1.7B-Instruct,1B–<3B,1.7,SU1,summarization,"Summarize in exactly two bullet points: ""Students must complete weekly readings, submit homework every Thursday, attend discussion sections, and complete a final project during the last two weeks.""","• Complete weekly readings and submit homework every Thursday.
+• Attend discussion sections and complete a final project during the last two weeks.",1.006,27,26.837,7.0,4.0,8.0,7.0,6.5,ok,
+SmolLM2-1.7B-Instruct,HuggingFaceTB/SmolLM2-1.7B-Instruct,1B–<3B,1.7,SU2,summarization,"Summarize in one sentence: ""Model A was fastest, Model B was most accurate, and Model C used the least memory.""","The models ranked by speed, accuracy, and memory usage are Model A, Model B, and Model C, respectively.",0.876,25,28.546,1.0,1.0,1.0,1.0,1.0,ok,
+SmolLM2-1.7B-Instruct,HuggingFaceTB/SmolLM2-1.7B-Instruct,1B–<3B,1.7,SU3,summarization,"Summarize the action items: ""Finish the interface by Monday, test the API on Tuesday, and fix critical bugs before Friday.""","1. Complete the interface by Monday.
+2. Test the API on Tuesday.
+3. Fix critical bugs before Friday.",0.939,27,28.751,7.0,7.0,8.0,7.0,7.25,ok,
+SmolLM2-1.7B-Instruct,HuggingFaceTB/SmolLM2-1.7B-Instruct,1B–<3B,1.7,SU4,summarization,"Summarize in no more than 40 words: ""Quizzes account for 15% of the grade, midterms for 40%, and the cumulative final for 45%.""","Quizzes account for 15%, midterms for 40%, and the final for 45% of the grade.",1.031,28,27.146,7.0,4.0,8.0,7.0,6.5,ok,
+SmolLM2-1.7B-Instruct,HuggingFaceTB/SmolLM2-1.7B-Instruct,1B–<3B,1.7,SU5,summarization,"Summarize the cause and result: ""The server received too many simultaneous requests, causing slow responses and timeouts. The team added caching and rate limiting, reducing timeouts.""","The server experienced a high volume of simultaneous requests, leading to slow responses and timeouts. To address this, the team implemented caching and rate limiting, which significantly reduced timeouts.",1.323,37,27.965,7.0,7.0,8.0,7.0,7.25,ok,
+SmolLM2-1.7B-Instruct,HuggingFaceTB/SmolLM2-1.7B-Instruct,1B–<3B,1.7,RE1,reasoning_estimation,A student studies 2 hours per day for 5 days and then 3 hours on Saturday. How many hours did they study?,"The student studied for 2 hours per day for 5 days, so that's 2 * 5 = 10 hours. Then, on Saturday, they studied for 3 hours. So, in total, they studied for 10 + 3 = 13 hours.",2.057,61,29.648,7.0,4.0,8.0,7.0,6.5,ok,
+SmolLM2-1.7B-Instruct,HuggingFaceTB/SmolLM2-1.7B-Instruct,1B–<3B,1.7,RE2,reasoning_estimation,"A project has 4 tasks requiring 2, 3, 5, and 4 hours. If 2 hours of work are completed each day, how many full days are needed?","To find out how many full days are needed, we need to divide the total hours required by the hours completed each day.
+
+Total hours required = 2 + 3 + 5 + 4 = 14 hours
+Hours completed each day = 2 hours
+
+Number of full days needed = Total hours required / Hours completed each day
+= 14 hours / 2 hours
+= 7 days
+
+So, 7 full days are needed to complete the project.",3.59,104,28.973,7.0,4.0,8.0,7.0,6.5,ok,
+SmolLM2-1.7B-Instruct,HuggingFaceTB/SmolLM2-1.7B-Instruct,1B–<3B,1.7,RE3,reasoning_estimation,"A class has 80 students. If 25% miss a lecture, how many students attended?","To find out how many students attended the lecture, you need to calculate 25% of the total number of students. 
+
+25% of 80 students is calculated as follows:
+
+(25/100) * 80 = 20
+
+So, 20 students attended the lecture.",2.349,70,29.806,1.0,10.0,10.0,10.0,7.75,ok,
+SmolLM2-1.7B-Instruct,HuggingFaceTB/SmolLM2-1.7B-Instruct,1B–<3B,1.7,RE4,reasoning_estimation,A model processes 120 tokens in 6 seconds. What is its throughput in tokens per second?,"To calculate the throughput, you divide the total number of tokens processed by the time taken to process them. 
+
+So, in this case, the throughput would be 120 tokens / 6 seconds = 20 tokens per second.",1.712,51,29.782,7.0,4.0,8.0,7.0,6.5,ok,
+SmolLM2-1.7B-Instruct,HuggingFaceTB/SmolLM2-1.7B-Instruct,1B–<3B,1.7,RE5,reasoning_estimation,"A student has 12 hours available and 4 assignments requiring 2, 3, 4, and 5 hours. Can all assignments be completed?","Yes, the student can complete all the assignments. Here's how:
+
+1. Assignment 2: 2 hours
+2. Assignment 3: 3 hours
+3. Assignment 4: 4 hours
+4. Assignment 5: 5 hours
+
+Total hours: 2 + 3 + 4 + 5 = 14 hours
+
+Since the student has 12 hours available, they can complete all the assignments.",3.222,95,29.481,10.0,10.0,10.0,10.0,10.0,ok,
+SmolLM2-1.7B-Instruct,HuggingFaceTB/SmolLM2-1.7B-Instruct,1B–<3B,1.7,AH1,ambiguity_handling,"A student says, ""Schedule my study session for next Friday."" What information should you clarify before scheduling?","Before scheduling your study session for next Friday, I would need to clarify the following information:
+
+1. The specific time slot you're interested in: Is it a morning, afternoon, or evening session?
+2. The duration of the study session: How long do you plan to study?
+3. The subject or topic you're studying: This will help me find the most suitable time slot.
+4. Any other commitments or activities you have planned for next Friday: This will ensure that the scheduled time slot doesn't conflict with other important events.
+5. Your availability: Are you available on the exact date and time you've proposed, or are there any changes you'd like to make?
+
+Once I have this information, I can help you find a suitable time slot for your study session.",5.511,165,29.94,7.0,4.0,8.0,7.0,6.5,ok,
+SmolLM2-1.7B-Instruct,HuggingFaceTB/SmolLM2-1.7B-Instruct,1B–<3B,1.7,AH2,ambiguity_handling,"A user asks, ""Which model is best?"" Explain what you need to clarify.","To provide a clear answer, I would need more context about the models in question. Could you please provide more details such as:
+
+1. The type of models (e.g., image, text, speech, etc.)
+2. The specific models you're referring to (e.g., ResNet, VGG, BERT, etc.)
+3. Any specific requirements or constraints (e.g., performance, speed, memory usage, etc.)
+
+Once I have this information, I can provide a more accurate and helpful answer.",3.791,113,29.806,10.0,10.0,10.0,10.0,10.0,ok,
+SmolLM2-1.7B-Instruct,HuggingFaceTB/SmolLM2-1.7B-Instruct,1B–<3B,1.7,AH3,ambiguity_handling,"A student says, ""I need more time for my project."" Respond helpfully without making assumptions.","""I understand that you're facing a tight deadline for your project. Could you please provide more details about the project and the specific time constraints you're facing? This will help me offer more tailored advice.""",1.411,42,29.777,7.0,8.0,8.0,8.0,7.75,ok,
+SmolLM2-1.7B-Instruct,HuggingFaceTB/SmolLM2-1.7B-Instruct,1B–<3B,1.7,AH4,ambiguity_handling,"A user says, ""Remind me before the exam."" What information is missing?",The information that is missing to complete this task is the user's name and the exam's date and time.,0.788,23,29.195,7.0,4.0,8.0,7.0,6.5,ok,
+SmolLM2-1.7B-Instruct,HuggingFaceTB/SmolLM2-1.7B-Instruct,1B–<3B,1.7,AH5,ambiguity_handling,"A student asks, ""Will I pass this course?"" What information would help estimate this?","To estimate whether a student will pass a course, several factors should be considered. Here are some key points:
+
+1. **Course Content**: The depth and breadth of the course material. If the course covers a wide range of topics and concepts, it's likely that the student will have a good understanding of the material.
+
+2. **Student's Prior Knowledge**: The student's background and previous academic performance. If the student has a strong foundation in the subject matter, they are more likely to succeed.
+
+3. **Student's Learning Style**: The student's learning style and preferences. Some students may learn better through hands-on activities, while others may prefer lectures or self-study.
+
+4. **Student's Motivation**: The student's motivation and commitment to the course. If the student is genuinely interested in the subject and is willing to put in the effort, they are more likely to succeed.
+
+5. **Teaching Methods**: The teaching methods used by the instructor. If the instructor uses a variety of teaching methods, such as lectures, discussions, and hands-on activities, the student is more likely to engage with the material and understand it better.
+
+6. **Student's Support System**: The student's support system, including their family, friends,",8.632,256,29.657,7.0,4.0,8.0,7.0,6.5,ok,

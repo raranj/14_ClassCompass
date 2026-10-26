@@ -1,0 +1,234 @@
+model,model_id,category,params_b,prompt_id,prompt_type,prompt,raw_output,latency_seconds,generated_tokens,tokens_per_second,instruction_adherence,accuracy,clarity,structure,quality_score,status,error
+Qwen3-4B-Instruct-2507,Qwen/Qwen3-4B-Instruct-2507,3B–<7B,4.0,SE1,structured_extraction,"Extract the name, date, and location from: ""Maya has a biology exam on November 12 in Lincoln Hall."" Return JSON only.","{
+  ""name"": ""Maya"",
+  ""date"": ""November 12"",
+  ""location"": ""Lincoln Hall""
+}",2.856,30,10.505,10.0,10.0,10.0,10.0,10.0,ok,
+Qwen3-4B-Instruct-2507,Qwen/Qwen3-4B-Instruct-2507,3B–<7B,4.0,SE2,structured_extraction,"Extract the task and deadline from: ""Submit the database project by Friday at 5 PM."" Return JSON only.","{
+  ""task"": ""Submit the database project"",
+  ""deadline"": ""Friday at 5 PM""
+}",2.212,24,10.85,10.0,10.0,10.0,10.0,10.0,ok,
+Qwen3-4B-Instruct-2507,Qwen/Qwen3-4B-Instruct-2507,3B–<7B,4.0,SE3,structured_extraction,"Extract the course, credits, and instructor from: ""CS 124 is a 3-credit course taught by Professor Lee."" Return JSON only.","{
+  ""course"": ""CS 124"",
+  ""credits"": 3,
+  ""instructor"": ""Professor Lee""
+}",2.698,30,11.118,10.0,10.0,10.0,10.0,10.0,ok,
+Qwen3-4B-Instruct-2507,Qwen/Qwen3-4B-Instruct-2507,3B–<7B,4.0,SE4,structured_extraction,"Extract the product, quantity, and unit price from: ""I bought 2 notebooks for $6 each."" Return JSON only.","{
+  ""product"": ""notebook"",
+  ""quantity"": 2,
+  ""unit_price"": 6
+}",2.398,26,10.84,10.0,10.0,10.0,10.0,10.0,ok,
+Qwen3-4B-Instruct-2507,Qwen/Qwen3-4B-Instruct-2507,3B–<7B,4.0,SE5,structured_extraction,"Extract all events and their dates from: ""The workshop is on March 3, and the final presentation is on March 10."" Return JSON only.","{
+  ""events"": [
+    {
+      ""event"": ""workshop"",
+      ""date"": ""March 3""
+    },
+    {
+      ""event"": ""final presentation"",
+      ""date"": ""March 10""
+    }
+  ]
+}",4.838,53,10.955,10.0,10.0,10.0,10.0,10.0,ok,
+Qwen3-4B-Instruct-2507,Qwen/Qwen3-4B-Instruct-2507,3B–<7B,4.0,CL1,classification,"Classify the sentiment as positive, negative, or neutral: ""The lecture was clear and helpful.""",Sentiment: Positive,0.473,5,10.574,10.0,10.0,10.0,10.0,10.0,ok,
+Qwen3-4B-Instruct-2507,Qwen/Qwen3-4B-Instruct-2507,3B–<7B,4.0,CL2,classification,"Classify this request as academic, administrative, or personal: ""I need to change my course registration.""","The request ""I need to change my course registration"" is best classified as **administrative**.
+
+Explanation: Course registration changes are part of the academic administrative process managed by a university or educational institution. While related to academic activities, the act of changing registration is a procedural, administrative task handled by the registrar's office or student services, not a scholarly inquiry or personal matter. Therefore, it falls under administrative classification.",7.698,84,10.911,10.0,10.0,10.0,10.0,10.0,ok,
+Qwen3-4B-Instruct-2507,Qwen/Qwen3-4B-Instruct-2507,3B–<7B,4.0,CL3,classification,"Classify the urgency as low, medium, or high: ""My assignment is due in three weeks.""","Urgency: Low
+
+Explanation: Since the assignment is due in three weeks, it has a relatively long timeframe, which means it does not require immediate action. While it's important to start working on it, the deadline is not imminent. Therefore, the urgency is classified as low.",5.336,59,11.057,9.0,6.0,9.0,9.0,8.25,ok,
+Qwen3-4B-Instruct-2507,Qwen/Qwen3-4B-Instruct-2507,3B–<7B,4.0,CL4,classification,"Classify this statement as a fact, opinion, or prediction: ""I think the next exam will be difficult.""","The statement ""I think the next exam will be difficult."" is an **opinion**.
+
+Explanation: It expresses a personal belief or judgment, not something that can be objectively verified as true or false. The use of ""I think"" indicates subjectivity, so it is not a fact (something verifiable) or a prediction (which would require a claim about the future based on evidence). Since it reflects a personal viewpoint, it is classified as an opinion.",8.588,94,10.945,10.0,9.0,10.0,10.0,9.75,ok,
+Qwen3-4B-Instruct-2507,Qwen/Qwen3-4B-Instruct-2507,3B–<7B,4.0,CL5,classification,"Classify this activity as review, practice, or new learning: ""I am solving additional problems on a topic I already learned.""","The activity ""I am solving additional problems on a topic I already learned"" is best classified as **practice**.
+
+Explanation: Since the student is working on problems related to a topic they have already learned, this involves applying previously acquired knowledge. The focus is on reinforcing understanding and skill through additional exercises, which is the definition of practice.",6.177,68,11.009,10.0,10.0,10.0,10.0,10.0,ok,
+Qwen3-4B-Instruct-2507,Qwen/Qwen3-4B-Instruct-2507,3B–<7B,4.0,SU1,summarization,"Summarize in exactly two bullet points: ""Students must complete weekly readings, submit homework every Thursday, attend discussion sections, and complete a final project during the last two weeks.""","- Students must complete weekly readings and submit homework every Thursday.  
+- They are required to attend discussion sections and complete a final project during the last two weeks.",2.969,33,11.115,10.0,10.0,10.0,10.0,10.0,ok,
+Qwen3-4B-Instruct-2507,Qwen/Qwen3-4B-Instruct-2507,3B–<7B,4.0,SU2,summarization,"Summarize in one sentence: ""Model A was fastest, Model B was most accurate, and Model C used the least memory.""","Model A was fastest, Model B was most accurate, and Model C used the least memory.",1.806,20,11.072,10.0,10.0,10.0,10.0,10.0,ok,
+Qwen3-4B-Instruct-2507,Qwen/Qwen3-4B-Instruct-2507,3B–<7B,4.0,SU3,summarization,"Summarize the action items: ""Finish the interface by Monday, test the API on Tuesday, and fix critical bugs before Friday.""","- Finish the interface by Monday  
+- Test the API on Tuesday  
+- Fix critical bugs before Friday",1.924,21,10.917,10.0,10.0,10.0,10.0,10.0,ok,
+Qwen3-4B-Instruct-2507,Qwen/Qwen3-4B-Instruct-2507,3B–<7B,4.0,SU4,summarization,"Summarize in no more than 40 words: ""Quizzes account for 15% of the grade, midterms for 40%, and the cumulative final for 45%.""","Quizzes: 15%, Midterms: 40%, Final: 45%.",1.895,21,11.081,10.0,10.0,10.0,10.0,10.0,ok,
+Qwen3-4B-Instruct-2507,Qwen/Qwen3-4B-Instruct-2507,3B–<7B,4.0,SU5,summarization,"Summarize the cause and result: ""The server received too many simultaneous requests, causing slow responses and timeouts. The team added caching and rate limiting, reducing timeouts.""","**Cause:** The server received too many simultaneous requests.  
+**Result:** Slow responses and timeouts; resolved by adding caching and rate limiting, which reduced timeouts.",2.964,33,11.133,10.0,10.0,10.0,10.0,10.0,ok,
+Qwen3-4B-Instruct-2507,Qwen/Qwen3-4B-Instruct-2507,3B–<7B,4.0,RE1,reasoning_estimation,A student studies 2 hours per day for 5 days and then 3 hours on Saturday. How many hours did they study?,"Let's break it down step by step:
+
+- The student studies **2 hours per day for 5 days**:
+  $$
+  2 \text{ hours/day} \times 5 \text{ days} = 10 \text{ hours}
+  $$
+
+- Then, on **Saturday**, they study **3 hours**.
+
+Now, add both amounts:
+$$
+10 \text{ hours} + 3 \text{ hours} = 13 \text{ hours}
+$$
+
+✅ **Answer: 13 hours**.",10.477,116,11.072,10.0,10.0,10.0,10.0,10.0,ok,
+Qwen3-4B-Instruct-2507,Qwen/Qwen3-4B-Instruct-2507,3B–<7B,4.0,RE2,reasoning_estimation,"A project has 4 tasks requiring 2, 3, 5, and 4 hours. If 2 hours of work are completed each day, how many full days are needed?","We are given:
+
+- Tasks requiring: 2, 3, 5, and 4 hours  
+- Work completed each day: 2 hours  
+
+We need to find **how many full days** are needed to complete all the tasks.
+
+---
+
+### Step 1: Total work required
+
+Add up the hours of all tasks:
+
+$$
+2 + 3 + 5 + 4 = 14 \text{ hours}
+$$
+
+---
+
+### Step 2: Work done per day
+
+Each day, 2 hours of work are completed.
+
+So, number of days needed:
+
+$$
+\frac{14 \text{ hours}}{2 \text{ hours/day}} = 7 \text{ days}
+$$
+
+---
+
+### Final Answer:
+
+$$
+\boxed{7}
+$$
+
+So, **7 full days** are needed. ✅",16.048,177,11.03,10.0,10.0,10.0,10.0,10.0,ok,
+Qwen3-4B-Instruct-2507,Qwen/Qwen3-4B-Instruct-2507,3B–<7B,4.0,RE3,reasoning_estimation,"A class has 80 students. If 25% miss a lecture, how many students attended?","We are given:
+
+- Total number of students = 80  
+- 25% miss a lecture
+
+So, the number of students who **miss** the lecture is:
+
+$$
+25\% \text{ of } 80 = \frac{25}{100} \times 80 = 0.25 \times 80 = 20
+$$
+
+Therefore, the number of students who **attended** the lecture is:
+
+$$
+80 - 20 = 60
+$$
+
+### ✅ Answer: **60 students attended**.",11.456,127,11.085,10.0,10.0,10.0,10.0,10.0,ok,
+Qwen3-4B-Instruct-2507,Qwen/Qwen3-4B-Instruct-2507,3B–<7B,4.0,RE4,reasoning_estimation,A model processes 120 tokens in 6 seconds. What is its throughput in tokens per second?,"To find the **throughput** in tokens per second, divide the total number of tokens by the time in seconds:
+
+$$
+\text{Throughput} = \frac{120 \text{ tokens}}{6 \text{ seconds}} = 20 \text{ tokens per second}
+$$
+
+✅ **Answer: 20 tokens per second**.",7.063,77,10.902,10.0,10.0,10.0,10.0,10.0,ok,
+Qwen3-4B-Instruct-2507,Qwen/Qwen3-4B-Instruct-2507,3B–<7B,4.0,RE5,reasoning_estimation,"A student has 12 hours available and 4 assignments requiring 2, 3, 4, and 5 hours. Can all assignments be completed?","We are given:
+
+- The student has **12 hours** available.
+- There are **4 assignments** requiring **2, 3, 4, and 5 hours** respectively.
+
+We need to determine whether **all assignments can be completed** within the 12 hours.
+
+---
+
+### Step 1: Add up the total time required
+
+Total time = 2 + 3 + 4 + 5  
+= 14 hours
+
+### Step 2: Compare with available time
+
+Available time = 12 hours
+
+Since **14 hours > 12 hours**, the student does **not** have enough time to complete all assignments.
+
+---
+
+### ✅ Final Answer:
+**No, all assignments cannot be completed** because they require a total of 14 hours, but only 12 hours are available.",15.604,172,11.023,10.0,10.0,10.0,10.0,10.0,ok,
+Qwen3-4B-Instruct-2507,Qwen/Qwen3-4B-Instruct-2507,3B–<7B,4.0,AH1,ambiguity_handling,"A student says, ""Schedule my study session for next Friday."" What information should you clarify before scheduling?","Before scheduling a study session for next Friday, you should clarify the following key details to ensure the session is effective and meets the student's needs:
+
+1. **Specific Time**: What time of day does the student prefer? (e.g., morning, afternoon, evening)
+
+2. **Duration**: How long should the session be? (e.g., 1 hour, 2 hours)
+
+3. **Subject or Topic**: What subject or topic will be covered? This helps tailor the session to the student’s needs.
+
+4. **Study Goals**: What are the student’s objectives for the session? (e.g., review for an exam, practice problems, understand a concept)
+
+5. **Preferred Location or Format**: Is it in-person, online (via video call), or at a specific location?
+
+6. **Any Constraints or Conflicts**: Are there any classes, meetings, or other commitments that might interfere?
+
+7. **Materials or Resources Needed**: Does the student need specific textbooks, notes, or digital tools?
+
+8. **Preferred Day and Time**: While the student said ""next Friday,"" is it a specific time slot or flexible?
+
+9. **Availability**: Is the student available on the entire day, or only during certain hours?
+
+10. **Any Special",23.217,256,11.026,10.0,10.0,10.0,10.0,10.0,ok,
+Qwen3-4B-Instruct-2507,Qwen/Qwen3-4B-Instruct-2507,3B–<7B,4.0,AH2,ambiguity_handling,"A user asks, ""Which model is best?"" Explain what you need to clarify.","To provide a meaningful and accurate response to the question ""Which model is best?"", I need to clarify a few key details because ""best"" depends heavily on the user's specific needs, context, and goals. Here are the main points I need to understand:
+
+1. **Purpose or Use Case**:  
+   - Are you looking for a model for general knowledge, coding, creative writing, multilingual support, or a specific domain (e.g., healthcare, finance, customer service)?
+
+2. **Task Type**:  
+   - Is the goal to generate text, answer questions, write code, summarize content, translate languages, or perform another function?
+
+3. **Performance Requirements**:  
+   - Do you need high accuracy, speed, or low latency?  
+   - Is it for real-time applications or batch processing?
+
+4. **Constraints**:  
+   - Do you have limitations on cost, size, or computational resources (e.g., running on a mobile device or in a cloud environment)?  
+   - Are there privacy or compliance requirements (e.g., GDPR, HIPAA)?
+
+5. **User Preferences**:  
+   - Do you prefer a model that is more concise, creative, or factual?  
+   - Do you value responsiveness, depth of reasoning, or simplicity?",23.356,256,10.961,10.0,10.0,10.0,10.0,10.0,ok,
+Qwen3-4B-Instruct-2507,Qwen/Qwen3-4B-Instruct-2507,3B–<7B,4.0,AH3,ambiguity_handling,"A student says, ""I need more time for my project."" Respond helpfully without making assumptions.","That's completely understandable—everyone has different paces when working on projects. If you'd like, I can help you break down your project into smaller steps or suggest ways to manage your time more effectively. Just let me know what your project is about or what part you're stuck on!",5.249,59,11.24,10.0,10.0,10.0,10.0,10.0,ok,
+Qwen3-4B-Instruct-2507,Qwen/Qwen3-4B-Instruct-2507,3B–<7B,4.0,AH4,ambiguity_handling,"A user says, ""Remind me before the exam."" What information is missing?","The information missing in the statement ""Remind me before the exam"" is:
+
+**When the exam is** (i.e., the specific date and time).
+
+While the user wants to be reminded, the system or assistant needs to know *when* the exam is scheduled to set a timely reminder. Without this detail, it's impossible to determine when to send the reminder.
+
+Other missing elements could include:
+- The user's preferred time for the reminder (e.g., 1 hour before).
+- The specific subject or context (optional, but helpful for clarity).
+- The user's time zone (if different from the default).
+
+But the most essential missing piece is: **the date and time of the exam.**",13.119,145,11.053,10.0,10.0,10.0,10.0,10.0,ok,
+Qwen3-4B-Instruct-2507,Qwen/Qwen3-4B-Instruct-2507,3B–<7B,4.0,AH5,ambiguity_handling,"A student asks, ""Will I pass this course?"" What information would help estimate this?","To estimate whether a student will pass a course, several key pieces of information would be helpful. Here's a list of relevant factors, categorized for clarity:
+
+### 1. **Academic Performance**
+- Current grades in the course (e.g., average, latest assignment scores)
+- Grade distribution in previous semesters or in similar courses
+- Performance on quizzes, exams, homework, and projects
+- Participation and engagement in class activities
+
+### 2. **Course Requirements and Grading Policy**
+- Final grade breakdown (e.g., 20% exams, 30% homework, 50% project)
+- Pass/fail threshold (e.g., 60% or B average)
+- Weighting of different components (e.g., final exam vs. midterm)
+- Any late penalties or drop policies
+
+### 3. **Student Background and History**
+- Previous academic performance (especially in similar subjects)
+- GPA or academic standing
+- Course difficulty level and prior success in comparable classes
+- Attendance and consistency in class
+
+### 4. **Course-Specific Factors**
+- Instructor’s teaching style and past student outcomes
+- Availability of resources (e.g., office hours, tutoring, study groups)
+- Course workload and time commitment required
+-",23.253,256,11.009,10.0,10.0,10.0,10.0,10.0,ok,

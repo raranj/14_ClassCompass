@@ -1,0 +1,161 @@
+model,model_id,category,params_b,prompt_id,prompt_type,prompt,raw_output,latency_seconds,generated_tokens,tokens_per_second,instruction_adherence,accuracy,clarity,structure,quality_score,status,error
+Mistral-7B-Instruct-v0.3,mistralai/Mistral-7B-Instruct-v0.3,7B–<13B,7.0,SE1,structured_extraction,"Extract the name, date, and location from: ""Maya has a biology exam on November 12 in Lincoln Hall."" Return JSON only.","{
+
+  ""Name"": ""Maya"",
+  ""Date"": ""November 12"",
+  ""Location"": ""Lincoln Hall""
+
+}",2.731,37,13.546,10.0,10.0,10.0,10.0,10.0,ok,
+Mistral-7B-Instruct-v0.3,mistralai/Mistral-7B-Instruct-v0.3,7B–<13B,7.0,SE2,structured_extraction,"Extract the task and deadline from: ""Submit the database project by Friday at 5 PM."" Return JSON only.","{
+
+  ""task"": ""database project"",
+
+  ""deadline"": {
+
+    ""day"": ""Friday"",
+
+    ""time"": ""5 PM""
+
+  }
+
+}",3.447,47,13.634,10.0,10.0,10.0,10.0,10.0,ok,
+Mistral-7B-Instruct-v0.3,mistralai/Mistral-7B-Instruct-v0.3,7B–<13B,7.0,SE3,structured_extraction,"Extract the course, credits, and instructor from: ""CS 124 is a 3-credit course taught by Professor Lee."" Return JSON only.","{
+
+  ""course"": ""CS 124"",
+  ""credits"": ""3"",
+  ""instructor"": ""Professor Lee""
+
+}",2.861,40,13.981,10.0,10.0,10.0,10.0,10.0,ok,
+Mistral-7B-Instruct-v0.3,mistralai/Mistral-7B-Instruct-v0.3,7B–<13B,7.0,SE4,structured_extraction,"Extract the product, quantity, and unit price from: ""I bought 2 notebooks for $6 each."" Return JSON only.","{
+
+  ""product"": ""notebooks"",
+  ""quantity"": 2,
+  ""unit_price"": 6
+
+}",2.48,34,13.709,10.0,10.0,10.0,10.0,10.0,ok,
+Mistral-7B-Instruct-v0.3,mistralai/Mistral-7B-Instruct-v0.3,7B–<13B,7.0,SE5,structured_extraction,"Extract all events and their dates from: ""The workshop is on March 3, and the final presentation is on March 10."" Return JSON only.","{
+
+  ""events"": [
+    {
+      ""name"": ""Workshop"",
+      ""date"": ""March 3""
+    },
+    {
+      ""name"": ""Final Presentation"",
+      ""date"": ""March 10""
+    }
+  ]
+
+}",4.905,69,14.067,10.0,10.0,10.0,10.0,10.0,ok,
+Mistral-7B-Instruct-v0.3,mistralai/Mistral-7B-Instruct-v0.3,7B–<13B,7.0,CL1,classification,"Classify the sentiment as positive, negative, or neutral: ""The lecture was clear and helpful.""",Positive,0.251,3,11.946,10.0,10.0,10.0,10.0,10.0,ok,
+Mistral-7B-Instruct-v0.3,mistralai/Mistral-7B-Instruct-v0.3,7B–<13B,7.0,CL2,classification,"Classify this request as academic, administrative, or personal: ""I need to change my course registration.""",This request can be classified as academic. It pertains to the academic process of enrolling or modifying course registrations within an educational institution.,2.179,30,13.767,10.0,10.0,10.0,10.0,10.0,ok,
+Mistral-7B-Instruct-v0.3,mistralai/Mistral-7B-Instruct-v0.3,7B–<13B,7.0,CL3,classification,"Classify the urgency as low, medium, or high: ""My assignment is due in three weeks.""","The urgency in this situation is low. Three weeks is a significant amount of time, allowing for a reasonable amount of time to complete the assignment.",2.201,31,14.085,10.0,10.0,10.0,10.0,10.0,ok,
+Mistral-7B-Instruct-v0.3,mistralai/Mistral-7B-Instruct-v0.3,7B–<13B,7.0,CL4,classification,"Classify this statement as a fact, opinion, or prediction: ""I think the next exam will be difficult.""","This statement is an opinion. It expresses a personal belief or judgment about the difficulty level of the next exam, which may not be universally shared by others.",2.445,34,13.907,10.0,10.0,10.0,10.0,10.0,ok,
+Mistral-7B-Instruct-v0.3,mistralai/Mistral-7B-Instruct-v0.3,7B–<13B,7.0,CL5,classification,"Classify this activity as review, practice, or new learning: ""I am solving additional problems on a topic I already learned.""","This activity can be classified as ""Practice"". You are reinforcing and strengthening your understanding of a topic you have already learned by solving additional problems related to it.",2.638,37,14.028,10.0,10.0,10.0,10.0,10.0,ok,
+Mistral-7B-Instruct-v0.3,mistralai/Mistral-7B-Instruct-v0.3,7B–<13B,7.0,SU1,summarization,"Summarize in exactly two bullet points: ""Students must complete weekly readings, submit homework every Thursday, attend discussion sections, and complete a final project during the last two weeks.""","- Students are required to complete weekly readings and submit homework every Thursday.
+
+- Attend discussion sections throughout the course and complete a final project during the last two weeks of the course.",2.93,40,13.653,10.0,10.0,10.0,10.0,10.0,ok,
+Mistral-7B-Instruct-v0.3,mistralai/Mistral-7B-Instruct-v0.3,7B–<13B,7.0,SU2,summarization,"Summarize in one sentence: ""Model A was fastest, Model B was most accurate, and Model C used the least memory.""","Model A is the fastest, Model B is the most accurate, and Model C requires the least memory.",1.566,22,14.048,10.0,10.0,10.0,10.0,10.0,ok,
+Mistral-7B-Instruct-v0.3,mistralai/Mistral-7B-Instruct-v0.3,7B–<13B,7.0,SU3,summarization,"Summarize the action items: ""Finish the interface by Monday, test the API on Tuesday, and fix critical bugs before Friday.""","1. Complete the interface by Monday.
+
+2. Test the API on Tuesday.
+
+3. Fix any critical bugs before Friday.",2.319,31,13.371,10.0,10.0,10.0,10.0,10.0,ok,
+Mistral-7B-Instruct-v0.3,mistralai/Mistral-7B-Instruct-v0.3,7B–<13B,7.0,SU4,summarization,"Summarize in no more than 40 words: ""Quizzes account for 15% of the grade, midterms for 40%, and the cumulative final for 45%.""","The grade distribution is as follows: quizzes (15%), midterms (40%), and cumulative final (45%).",2.345,33,14.073,10.0,10.0,10.0,10.0,10.0,ok,
+Mistral-7B-Instruct-v0.3,mistralai/Mistral-7B-Instruct-v0.3,7B–<13B,7.0,SU5,summarization,"Summarize the cause and result: ""The server received too many simultaneous requests, causing slow responses and timeouts. The team added caching and rate limiting, reducing timeouts.""","Cause: The server was overwhelmed with a high number of simultaneous requests, leading to slow responses and timeouts.
+
+Result: The team implemented solutions such as caching and rate limiting, which helped to reduce the number of requests the server had to handle at once, thereby decreasing the occurrence of timeouts and improving response times.",5.066,71,14.016,10.0,10.0,10.0,10.0,10.0,ok,
+Mistral-7B-Instruct-v0.3,mistralai/Mistral-7B-Instruct-v0.3,7B–<13B,7.0,RE1,reasoning_estimation,A student studies 2 hours per day for 5 days and then 3 hours on Saturday. How many hours did they study?,"The student studies for 2 hours each day for 5 days, which is a total of 2 * 5 = 10 hours during the week. On Saturday, they study for 3 hours. So, the total number of hours studied is 10 + 3 = 13 hours.",4.653,65,13.969,10.0,10.0,10.0,10.0,10.0,ok,
+Mistral-7B-Instruct-v0.3,mistralai/Mistral-7B-Instruct-v0.3,7B–<13B,7.0,RE2,reasoning_estimation,"A project has 4 tasks requiring 2, 3, 5, and 4 hours. If 2 hours of work are completed each day, how many full days are needed?","To find out how many full days are needed to complete the project, we first need to determine the total work hours required and the work done each day.
+
+Total work hours = 2 hours (Task 1) + 3 hours (Task 2) + 5 hours (Task 3) + 4 hours (Task 4) = 14 hours
+
+Work done each day = 2 hours
+
+Now, let's calculate the number of days needed to complete the project:
+
+Number of days = Total work hours / Work done each day
+Number of days = 14 hours / 2 hours/day = 7 days
+
+Since we are considering full days, we round up to the nearest whole number:
+
+Number of full days = 8 days
+
+So, it would take 8 full days to complete the project with 2 hours of work done each day.",13.541,192,14.179,10.0,10.0,10.0,10.0,10.0,ok,
+Mistral-7B-Instruct-v0.3,mistralai/Mistral-7B-Instruct-v0.3,7B–<13B,7.0,RE3,reasoning_estimation,"A class has 80 students. If 25% miss a lecture, how many students attended?","To find the number of students who attended, we first need to determine the number of students who missed the lecture. Since 25% of the students missed the lecture, we can calculate this as follows:
+
+Percentage of students who missed = 25%
+Total number of students = 80
+
+Number of students who missed = (Percentage of students who missed * Total number of students) / 100
+                                            = (25 * 80) / 100
+                                            = 20
+
+Now that we know 20 students missed the lecture, we can subtract this from the total number of students to find the number of students who attended:
+
+Number of students who attended = Total number of students - Number of students who missed
+                                                = 80 - 20
+                                                = 60
+
+So, 60 students attended the lecture.",14.487,203,14.012,10.0,10.0,10.0,10.0,10.0,ok,
+Mistral-7B-Instruct-v0.3,mistralai/Mistral-7B-Instruct-v0.3,7B–<13B,7.0,RE4,reasoning_estimation,A model processes 120 tokens in 6 seconds. What is its throughput in tokens per second?,"To find the throughput, we divide the total number of tokens processed by the time taken to process them. In this case, the throughput is 120 tokens / 6 seconds = 20 tokens per second.",3.561,48,13.48,10.0,10.0,10.0,10.0,10.0,ok,
+Mistral-7B-Instruct-v0.3,mistralai/Mistral-7B-Instruct-v0.3,7B–<13B,7.0,RE5,reasoning_estimation,"A student has 12 hours available and 4 assignments requiring 2, 3, 4, and 5 hours. Can all assignments be completed?","To determine if all assignments can be completed, we need to check if the total hours required for the assignments is less than or equal to the total available hours.
+
+The total hours required for the assignments are 2 + 3 + 4 + 5 = 14 hours. Since this is greater than the available hours (12 hours), it is not possible to complete all assignments within the given time frame.
+
+Therefore, the student cannot complete all assignments with the given time constraints.",7.344,104,14.161,10.0,10.0,10.0,10.0,10.0,ok,
+Mistral-7B-Instruct-v0.3,mistralai/Mistral-7B-Instruct-v0.3,7B–<13B,7.0,AH1,ambiguity_handling,"A student says, ""Schedule my study session for next Friday."" What information should you clarify before scheduling?","To schedule a study session, it would be helpful to clarify the following information:
+
+1. Time: What specific time during the day or night would work best for the study session?
+2. Duration: How long should the study session last?
+3. Location: Where will the study session take place? Is it at the library, a study room, or the student's home?
+4. Subject or Topics: What subjects or topics will be covered during the study session?
+5. Study Materials: What materials or resources will be needed for the study session?
+6. Study Group: Will the student be studying alone or with a group? If with a group, who else will be attending?
+7. Goals or Objectives: What are the specific goals or objectives for the study session?
+8. Breaks: Are there any specific breaks planned during the study session?
+9. Follow-up: How will the student review the material after the study session?
+10. Emergency Contacts: Who should be contacted in case of an emergency during the study session?
+
+By clarifying these details, you can ensure that the study session is tailored to the student's needs and that",18.001,256,14.221,10.0,10.0,10.0,10.0,10.0,ok,
+Mistral-7B-Instruct-v0.3,mistralai/Mistral-7B-Instruct-v0.3,7B–<13B,7.0,AH2,ambiguity_handling,"A user asks, ""Which model is best?"" Explain what you need to clarify.","To provide a helpful and accurate response, I need more context to determine the best model being referred to. The term ""model"" can apply to a wide range of things, such as:
+
+1. A mathematical or statistical model used in data analysis or machine learning.
+2. A physical model used in engineering or science, like a car model or a chemical model.
+3. A product model, such as a smartphone model, a car model, or a fashion model.
+4. A software model, like a software application or a software architecture model.
+
+To give a useful answer, it would be helpful to know the specific domain or context in which the user is interested. For example, if they are asking about a car model, I would need to know the criteria they are using to determine ""best,"" such as fuel efficiency, price, reliability, or performance. If they are asking about a machine learning model, I would need to know the specific use case and evaluation metrics.
+
+In summary, to answer the question ""Which model is best?"", I need more context to provide a helpful and accurate response.",16.517,234,14.167,10.0,10.0,10.0,10.0,10.0,ok,
+Mistral-7B-Instruct-v0.3,mistralai/Mistral-7B-Instruct-v0.3,7B–<13B,7.0,AH3,ambiguity_handling,"A student says, ""I need more time for my project."" Respond helpfully without making assumptions.","I understand that you might need more time for your project. It's important to manage your time effectively. Here are a few suggestions:
+
+1. Break down the project into smaller tasks: This can make the project seem less overwhelming and help you focus on one part at a time.
+
+2. Prioritize: Determine which tasks are most crucial for the project's completion and work on those first.
+
+3. Create a schedule: Allocate specific time slots for working on the project. Try to stick to this schedule as much as possible.
+
+4. Seek help if needed: If you're struggling with a particular aspect of the project, don't hesitate to ask for help from your teacher, classmates, or tutors.
+
+5. Take breaks: It's essential to give your brain a rest to avoid burnout. Short breaks can actually improve productivity.
+
+6. Communicate: Let your teacher know about your situation. They might be able to offer extensions or other accommodations.",14.825,215,14.503,9.0,10.0,9.0,9.0,9.25,ok,
+Mistral-7B-Instruct-v0.3,mistralai/Mistral-7B-Instruct-v0.3,7B–<13B,7.0,AH4,ambiguity_handling,"A user says, ""Remind me before the exam."" What information is missing?","The information missing in the user's statement is the specific date, time, and possibly the name of the exam. To provide a helpful reminder, I would need more details. For example, ""Remind me before the Math exam on Monday at 10 AM.""",3.884,56,14.417,10.0,10.0,10.0,10.0,10.0,ok,
+Mistral-7B-Instruct-v0.3,mistralai/Mistral-7B-Instruct-v0.3,7B–<13B,7.0,AH5,ambiguity_handling,"A student asks, ""Will I pass this course?"" What information would help estimate this?","To estimate whether a student will pass a course, several pieces of information can be helpful:
+
+1. Grades or scores from previous assignments, quizzes, or tests: This can provide an indication of the student's current performance level.
+
+2. Attendance records: Regular attendance is often correlated with better academic performance.
+
+3. Homework and class participation: These activities can demonstrate the student's engagement with the course material.
+
+4. Feedback from the instructor: Instructors often have a good sense of a student's understanding of the course material and can provide valuable insights.
+
+5. The student's own self-assessment: The student's perception of their own understanding and effort can also be a useful indicator.
+
+6. The course syllabus: Understanding the weightage of different assessments (e.g., exams, assignments, participation) in the final grade can help estimate the student's potential performance.
+
+7. The student's study habits and time management skills: These factors can significantly impact a student's ability to perform well in a course.
+
+8. The student's past academic performance: A history of good grades in",18.139,256,14.113,10.0,10.0,10.0,10.0,10.0,ok,
