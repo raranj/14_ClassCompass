@@ -1,3 +1,6 @@
+# NOTE:
+Supporting Results: The P1-A7-results/ folder contains the individual model benchmark CSVs, combined benchmark results, model rankings, cost simulation outputs, prompt documentation, and generated plots referenced in this report.
+
 # P1-A7: Multi-Model AI Systems
 ## System Design, Cost Analysis, and Routing Strategy
 
@@ -92,7 +95,7 @@ Qwen2-1.5B-Instruct was a strong speed-quality choice. It achieved an average qu
 
 Mistral-7B-Instruct-v0.3 is the stronger choice when output quality is the primary objective. Qwen2-1.5B-Instruct is a reasonable default for frequent, straightforward requests where response time and compute costs matter.
 
-**Evaluation limitations:** DeepSeek-R1-Distill-Qwen-14B and Qwen3-0.6B have no scored responses in the current results, so their quality cannot be ranked. SmolLM2-360M-Instruct's score is based on 16 responses, not all 25. These gaps should be reported rather than replaced with invented scores. Latency and throughput are benchmark observations and may differ on other hardware or under concurrent production traffic.
+**Evaluation limitations:** DeepSeek-R1-Distill-Qwen-14B and Qwen3-0.6B have no scored responses in the current results, so their quality cannot be ranked. SmolLM2-360M-Instruct's score is based on 16 responses, not all 25. These gaps should be reported rather than replaced with invented scores. Latency and throughput are benchmark observations and may differ on other hardware or under concurrent production traffic. The quality scores were generated through model self-evaluation. Each model assessed its own response for instruction adherence, accuracy, clarity, and structure. Although expected answers were defined for the prompts, they were not directly used by the evaluator. Therefore, the accuracy and overall quality scores should be interpreted as approximate self-assessments rather than independent measurements of correctness. A future improvement would be to compare responses against expected answers or use an independent evaluator.
 
 The quality comparisons use available evaluation scores only. Models with missing scores are excluded from quality rankings, and averages based on fewer than 25 responses may not be directly comparable with fully scored models.
 
