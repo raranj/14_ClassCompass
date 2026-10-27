@@ -1,0 +1,239 @@
+model_14_Qwen3-14B
+model,model_id,category,params_b,prompt_id,prompt_type,prompt,raw_output,latency_seconds,generated_tokens,tokens_per_second,instruction_adherence,accuracy,clarity,structure,quality_score,status,error
+Qwen3-14B,Qwen/Qwen3-14B,13B+,14.0,SE1,structured_extraction,"Extract the name, date, and location from: ""Maya has a biology exam on November 12 in Lincoln Hall."" Return JSON only.","{
+  ""name"": ""Maya"",
+  ""date"": ""November 12"",
+  ""location"": ""Lincoln Hall""
+}",5.137,30,5.84,10,10,10,10,10.0,ok,
+Qwen3-14B,Qwen/Qwen3-14B,13B+,14.0,SE2,structured_extraction,"Extract the task and deadline from: ""Submit the database project by Friday at 5 PM."" Return JSON only.","{
+  ""task"": ""Submit the database project"",
+  ""deadline"": ""Friday at 5 PM""
+}",2.714,24,8.844,10,10,10,10,10.0,ok,
+Qwen3-14B,Qwen/Qwen3-14B,13B+,14.0,SE3,structured_extraction,"Extract the course, credits, and instructor from: ""CS 124 is a 3-credit course taught by Professor Lee."" Return JSON only.","{
+  ""course"": ""CS 124"",
+  ""credits"": 3,
+  ""instructor"": ""Professor Lee""
+}",3.354,30,8.946,10,10,10,10,10.0,ok,
+Qwen3-14B,Qwen/Qwen3-14B,13B+,14.0,SE4,structured_extraction,"Extract the product, quantity, and unit price from: ""I bought 2 notebooks for $6 each."" Return JSON only.","{
+  ""product"": ""notebooks"",
+  ""quantity"": 2,
+  ""unit_price"": 6
+}",2.9,26,8.966,10,10,10,10,10.0,ok,
+Qwen3-14B,Qwen/Qwen3-14B,13B+,14.0,SE5,structured_extraction,"Extract all events and their dates from: ""The workshop is on March 3, and the final presentation is on March 10."" Return JSON only.","{
+  ""events"": [
+    {
+      ""name"": ""The workshop"",
+      ""date"": ""March 3""
+    },
+    {
+      ""name"": ""The final presentation"",
+      ""date"": ""March 10""
+    }
+  ]
+}",5.97,54,9.046,10,10,10,10,10.0,ok,
+Qwen3-14B,Qwen/Qwen3-14B,13B+,14.0,CL1,classification,"Classify the sentiment as positive, negative, or neutral: ""The lecture was clear and helpful.""","The sentiment of the statement **""The lecture was clear and helpful.""** is **positive**. 
+
+Both ""clear"" and ""helpful"" are positive descriptors, indicating that the lecture was well-received and beneficial.",4.906,46,9.377,10,10,10,10,10.0,ok,
+Qwen3-14B,Qwen/Qwen3-14B,13B+,14.0,CL2,classification,"Classify this request as academic, administrative, or personal: ""I need to change my course registration.""","The request ""I need to change my course registration."" is best classified as **administrative**. 
+
+This is because it involves a procedural action related to a student's academic records and course enrollment, which is typically handled through the university or institution's administrative systems.",5.849,54,9.232,10,10,10,10,10.0,ok,
+Qwen3-14B,Qwen/Qwen3-14B,13B+,14.0,CL3,classification,"Classify the urgency as low, medium, or high: ""My assignment is due in three weeks.""","The urgency of ""My assignment is due in three weeks"" would be classified as **low**. 
+
+There is ample time to complete the assignment, so it does not require immediate action.",4.239,39,9.2,10,10,10,10,10.0,ok,
+Qwen3-14B,Qwen/Qwen3-14B,13B+,14.0,CL4,classification,"Classify this statement as a fact, opinion, or prediction: ""I think the next exam will be difficult.""","The statement **""I think the next exam will be difficult""** is a **opinion**.
+
+### Explanation:
+- **Fact**: A statement that can be proven true or false based on evidence or observation.
+- **Opinion**: A statement that reflects a person's beliefs, feelings, or thoughts, and cannot be objectively proven.
+- **Prediction**: A statement about what someone believes will happen in the future, often based on evidence or reasoning.
+
+While the statement does involve a **prediction** about the future (the exam being difficult), the key word here is **""I think""**, which indicates a **personal belief** rather than an objective fact. Therefore, it is best classified as an **opinion**.",15.783,147,9.314,10,6,9,9,8.5,ok,
+Qwen3-14B,Qwen/Qwen3-14B,13B+,14.0,CL5,classification,"Classify this activity as review, practice, or new learning: ""I am solving additional problems on a topic I already learned.""","This activity is classified as **practice**. 
+
+You're applying what you've already learned by solving additional problems, which helps reinforce your understanding and improve your skills.",3.801,34,8.946,10,10,10,10,10.0,ok,
+Qwen3-14B,Qwen/Qwen3-14B,13B+,14.0,SU1,summarization,"Summarize in exactly two bullet points: ""Students must complete weekly readings, submit homework every Thursday, attend discussion sections, and complete a final project during the last two weeks.""","- Students are required to complete weekly readings, submit homework by Thursday, and attend discussion sections throughout the course.  
+- A final project must be completed during the last two weeks of the course.",4.37,40,9.154,10,10,10,10,10.0,ok,
+Qwen3-14B,Qwen/Qwen3-14B,13B+,14.0,SU2,summarization,"Summarize in one sentence: ""Model A was fastest, Model B was most accurate, and Model C used the least memory.""","Model A was the fastest, Model B the most accurate, and Model C the most memory-efficient.",2.372,21,8.855,10,10,10,10,10.0,ok,
+Qwen3-14B,Qwen/Qwen3-14B,13B+,14.0,SU3,summarization,"Summarize the action items: ""Finish the interface by Monday, test the API on Tuesday, and fix critical bugs before Friday.""","Action items summary:
+
+1. **Finish the interface by Monday**  
+2. **Test the API on Tuesday**  
+3. **Fix critical bugs before Friday**",3.817,34,8.907,10,10,10,10,10.0,ok,
+Qwen3-14B,Qwen/Qwen3-14B,13B+,14.0,SU4,summarization,"Summarize in no more than 40 words: ""Quizzes account for 15% of the grade, midterms for 40%, and the cumulative final for 45%.""","Quizzes (15%), midterms (40%), and the final exam (45%) make up the grading breakdown.",2.986,27,9.041,10,10,10,10,10.0,ok,
+Qwen3-14B,Qwen/Qwen3-14B,13B+,14.0,SU5,summarization,"Summarize the cause and result: ""The server received too many simultaneous requests, causing slow responses and timeouts. The team added caching and rate limiting, reducing timeouts.""","**Cause:** The server received too many simultaneous requests.  
+**Result:** Slow responses and timeouts occurred. The team implemented caching and rate limiting, which reduced timeouts.",3.657,34,9.297,10,10,10,10,10.0,ok,
+Qwen3-14B,Qwen/Qwen3-14B,13B+,14.0,RE1,reasoning_estimation,A student studies 2 hours per day for 5 days and then 3 hours on Saturday. How many hours did they study?,"Let's break down the problem step by step:
+
+- The student studies **2 hours per day** for **5 days**:
+  $$
+  2 \text{ hours/day} \times 5 \text{ days} = 10 \text{ hours}
+  $$
+
+- On **Saturday**, the student studies **3 hours**.
+
+Now, add the hours together:
+$$
+10 \text{ hours} + 3 \text{ hours} = 13 \text{ hours}
+$$
+
+### ✅ Final Answer: **13 hours**",12.843,119,9.266,10,10,10,10,10.0,ok,
+Qwen3-14B,Qwen/Qwen3-14B,13B+,14.0,RE2,reasoning_estimation,"A project has 4 tasks requiring 2, 3, 5, and 4 hours. If 2 hours of work are completed each day, how many full days are needed?","We are given:
+
+- Total hours of work:  
+  $ 2 + 3 + 5 + 4 = 14 $ hours
+
+- Hours completed each day:  
+  $ 2 $ hours/day
+
+We need to find how many **full days** are needed to complete the project.
+
+---
+
+### Step-by-step:
+
+$$
+\text{Number of days} = \frac{\text{Total hours}}{\text{Hours per day}} = \frac{14}{2} = 7
+$$
+
+---
+
+### ✅ Final Answer:
+$$
+\boxed{7} \text{ full days}
+$$",14.188,131,9.233,10,10,10,10,10.0,ok,
+Qwen3-14B,Qwen/Qwen3-14B,13B+,14.0,RE3,reasoning_estimation,"A class has 80 students. If 25% miss a lecture, how many students attended?","We are given:
+
+- Total number of students = 80  
+- 25% of them **miss** the lecture
+
+We are asked to find how many **attended** the lecture.
+
+---
+
+### Step 1: Find the number of students who **missed** the lecture
+
+$$
+25\% \text{ of } 80 = 0.25 \times 80 = 20
+$$
+
+---
+
+### Step 2: Subtract the number of students who missed from the total
+
+$$
+80 - 20 = 60
+$$
+
+---
+
+### ✅ Final Answer:
+$$
+\boxed{60}
+$$ students attended the lecture.",15.287,145,9.485,10,10,10,10,10.0,ok,
+Qwen3-14B,Qwen/Qwen3-14B,13B+,14.0,RE4,reasoning_estimation,A model processes 120 tokens in 6 seconds. What is its throughput in tokens per second?,"To find the **throughput** in **tokens per second**, we divide the total number of tokens by the time it takes to process them.
+
+$$
+\text{Throughput} = \frac{\text{Number of tokens}}{\text{Time in seconds}} = \frac{120}{6} = 20
+$$
+
+### ✅ Answer: **20 tokens per second**.",9.174,85,9.266,10,10,10,10,10.0,ok,
+Qwen3-14B,Qwen/Qwen3-14B,13B+,14.0,RE5,reasoning_estimation,"A student has 12 hours available and 4 assignments requiring 2, 3, 4, and 5 hours. Can all assignments be completed?","We are given:
+
+- A student has **12 hours** available.
+- There are **4 assignments** that require **2, 3, 4, and 5 hours** respectively.
+
+We are asked: **Can all assignments be completed?**
+
+---
+
+### Step 1: Add up the total time required for all assignments.
+
+$$
+2 + 3 + 4 + 5 = 14 \text{ hours}
+$$
+
+---
+
+### Step 2: Compare with available time.
+
+The student only has **12 hours** available, but the assignments require **14 hours** in total.
+
+---
+
+### Conclusion:
+
+Since **14 > 12**, the student **does not have enough time** to complete **all** assignments.
+
+---
+
+### ✅ Final Answer:
+**No**, the student **cannot** complete all assignments with only 12 hours available.",19.153,181,9.45,10,10,10,10,10.0,ok,
+Qwen3-14B,Qwen/Qwen3-14B,13B+,14.0,AH1,ambiguity_handling,"A student says, ""Schedule my study session for next Friday."" What information should you clarify before scheduling?","Before scheduling the student's study session for next Friday, you should clarify the following information to ensure the session is arranged properly:
+
+1. **Time of the session**: Ask for a specific time or time range (e.g., morning, afternoon, evening) when the student is available.
+
+2. **Duration**: Determine how long the study session should be (e.g., 1 hour, 2 hours).
+
+3. **Subject or topic**: Find out what subject or topic the student wants to focus on during the session.
+
+4. **Preferred format**: Ask if the student prefers in-person, online (via video call), or another format.
+
+5. **Location (if in-person)**: If the session is in-person, confirm where it should take place.
+
+6. **Any specific goals or materials**: Inquire if the student has particular goals, materials, or resources they want to use during the session.
+
+By gathering this information, you can schedule the session accurately and meet the student's needs effectively.",21.424,203,9.475,10,10,10,10,10.0,ok,
+Qwen3-14B,Qwen/Qwen3-14B,13B+,14.0,AH2,ambiguity_handling,"A user asks, ""Which model is best?"" Explain what you need to clarify.","When a user asks, **""Which model is best?""**, it's important to clarify several factors to provide a meaningful and accurate response. Here's what needs to be clarified:
+
+---
+
+### 1. **What do you mean by ""model""?**
+- Are you referring to **machine learning models** (e.g., decision trees, neural networks, SVMs)?
+- Or are you referring to **pre-trained AI models** (e.g., GPT, BERT, LLaMA, etc.)?
+- Or perhaps **statistical models**, **engineering models**, or something else?
+
+---
+
+### 2. **What is the purpose or use case?**
+- Is the model for **text generation**, **image recognition**, **classification**, **regression**, **natural language understanding**, or something else?
+- What **task** or **problem** are you trying to solve?
+
+---
+
+### 3. **What are your constraints or requirements?**
+- Do you need the model to be **interpretable** or **explainable**?
+- Do you need it to be **fast**, **lightweight**, or **high-accuracy**?
+- Are there **computational limitations** (e.g., mobile devices, embedded systems)?
+- Do you need it to be",27.909,256,9.173,10,10,9,9,9.5,ok,
+Qwen3-14B,Qwen/Qwen3-14B,13B+,14.0,AH3,ambiguity_handling,"A student says, ""I need more time for my project."" Respond helpfully without making assumptions.","Of course, I'm here to help. Could you share a bit more about your project and what you're working on? That way, I can offer the most relevant support.",4.004,37,9.242,9,10,9,9,9.25,ok,
+Qwen3-14B,Qwen/Qwen3-14B,13B+,14.0,AH4,ambiguity_handling,"A user says, ""Remind me before the exam."" What information is missing?","The user's message, **""Remind me before the exam,""** is a request for a reminder, but it lacks **specific details** that would allow the reminder to be set accurately. The missing information includes:
+
+1. **Exam date and time** – When is the exam?
+2. **Exam subject or name** – What is the exam for?
+3. **Preferred reminder time** – How far in advance should the user be reminded? (e.g., 1 hour before, 1 day before, etc.)
+4. **Method of reminder** – Should it be a phone call, text message, email, or app notification?
+
+Without this information, it's not possible to set up an effective reminder. The user would need to provide these details to ensure the reminder is timely and relevant.",17.433,164,9.407,10,10,10,10,10.0,ok,
+Qwen3-14B,Qwen/Qwen3-14B,13B+,14.0,AH5,ambiguity_handling,"A student asks, ""Will I pass this course?"" What information would help estimate this?","To estimate whether a student will pass a course, it's helpful to gather and analyze various pieces of information. Here are the key factors that can be used to make an informed estimate:
+
+### 1. **Current Academic Performance**
+- **Grades in previous courses**, especially in related subjects.
+- **Current grades or progress in the course** (e.g., quiz scores, homework, midterms).
+- **Class participation and engagement**.
+
+### 2. **Attendance and Punctuality**
+- **Regular attendance** is often a strong indicator of commitment.
+- **Punctuality and preparedness** for class.
+
+### 3. **Study Habits and Work Ethic**
+- **Time management skills** (e.g., how much time the student spends studying).
+- **Use of academic resources** (e.g., tutoring, office hours, study groups).
+- **Ability to complete assignments on time**.
+
+### 4. **Personal Circumstances**
+- **Work or family responsibilities** that may impact study time.
+- **Mental and physical health** (e.g., stress, illness).
+- **Personal motivation and goals**.
+
+### 5. **Instructor and Course-Specific Factors**
+- **Difficulty of the course** (e.g.,",27.428,256,9.334,10,9,9,10,9.5,ok,

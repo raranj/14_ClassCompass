@@ -1,0 +1,91 @@
+Local LLM Model Size,Comparable Paid Model (Assumed),Cost of Paid API per Token ($),Daily Traffic Category,Daily Active Users,Avg Tokens per User,Total Token Load per Day,Estimated API Cost (Daily),Machines Required (Customer-Managed API Infrastructure),Total Cost (Daily)
+DeepSeek-R1-Distill-Qwen-14B,DeepSeek-R1-Distill-Qwen-14B,2.9999999999999997e-05,Prototype,1000,500,500000,15.0,Provider-managed,15.0
+DeepSeek-R1-Distill-Qwen-14B,DeepSeek-R1-Distill-Qwen-14B,2.9999999999999997e-05,Early Startup,10000,500,5000000,150.0,Provider-managed,150.0
+DeepSeek-R1-Distill-Qwen-14B,DeepSeek-R1-Distill-Qwen-14B,2.9999999999999997e-05,Growing Product,100000,500,50000000,1500.0,Provider-managed,1500.0
+DeepSeek-R1-Distill-Qwen-14B,DeepSeek-R1-Distill-Qwen-14B,2.9999999999999997e-05,Large Platform,1000000,500,500000000,15000.0,Provider-managed,15000.0
+DeepSeek-R1-Distill-Qwen-14B,DeepSeek-R1-Distill-Qwen-14B,2.9999999999999997e-05,Mass Consumer App,10000000,500,5000000000,150000.0,Provider-managed,150000.0
+DeepSeek-R1-Distill-Qwen-14B,DeepSeek-R1-Distill-Qwen-14B,2.9999999999999997e-05,Global Platform,100000000,500,50000000000,1500000.0,Provider-managed,1500000.0
+Falcon3-7B-Instruct,Falcon3-7B-Instruct,2.9999999999999997e-05,Prototype,1000,500,500000,15.0,Provider-managed,15.0
+Falcon3-7B-Instruct,Falcon3-7B-Instruct,2.9999999999999997e-05,Early Startup,10000,500,5000000,150.0,Provider-managed,150.0
+Falcon3-7B-Instruct,Falcon3-7B-Instruct,2.9999999999999997e-05,Growing Product,100000,500,50000000,1500.0,Provider-managed,1500.0
+Falcon3-7B-Instruct,Falcon3-7B-Instruct,2.9999999999999997e-05,Large Platform,1000000,500,500000000,15000.0,Provider-managed,15000.0
+Falcon3-7B-Instruct,Falcon3-7B-Instruct,2.9999999999999997e-05,Mass Consumer App,10000000,500,5000000000,150000.0,Provider-managed,150000.0
+Falcon3-7B-Instruct,Falcon3-7B-Instruct,2.9999999999999997e-05,Global Platform,100000000,500,50000000000,1500000.0,Provider-managed,1500000.0
+Mistral-7B-Instruct-v0.3,Mistral-7B-Instruct-v0.3,2.9999999999999997e-05,Prototype,1000,500,500000,15.0,Provider-managed,15.0
+Mistral-7B-Instruct-v0.3,Mistral-7B-Instruct-v0.3,2.9999999999999997e-05,Early Startup,10000,500,5000000,150.0,Provider-managed,150.0
+Mistral-7B-Instruct-v0.3,Mistral-7B-Instruct-v0.3,2.9999999999999997e-05,Growing Product,100000,500,50000000,1500.0,Provider-managed,1500.0
+Mistral-7B-Instruct-v0.3,Mistral-7B-Instruct-v0.3,2.9999999999999997e-05,Large Platform,1000000,500,500000000,15000.0,Provider-managed,15000.0
+Mistral-7B-Instruct-v0.3,Mistral-7B-Instruct-v0.3,2.9999999999999997e-05,Mass Consumer App,10000000,500,5000000000,150000.0,Provider-managed,150000.0
+Mistral-7B-Instruct-v0.3,Mistral-7B-Instruct-v0.3,2.9999999999999997e-05,Global Platform,100000000,500,50000000000,1500000.0,Provider-managed,1500000.0
+Phi-3.5-mini-instruct,Phi-3.5-mini-instruct,2.9999999999999997e-05,Prototype,1000,500,500000,15.0,Provider-managed,15.0
+Phi-3.5-mini-instruct,Phi-3.5-mini-instruct,2.9999999999999997e-05,Early Startup,10000,500,5000000,150.0,Provider-managed,150.0
+Phi-3.5-mini-instruct,Phi-3.5-mini-instruct,2.9999999999999997e-05,Growing Product,100000,500,50000000,1500.0,Provider-managed,1500.0
+Phi-3.5-mini-instruct,Phi-3.5-mini-instruct,2.9999999999999997e-05,Large Platform,1000000,500,500000000,15000.0,Provider-managed,15000.0
+Phi-3.5-mini-instruct,Phi-3.5-mini-instruct,2.9999999999999997e-05,Mass Consumer App,10000000,500,5000000000,150000.0,Provider-managed,150000.0
+Phi-3.5-mini-instruct,Phi-3.5-mini-instruct,2.9999999999999997e-05,Global Platform,100000000,500,50000000000,1500000.0,Provider-managed,1500000.0
+Qwen2-1.5B-Instruct,Qwen2-1.5B-Instruct,2.9999999999999997e-05,Prototype,1000,500,500000,15.0,Provider-managed,15.0
+Qwen2-1.5B-Instruct,Qwen2-1.5B-Instruct,2.9999999999999997e-05,Early Startup,10000,500,5000000,150.0,Provider-managed,150.0
+Qwen2-1.5B-Instruct,Qwen2-1.5B-Instruct,2.9999999999999997e-05,Growing Product,100000,500,50000000,1500.0,Provider-managed,1500.0
+Qwen2-1.5B-Instruct,Qwen2-1.5B-Instruct,2.9999999999999997e-05,Large Platform,1000000,500,500000000,15000.0,Provider-managed,15000.0
+Qwen2-1.5B-Instruct,Qwen2-1.5B-Instruct,2.9999999999999997e-05,Mass Consumer App,10000000,500,5000000000,150000.0,Provider-managed,150000.0
+Qwen2-1.5B-Instruct,Qwen2-1.5B-Instruct,2.9999999999999997e-05,Global Platform,100000000,500,50000000000,1500000.0,Provider-managed,1500000.0
+Qwen2.5-0.5B-Instruct,Qwen2.5-0.5B-Instruct,2.9999999999999997e-05,Prototype,1000,500,500000,15.0,Provider-managed,15.0
+Qwen2.5-0.5B-Instruct,Qwen2.5-0.5B-Instruct,2.9999999999999997e-05,Early Startup,10000,500,5000000,150.0,Provider-managed,150.0
+Qwen2.5-0.5B-Instruct,Qwen2.5-0.5B-Instruct,2.9999999999999997e-05,Growing Product,100000,500,50000000,1500.0,Provider-managed,1500.0
+Qwen2.5-0.5B-Instruct,Qwen2.5-0.5B-Instruct,2.9999999999999997e-05,Large Platform,1000000,500,500000000,15000.0,Provider-managed,15000.0
+Qwen2.5-0.5B-Instruct,Qwen2.5-0.5B-Instruct,2.9999999999999997e-05,Mass Consumer App,10000000,500,5000000000,150000.0,Provider-managed,150000.0
+Qwen2.5-0.5B-Instruct,Qwen2.5-0.5B-Instruct,2.9999999999999997e-05,Global Platform,100000000,500,50000000000,1500000.0,Provider-managed,1500000.0
+Qwen2.5-1.5B-Instruct,Qwen2.5-1.5B-Instruct,2.9999999999999997e-05,Prototype,1000,500,500000,15.0,Provider-managed,15.0
+Qwen2.5-1.5B-Instruct,Qwen2.5-1.5B-Instruct,2.9999999999999997e-05,Early Startup,10000,500,5000000,150.0,Provider-managed,150.0
+Qwen2.5-1.5B-Instruct,Qwen2.5-1.5B-Instruct,2.9999999999999997e-05,Growing Product,100000,500,50000000,1500.0,Provider-managed,1500.0
+Qwen2.5-1.5B-Instruct,Qwen2.5-1.5B-Instruct,2.9999999999999997e-05,Large Platform,1000000,500,500000000,15000.0,Provider-managed,15000.0
+Qwen2.5-1.5B-Instruct,Qwen2.5-1.5B-Instruct,2.9999999999999997e-05,Mass Consumer App,10000000,500,5000000000,150000.0,Provider-managed,150000.0
+Qwen2.5-1.5B-Instruct,Qwen2.5-1.5B-Instruct,2.9999999999999997e-05,Global Platform,100000000,500,50000000000,1500000.0,Provider-managed,1500000.0
+Qwen2.5-14B-Instruct,Qwen2.5-14B-Instruct,2.9999999999999997e-05,Prototype,1000,500,500000,15.0,Provider-managed,15.0
+Qwen2.5-14B-Instruct,Qwen2.5-14B-Instruct,2.9999999999999997e-05,Early Startup,10000,500,5000000,150.0,Provider-managed,150.0
+Qwen2.5-14B-Instruct,Qwen2.5-14B-Instruct,2.9999999999999997e-05,Growing Product,100000,500,50000000,1500.0,Provider-managed,1500.0
+Qwen2.5-14B-Instruct,Qwen2.5-14B-Instruct,2.9999999999999997e-05,Large Platform,1000000,500,500000000,15000.0,Provider-managed,15000.0
+Qwen2.5-14B-Instruct,Qwen2.5-14B-Instruct,2.9999999999999997e-05,Mass Consumer App,10000000,500,5000000000,150000.0,Provider-managed,150000.0
+Qwen2.5-14B-Instruct,Qwen2.5-14B-Instruct,2.9999999999999997e-05,Global Platform,100000000,500,50000000000,1500000.0,Provider-managed,1500000.0
+Qwen2.5-3B-Instruct,Qwen2.5-3B-Instruct,2.9999999999999997e-05,Prototype,1000,500,500000,15.0,Provider-managed,15.0
+Qwen2.5-3B-Instruct,Qwen2.5-3B-Instruct,2.9999999999999997e-05,Early Startup,10000,500,5000000,150.0,Provider-managed,150.0
+Qwen2.5-3B-Instruct,Qwen2.5-3B-Instruct,2.9999999999999997e-05,Growing Product,100000,500,50000000,1500.0,Provider-managed,1500.0
+Qwen2.5-3B-Instruct,Qwen2.5-3B-Instruct,2.9999999999999997e-05,Large Platform,1000000,500,500000000,15000.0,Provider-managed,15000.0
+Qwen2.5-3B-Instruct,Qwen2.5-3B-Instruct,2.9999999999999997e-05,Mass Consumer App,10000000,500,5000000000,150000.0,Provider-managed,150000.0
+Qwen2.5-3B-Instruct,Qwen2.5-3B-Instruct,2.9999999999999997e-05,Global Platform,100000000,500,50000000000,1500000.0,Provider-managed,1500000.0
+Qwen2.5-7B-Instruct,Qwen2.5-7B-Instruct,2.9999999999999997e-05,Prototype,1000,500,500000,15.0,Provider-managed,15.0
+Qwen2.5-7B-Instruct,Qwen2.5-7B-Instruct,2.9999999999999997e-05,Early Startup,10000,500,5000000,150.0,Provider-managed,150.0
+Qwen2.5-7B-Instruct,Qwen2.5-7B-Instruct,2.9999999999999997e-05,Growing Product,100000,500,50000000,1500.0,Provider-managed,1500.0
+Qwen2.5-7B-Instruct,Qwen2.5-7B-Instruct,2.9999999999999997e-05,Large Platform,1000000,500,500000000,15000.0,Provider-managed,15000.0
+Qwen2.5-7B-Instruct,Qwen2.5-7B-Instruct,2.9999999999999997e-05,Mass Consumer App,10000000,500,5000000000,150000.0,Provider-managed,150000.0
+Qwen2.5-7B-Instruct,Qwen2.5-7B-Instruct,2.9999999999999997e-05,Global Platform,100000000,500,50000000000,1500000.0,Provider-managed,1500000.0
+Qwen3-0.6B,Qwen3-0.6B,2.9999999999999997e-05,Prototype,1000,500,500000,15.0,Provider-managed,15.0
+Qwen3-0.6B,Qwen3-0.6B,2.9999999999999997e-05,Early Startup,10000,500,5000000,150.0,Provider-managed,150.0
+Qwen3-0.6B,Qwen3-0.6B,2.9999999999999997e-05,Growing Product,100000,500,50000000,1500.0,Provider-managed,1500.0
+Qwen3-0.6B,Qwen3-0.6B,2.9999999999999997e-05,Large Platform,1000000,500,500000000,15000.0,Provider-managed,15000.0
+Qwen3-0.6B,Qwen3-0.6B,2.9999999999999997e-05,Mass Consumer App,10000000,500,5000000000,150000.0,Provider-managed,150000.0
+Qwen3-0.6B,Qwen3-0.6B,2.9999999999999997e-05,Global Platform,100000000,500,50000000000,1500000.0,Provider-managed,1500000.0
+Qwen3-14B,Qwen3-14B,2.9999999999999997e-05,Prototype,1000,500,500000,15.0,Provider-managed,15.0
+Qwen3-14B,Qwen3-14B,2.9999999999999997e-05,Early Startup,10000,500,5000000,150.0,Provider-managed,150.0
+Qwen3-14B,Qwen3-14B,2.9999999999999997e-05,Growing Product,100000,500,50000000,1500.0,Provider-managed,1500.0
+Qwen3-14B,Qwen3-14B,2.9999999999999997e-05,Large Platform,1000000,500,500000000,15000.0,Provider-managed,15000.0
+Qwen3-14B,Qwen3-14B,2.9999999999999997e-05,Mass Consumer App,10000000,500,5000000000,150000.0,Provider-managed,150000.0
+Qwen3-14B,Qwen3-14B,2.9999999999999997e-05,Global Platform,100000000,500,50000000000,1500000.0,Provider-managed,1500000.0
+Qwen3-4B-Instruct-2507,Qwen3-4B-Instruct-2507,2.9999999999999997e-05,Prototype,1000,500,500000,15.0,Provider-managed,15.0
+Qwen3-4B-Instruct-2507,Qwen3-4B-Instruct-2507,2.9999999999999997e-05,Early Startup,10000,500,5000000,150.0,Provider-managed,150.0
+Qwen3-4B-Instruct-2507,Qwen3-4B-Instruct-2507,2.9999999999999997e-05,Growing Product,100000,500,50000000,1500.0,Provider-managed,1500.0
+Qwen3-4B-Instruct-2507,Qwen3-4B-Instruct-2507,2.9999999999999997e-05,Large Platform,1000000,500,500000000,15000.0,Provider-managed,15000.0
+Qwen3-4B-Instruct-2507,Qwen3-4B-Instruct-2507,2.9999999999999997e-05,Mass Consumer App,10000000,500,5000000000,150000.0,Provider-managed,150000.0
+Qwen3-4B-Instruct-2507,Qwen3-4B-Instruct-2507,2.9999999999999997e-05,Global Platform,100000000,500,50000000000,1500000.0,Provider-managed,1500000.0
+SmolLM2-1.7B-Instruct,SmolLM2-1.7B-Instruct,2.9999999999999997e-05,Prototype,1000,500,500000,15.0,Provider-managed,15.0
+SmolLM2-1.7B-Instruct,SmolLM2-1.7B-Instruct,2.9999999999999997e-05,Early Startup,10000,500,5000000,150.0,Provider-managed,150.0
+SmolLM2-1.7B-Instruct,SmolLM2-1.7B-Instruct,2.9999999999999997e-05,Growing Product,100000,500,50000000,1500.0,Provider-managed,1500.0
+SmolLM2-1.7B-Instruct,SmolLM2-1.7B-Instruct,2.9999999999999997e-05,Large Platform,1000000,500,500000000,15000.0,Provider-managed,15000.0
+SmolLM2-1.7B-Instruct,SmolLM2-1.7B-Instruct,2.9999999999999997e-05,Mass Consumer App,10000000,500,5000000000,150000.0,Provider-managed,150000.0
+SmolLM2-1.7B-Instruct,SmolLM2-1.7B-Instruct,2.9999999999999997e-05,Global Platform,100000000,500,50000000000,1500000.0,Provider-managed,1500000.0
+SmolLM2-360M-Instruct,SmolLM2-360M-Instruct,2.9999999999999997e-05,Prototype,1000,500,500000,15.0,Provider-managed,15.0
+SmolLM2-360M-Instruct,SmolLM2-360M-Instruct,2.9999999999999997e-05,Early Startup,10000,500,5000000,150.0,Provider-managed,150.0
+SmolLM2-360M-Instruct,SmolLM2-360M-Instruct,2.9999999999999997e-05,Growing Product,100000,500,50000000,1500.0,Provider-managed,1500.0
+SmolLM2-360M-Instruct,SmolLM2-360M-Instruct,2.9999999999999997e-05,Large Platform,1000000,500,500000000,15000.0,Provider-managed,15000.0
+SmolLM2-360M-Instruct,SmolLM2-360M-Instruct,2.9999999999999997e-05,Mass Consumer App,10000000,500,5000000000,150000.0,Provider-managed,150000.0
+SmolLM2-360M-Instruct,SmolLM2-360M-Instruct,2.9999999999999997e-05,Global Platform,100000000,500,50000000000,1500000.0,Provider-managed,1500000.0

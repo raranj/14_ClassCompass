@@ -1,0 +1,127 @@
+model_13_Qwen2.5-14B-Instruct
+model,model_id,category,params_b,prompt_id,prompt_type,prompt,raw_output,latency_seconds,generated_tokens,tokens_per_second,instruction_adherence,accuracy,clarity,structure,quality_score,status,error
+Qwen2.5-14B-Instruct,Qwen/Qwen2.5-14B-Instruct,13B+,14.0,SE1,structured_extraction,"Extract the name, date, and location from: ""Maya has a biology exam on November 12 in Lincoln Hall."" Return JSON only.","{
+  ""name"": ""Maya"",
+  ""date"": ""November 12"",
+  ""location"": ""Lincoln Hall""
+}",5.317,30,5.642,10,10,10,10,10.0,ok,
+Qwen2.5-14B-Instruct,Qwen/Qwen2.5-14B-Instruct,13B+,14.0,SE2,structured_extraction,"Extract the task and deadline from: ""Submit the database project by Friday at 5 PM."" Return JSON only.","{""task"": ""Submit the database project"", ""deadline"": ""Friday at 5 PM""}",2.301,20,8.692,10,10,10,10,10.0,ok,
+Qwen2.5-14B-Instruct,Qwen/Qwen2.5-14B-Instruct,13B+,14.0,SE3,structured_extraction,"Extract the course, credits, and instructor from: ""CS 124 is a 3-credit course taught by Professor Lee."" Return JSON only.","{
+  ""course"": ""CS 124"",
+  ""credits"": 3,
+  ""instructor"": ""Professor Lee""
+}",3.404,30,8.814,10,10,10,10,10.0,ok,
+Qwen2.5-14B-Instruct,Qwen/Qwen2.5-14B-Instruct,13B+,14.0,SE4,structured_extraction,"Extract the product, quantity, and unit price from: ""I bought 2 notebooks for $6 each."" Return JSON only.","{""product"": ""notebooks"", ""quantity"": 2, ""unit_price"": 6}",2.383,21,8.813,10,10,10,10,10.0,ok,
+Qwen2.5-14B-Instruct,Qwen/Qwen2.5-14B-Instruct,13B+,14.0,SE5,structured_extraction,"Extract all events and their dates from: ""The workshop is on March 3, and the final presentation is on March 10."" Return JSON only.","{
+  ""events"": [
+    {
+      ""event"": ""workshop"",
+      ""date"": ""March 3""
+    },
+    {
+      ""event"": ""final presentation"",
+      ""date"": ""March 10""
+    }
+  ]
+}",5.933,53,8.933,10,10,10,10,10.0,ok,
+Qwen2.5-14B-Instruct,Qwen/Qwen2.5-14B-Instruct,13B+,14.0,CL1,classification,"Classify the sentiment as positive, negative, or neutral: ""The lecture was clear and helpful.""","The sentiment of the sentence ""The lecture was clear and helpful."" is positive. The words ""clear"" and ""helpful"" indicate a favorable opinion about the lecture.",4.094,35,8.55,10,10,10,10,10.0,ok,
+Qwen2.5-14B-Instruct,Qwen/Qwen2.5-14B-Instruct,13B+,14.0,CL2,classification,"Classify this request as academic, administrative, or personal: ""I need to change my course registration.""","The request ""I need to change my course registration"" is classified as an administrative task. It involves managing and updating academic records or schedules, which is typically handled by the institution's administrative processes or departments.",4.871,42,8.623,9,10,8,7,8.5,ok,
+Qwen2.5-14B-Instruct,Qwen/Qwen2.5-14B-Instruct,13B+,14.0,CL3,classification,"Classify the urgency as low, medium, or high: ""My assignment is due in three weeks.""","Based on the statement ""My assignment is due in three weeks,"" the urgency would be classified as low. Since there is still a reasonable amount of time before the deadline, there's no immediate pressure to rush and complete the task right away. However, it's important to start working on it soon to avoid last-minute stress.",7.406,66,8.912,9,8,8,7,8.0,ok,
+Qwen2.5-14B-Instruct,Qwen/Qwen2.5-14B-Instruct,13B+,14.0,CL4,classification,"Classify this statement as a fact, opinion, or prediction: ""I think the next exam will be difficult.""","The statement ""I think the next exam will be difficult"" is a prediction because it expresses an expectation about a future event. It includes a subjective assessment of what might happen in the future, rather than stating something that can be proven true or false at the time of speaking (which would be a fact) or expressing a clear preference or belief without reference to future events (which would be an opinion).",8.991,81,9.009,9,10,8,9,9.0,ok,
+Qwen2.5-14B-Instruct,Qwen/Qwen2.5-14B-Instruct,13B+,14.0,CL5,classification,"Classify this activity as review, practice, or new learning: ""I am solving additional problems on a topic I already learned.""","The activity ""I am solving additional problems on a topic I already learned"" can be classified as practice. This is because you are reinforcing your understanding and skills in an area that you have previously studied, rather than engaging in new learning or reviewing material for the first time.",6.278,55,8.761,10,10,10,10,10.0,ok,
+Qwen2.5-14B-Instruct,Qwen/Qwen2.5-14B-Instruct,13B+,14.0,SU1,summarization,"Summarize in exactly two bullet points: ""Students must complete weekly readings, submit homework every Thursday, attend discussion sections, and complete a final project during the last two weeks.""","- Students are required to complete weekly readings, submit homework on Thursdays, and participate in discussion sections.
+- They must also undertake and finish a final project during the last two weeks of the course.",4.774,41,8.587,9,10,9,8,9.0,ok,
+Qwen2.5-14B-Instruct,Qwen/Qwen2.5-14B-Instruct,13B+,14.0,SU2,summarization,"Summarize in one sentence: ""Model A was fastest, Model B was most accurate, and Model C used the least memory.""","Model A was the fastest, Model B was the most accurate, and Model C utilized the least amount of memory.",2.762,24,8.688,9,10,9,9,9.25,ok,
+Qwen2.5-14B-Instruct,Qwen/Qwen2.5-14B-Instruct,13B+,14.0,SU3,summarization,"Summarize the action items: ""Finish the interface by Monday, test the API on Tuesday, and fix critical bugs before Friday.""","The action items are as follows:
+1. Complete the interface development by Monday.
+2. Conduct API testing on Tuesday.
+3. Resolve all critical bugs before Friday.",3.832,34,8.872,9,10,9,8,9.0,ok,
+Qwen2.5-14B-Instruct,Qwen/Qwen2.5-14B-Instruct,13B+,14.0,SU4,summarization,"Summarize in no more than 40 words: ""Quizzes account for 15% of the grade, midterms for 40%, and the cumulative final for 45%.""","Grades are divided as follows: quizzes 15%, midterms 40%, and final 45%.",3.079,25,8.118,9,10,9,8,9.0,ok,
+Qwen2.5-14B-Instruct,Qwen/Qwen2.5-14B-Instruct,13B+,14.0,SU5,summarization,"Summarize the cause and result: ""The server received too many simultaneous requests, causing slow responses and timeouts. The team added caching and rate limiting, reducing timeouts.""","The cause was an excessive number of simultaneous requests to the server, leading to slow response times and timeouts. To address this issue, the team implemented caching and rate limiting, which helped reduce the occurrence of timeouts.",4.78,43,8.996,9,10,9,8,9.0,ok,
+Qwen2.5-14B-Instruct,Qwen/Qwen2.5-14B-Instruct,13B+,14.0,RE1,reasoning_estimation,A student studies 2 hours per day for 5 days and then 3 hours on Saturday. How many hours did they study?,"The student studies 2 hours per day for 5 days, which totals \(2 \times 5 = 10\) hours. They also study an additional 3 hours on Saturday. Therefore, the total number of hours studied in the week is \(10 + 3 = 13\) hours.",7.287,65,8.92,10,10,9,8,9.25,ok,
+Qwen2.5-14B-Instruct,Qwen/Qwen2.5-14B-Instruct,13B+,14.0,RE2,reasoning_estimation,"A project has 4 tasks requiring 2, 3, 5, and 4 hours. If 2 hours of work are completed each day, how many full days are needed?","To determine the number of full days required to complete all tasks given that 2 hours of work can be completed each day, we first need to calculate the total amount of time required for all tasks.
+
+The total time required for all tasks is:
+\[2 + 3 + 5 + 4 = 14 \text{ hours}\]
+
+Since 2 hours of work are completed each day, we divide the total hours by the daily work capacity:
+\[14 \div 2 = 7\]
+
+Therefore, it will take 7 full days to complete all the tasks if 2 hours of work are done each day.",14.518,130,8.955,9,10,9,8,9.0,ok,
+Qwen2.5-14B-Instruct,Qwen/Qwen2.5-14B-Instruct,13B+,14.0,RE3,reasoning_estimation,"A class has 80 students. If 25% miss a lecture, how many students attended?","If 25% of the students miss the lecture, then 75% of the students attend it because 100% - 25% = 75%.
+
+To find out how many students attended, we calculate 75% of 80:
+
+\[ \text{Number of students who attended} = 80 \times \frac{75}{100} = 80 \times 0.75 = 60 \]
+
+So, 60 students attended the lecture.",12.214,111,9.088,10,10,9,8,9.25,ok,
+Qwen2.5-14B-Instruct,Qwen/Qwen2.5-14B-Instruct,13B+,14.0,RE4,reasoning_estimation,A model processes 120 tokens in 6 seconds. What is its throughput in tokens per second?,"To find the throughput in tokens per second, you can divide the total number of tokens processed by the time it took to process them.
+
+Given:
+- Number of tokens processed = 120
+- Time taken = 6 seconds
+
+Throughput (tokens per second) = Number of tokens / Time taken
+= 120 tokens / 6 seconds
+= 20 tokens/second
+
+So, the throughput of the model is 20 tokens per second.",10.81,98,9.066,10,10,10,10,10.0,ok,
+Qwen2.5-14B-Instruct,Qwen/Qwen2.5-14B-Instruct,13B+,14.0,RE5,reasoning_estimation,"A student has 12 hours available and 4 assignments requiring 2, 3, 4, and 5 hours. Can all assignments be completed?","To determine if all the assignments can be completed within the 12 hours available, we need to add up the time required for each assignment and compare it to the total available time.
+
+The assignments require:
+- 2 hours
+- 3 hours
+- 4 hours
+- 5 hours
+
+Adding these times together:
+
+\[2 + 3 + 4 + 5 = 14\]
+
+The total time required to complete all assignments is 14 hours, but the student only has 12 hours available. Therefore, the student does not have enough time to complete all the assignments.",13.744,124,9.022,9,10,8,9,9.0,ok,
+Qwen2.5-14B-Instruct,Qwen/Qwen2.5-14B-Instruct,13B+,14.0,AH1,ambiguity_handling,"A student says, ""Schedule my study session for next Friday."" What information should you clarify before scheduling?","To effectively schedule a study session for the student, it's important to clarify several pieces of information:
+
+1. **Time Availability**: Ask what time of day works best for them (morning, afternoon, evening) and whether they have any specific time constraints or commitments that need to be considered.
+
+2. **Duration of Study Session**: Determine how long they would like the study session to last. This can range from an hour to several hours depending on their needs and stamina.
+
+3. **Subjects or Topics**: Find out which subjects or topics they plan to focus on during the study session. This will help in organizing the session more effectively and ensuring that all necessary resources are available.
+
+4. **Location Preferences**: Clarify if they prefer to study at home, in a library, or another quiet location. If they're planning to use a specific room or space, make sure it is available at the chosen time.
+
+5. **Study Goals**: Understanding what they hope to achieve during the study session can help tailor the session to their needs. For example, reviewing notes, completing assignments, or preparing for an exam.
+
+6. **Materials Needed**: Confirm if they require any specific materials such as textbooks, notes, computers, or other resources. Ensuring these are accessible beforehand can prevent",28.121,256,9.104,9,10,9,8,9.0,ok,
+Qwen2.5-14B-Instruct,Qwen/Qwen2.5-14B-Instruct,13B+,14.0,AH2,ambiguity_handling,"A user asks, ""Which model is best?"" Explain what you need to clarify.","To provide the most accurate and helpful response, I would need more context about what specific type of model the user is referring to. Models can refer to various things depending on the context, such as:
+
+1. **Machine Learning Models**: If the user is asking about machine learning models, it's important to know the task they're trying to accomplish (e.g., classification, regression, clustering) and any specific requirements or constraints (e.g., speed, accuracy, interpretability).
+
+2. **Statistical Models**: Similarly, if the question pertains to statistical models, knowing the nature of the data and the goal of the analysis would be useful.
+
+3. **Physical Models**: In fields like physics or engineering, models might refer to simulations or theoretical frameworks. Knowing the field and the specific problem would help in providing a relevant answer.
+
+4. **Artistic or Design Models**: If the context is related to art, design, or fashion, the term ""model"" could refer to a prototype, a person who poses for artists, or a conceptual framework used in design processes.
+
+5. **Software Models**: In software development, models can refer to architectural designs, database models, or other types of system representations.
+
+Clarifying these details will help in giving a precise and useful answer",28.349,256,9.03,9,10,8,9,9.0,ok,
+Qwen2.5-14B-Instruct,Qwen/Qwen2.5-14B-Instruct,13B+,14.0,AH3,ambiguity_handling,"A student says, ""I need more time for my project."" Respond helpfully without making assumptions.","Of course! Can you tell me a bit more about your situation? For example, how much time do you currently have and what challenges are you facing that make you think you need more time? This can help in providing the most relevant advice or support.",5.916,52,8.79,9,10,9,8,9.0,ok,
+Qwen2.5-14B-Instruct,Qwen/Qwen2.5-14B-Instruct,13B+,14.0,AH4,ambiguity_handling,"A user says, ""Remind me before the exam."" What information is missing?","To effectively remind the user before an exam, you would need more specific details. The missing information includes:
+
+1. **The date and time of the exam**: Knowing when the exam is scheduled helps in setting up a reminder at the right time.
+2. **Details about the exam**: Information such as the subject or course related to the exam can help tailor the reminder appropriately.
+3. **Preferred method of reminder**: Whether they prefer an email, text message, phone call, or another form of communication.
+4. **How far in advance they want to be reminded**: For example, 15 minutes, 1 hour, or the day before the exam.
+
+Having these details will allow for a more personalized and effective reminder service.",16.488,148,8.976,9,10,9,8,9.0,ok,
+Qwen2.5-14B-Instruct,Qwen/Qwen2.5-14B-Instruct,13B+,14.0,AH5,ambiguity_handling,"A student asks, ""Will I pass this course?"" What information would help estimate this?","To estimate whether the student will pass the course, several pieces of information could be useful:
+
+1. **Current Grade**: Knowing the student's current grade in the course can provide insight into their performance so far.
+2. **Attendance and Participation**: Regular attendance and active participation often correlate with better understanding and higher grades.
+3. **Homework and Assignment Scores**: Consistent high scores on assignments and homework indicate that the student is likely keeping up with the material.
+4. **Exam Performance**: If there have been any exams or quizzes, their performance on these can be indicative of their overall understanding of the course content.
+5. **Study Habits**: Information about how much time the student dedicates to studying and the effectiveness of their study methods can also be relevant.
+6. **Feedback from Instructors or Peers**: Sometimes feedback from teachers or peers can offer insights into areas where the student might need improvement.
+7. **Final Exam Weight**: Understanding how heavily the final exam or project counts towards the final grade can help assess the importance of future performance.
+
+By considering these factors, one can make a more informed guess about the likelihood of passing the course. However, it's important to note that each student's situation is unique, and past performance does not guarantee future results.",27.976,256,9.151,9,10,9,8,9.0,ok,
