@@ -179,8 +179,7 @@ For this comparison, the API provider manages the inference machines. Therefore,
 | Mass Consumer App | 5,000,000,000 | $0.03 | $150,000 |
 | Global Platform | 50,000,000,000 | $0.03 | $1,500,000 |
 
-For the full 90-row comparison, the notebook should use each local model's measured throughput for local machine calculations. The API calculation should use the selected rate assumption consistently unless model-specific provider prices are available. The closest available hosted instruction model should be recorded for each local model rather than assuming every model is offered by every provider.
-The complete API cost simulation also contains 90 model-traffic combinations. Because the $0.03 per 1,000 generated tokens rate is hypothetical, these figures support a consistent comparison rather than a prediction of actual provider charges.
+For the full 90-row comparison, the notebook estimates local hosting costs using each model's measured generation throughput and the stated machine-cost and utilization assumptions. The API estimates use the same assumed rate of $0.03 per 1,000 generated tokens for every model and traffic level. This rate is hypothetical and is not a verified price for any specific hosted model. The comparison should identify a comparable hosted instruction model for each local model where a suitable option can be verified. If no suitable match or provider price has been verified, it should be marked as not verified rather than assumed. Under the managed API assumption, customer-managed inference machines are recorded as 0 or N/A because the provider manages that infrastructure; this does not mean the provider uses no machines.
 
 ### 2.5 Local Hosting vs. API Analysis
 
