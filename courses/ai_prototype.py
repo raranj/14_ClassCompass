@@ -310,3 +310,13 @@ def generate_flashcards(source_text):
             " details."
         ),
     }]
+
+
+def process_syllabus_extraction():
+    return JsonResponse({
+        "status": "success",
+        "model": "",
+        "parsed_data": parsed_data,
+        "latency_seconds": round(latency, 3),
+        "generated_tokens": token_count,
+    })

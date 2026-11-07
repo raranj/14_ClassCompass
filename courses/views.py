@@ -6,6 +6,7 @@ from .ai_prototype import (
     extract_json,
     _model_lock,
     generate_flashcards,
+    process_syllabus_extraction
 )
 import logging
 from django.views.decorators.http import require_POST
@@ -24,7 +25,7 @@ from django.views.generic import (
     DeleteView
 )
 
-from .forms import CourseForm
+from .forms import CourseForm, SyllabusExtractionForm
 from .models import Course, Syllabus, AcademicEvent, StudyTool
 from io import BytesIO
 from django.http import HttpResponse
@@ -841,7 +842,11 @@ def extract_syllabus_view(request):
     POST endpoint that invokes a local Hugging Face
     model to extract assignment information.
     """
-
+    form = SyllabusExtractionForm(body)
+    if not form.is_valid():
+        # Grab the first validation error encountered
+        error_message = list(form.errors.values())[0][0]
+        return JsonResponse({"error": error_message}, status=400)
     if len(request.body) > 12000:
         return JsonResponse(
             {"error": "Request body is too large."},
@@ -892,31 +897,7 @@ def extract_syllabus_view(request):
         )
 
     try:
-        with _model_lock:
-            tokenizer, model = get_model_and_tokenizer()
-
-            prompt = build_prompt(
-                syllabus_text,
-                method=method,
-            )
-
-            raw_output, latency, token_count = generate_text(
-                tokenizer,
-                model,
-                prompt,
-            )
-
-        parsed_data = extract_json(raw_output)
-
-        if parsed_data is None:
-            return JsonResponse(
-                {
-                    "status": "error",
-                    "error": "Model did not return valid assignment JSON.",
-                },
-                status=422,
-            )
-
+        result = process_syllabus_extraction()
         return JsonResponse({
             "status": "success",
             "model": "Qwen/Qwen3-4B-Instruct-2507",
@@ -924,6 +905,8 @@ def extract_syllabus_view(request):
             "latency_seconds": round(latency, 3),
             "generated_tokens": token_count,
         })
+    except ValueError as ve:
+        return JsonResponse({"status": "error", "error": str(ve)}, status=422)
 
     except Exception:
         logger.exception("Local Hugging Face inference failed")
