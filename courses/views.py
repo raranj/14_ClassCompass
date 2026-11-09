@@ -1,10 +1,5 @@
 import json
 from .ai_prototype import (
-    get_model_and_tokenizer,
-    build_prompt,
-    generate_text,
-    extract_json,
-    _model_lock,
     generate_flashcards,
     process_syllabus_extraction
 )
@@ -835,88 +830,64 @@ def syllabus_extractor_page(request):
 
 logger = logging.getLogger(__name__)
 
+
 @login_required
 @require_POST
 def extract_syllabus_view(request):
-    """
-    POST endpoint that invokes a local Hugging Face
-    model to extract assignment information.
-    """
-    form = SyllabusExtractionForm(body)
-    if not form.is_valid():
-        # Grab the first validation error encountered
-        error_message = list(form.errors.values())[0][0]
-        return JsonResponse({"error": error_message}, status=400)
+    #accept syllabus text, validate it, run local AI, and return the extracted assignment as JSON
+
     if len(request.body) > 12000:
-        return JsonResponse(
-            {"error": "Request body is too large."},
-            status=413,
-        )
+        return JsonResponse({
+            "status": "error",
+            "error": "Request body is too large."
+        }, status=413)
 
     try:
         body = json.loads(request.body)
     except (ValueError, UnicodeDecodeError):
-        return JsonResponse(
-            {"error": "Invalid JSON."},
-            status=400,
-        )
+        return JsonResponse({
+            "status": "error",
+            "error": "Invalid JSON."
+        }, status=400)
 
     if not isinstance(body, dict):
-        return JsonResponse(
-            {"error": "Expected a JSON object."},
-            status=400,
-        )
-
-    syllabus_text = body.get("syllabus", "")
-    method = body.get("method", "zero_shot")
-
-    if not isinstance(syllabus_text, str):
-        return JsonResponse(
-            {"error": "Syllabus must be a string."},
-            status=400,
-        )
-
-    syllabus_text = syllabus_text.strip()
-
-    if not syllabus_text:
-        return JsonResponse(
-            {"error": "Syllabus cannot be empty."},
-            status=400,
-        )
-
-    if len(syllabus_text) > 5000:
-        return JsonResponse(
-            {"error": "Maximum 5000 characters allowed."},
-            status=400,
-        )
-
-    if method not in ("zero_shot", "few_shot"):
-        return JsonResponse(
-            {"error": "Invalid prompting method."},
-            status=400,
-        )
+        return JsonResponse({
+            "status": "error",
+            "error": "Expected a JSON object."
+        }, status=400)
+    if not isinstance(body.get("syllabus"), str):
+        return JsonResponse({
+            "status": "error",
+            "error": "Syllabus must be a string."
+        }, status=400)
+    form = SyllabusExtractionForm(body)
+    if not form.is_valid():
+        return JsonResponse({
+            "status": "error",
+            "error": form.errors.get_json_data()
+        }, status=400)
+    syllabus_text = form.cleaned_data["syllabus"].strip()
+    method = form.cleaned_data["method"]
 
     try:
-        result = process_syllabus_extraction()
-        return JsonResponse({
-            "status": "success",
-            "model": "Qwen/Qwen3-4B-Instruct-2507",
-            "parsed_data": parsed_data,
-            "latency_seconds": round(latency, 3),
-            "generated_tokens": token_count,
-        })
-    except ValueError as ve:
-        return JsonResponse({"status": "error", "error": str(ve)}, status=422)
-
-    except Exception:
-        logger.exception("Local Hugging Face inference failed")
-        return JsonResponse(
-            {
-                "status": "error",
-                "error": "Local model inference failed. Check server logs.",
-            },
-            status=500,
+        result = process_syllabus_extraction(
+            syllabus_text,
+            method=method,
         )
+
+        return JsonResponse(result)
+    except ValueError as e:
+        return JsonResponse({
+            "status": "error",
+            "error": str(e)
+        }, status=422)
+    except Exception:
+        logger.exception("AI syllabus extraction failed")
+        return JsonResponse({
+            "status": "error",
+            "error": "Local AI inference failed. Check server logs."
+        }, status=500)
+
 
 
 @login_required

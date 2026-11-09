@@ -13,7 +13,7 @@ os.environ["HF_HUB_DISABLE_PROGRESS_BARS"] = "1"
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
-MODEL_ID = "Qwen/Qwen3-4B-Instruct-2507"
+MODEL_ID = "Qwen/Qwen3-0.6B"
 
 CACHE_DIR = Path(__file__).resolve().parent.parent / "model_cache"
 CACHE_DIR.mkdir(parents=True, exist_ok=True)
@@ -148,6 +148,7 @@ def generate_text(
         messages,
         tokenize=True,
         add_generation_prompt=True,
+        enable_thinking=False,
         return_dict=True,
         return_tensors="pt",
         truncation=True,
@@ -312,11 +313,45 @@ def generate_flashcards(source_text):
     }]
 
 
-def process_syllabus_extraction():
-    return JsonResponse({
+
+def process_syllabus_extraction(syllabus_text, method="zero_shot"):
+    if not isinstance(syllabus_text, str) or not syllabus_text.strip():
+        raise ValueError("Syllabus cannot be empty.")
+    if method not in ("zero_shot", "few_shot"):
+        raise ValueError("Invalid prompting method.")
+
+    #prevent simultaneous model loads/generations.
+    with _model_lock:
+        tokenizer, model = get_model_and_tokenizer()
+        prompt = build_prompt(
+            syllabus_text.strip(),
+            method=method,
+        )
+        raw_output, latency, token_count = generate_text(
+            tokenizer,
+            model,
+            prompt,
+        )
+
+        print("\n===== RAW AI OUTPUT =====")
+        print(repr(raw_output))
+        print("========================\n")
+
+        parsed_data = extract_json(raw_output)
+
+        print("PARSED DATA:", parsed_data)
+    parsed_data = extract_json(raw_output)
+    if parsed_data is None:
+        raise ValueError(
+            "AI model did not return valid assignment JSON."
+        )
+    if not parsed_data.get("assignment"):
+        raise ValueError("No assignment found in syllabus.")
+
+    return {
         "status": "success",
-        "model": "",
+        "model": MODEL_ID,
         "parsed_data": parsed_data,
         "latency_seconds": round(latency, 3),
         "generated_tokens": token_count,
-    })
+    }

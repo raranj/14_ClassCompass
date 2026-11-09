@@ -33,7 +33,7 @@ class SyllabusExtractionForm(forms.Form):
     method = forms.CharField(required=False, initial="zero_shot")
 
     def clean_method(self):
-        method = self.cleaned_data.get("method", "zero_shot")
+        method = self.cleaned_data.get("method") or "zero_shot"
         if method not in ("zero_shot", "few_shot"):
             raise forms.ValidationError("Invalid prompting method.")
         return method
