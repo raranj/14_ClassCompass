@@ -408,7 +408,7 @@ easily. However, if ClassCompass grew and usage became consistent, we could cons
 that it provided similar accuracy and performance at a lower total cost.
 
 
-Assignment 9:
+Assignment 9 part 1 fixes - Laasyasri:
 ### Changes Made
 - Fixed `process_syllabus_extraction()` to properly call the Hugging Face model and parse its output.
 - Fixed Django view logic and form validation for syllabus extraction.

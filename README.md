@@ -12,6 +12,11 @@
 - **GitHub Repository:** https://github.com/raranj/14_ClassCompass
 
 ## Features
+### AI Syllabus Extraction
+
+ClassCompass uses a local Qwen3-0.6B model to extract assignment information from syllabus text. Students can enter their syllabus and the AI identifies the course name, assignment name, due date and estimated hours.
+
+The model runs through Hugging Face without requiring a paid API. Students can review the extracted information on the syllabus extractor page.
 
 ### Course and Workload Management
 - Organize academic course information.
@@ -181,6 +186,23 @@ python manage.py runserver
 Open the local URL printed by Django, typically:
 
 http://127.0.0.1:8000/
+
+### Running the AI Syllabus Extractor
+
+The syllabus extractor uses the Qwen/Qwen3-0.6B model from Hugging Face. The model downloads automatically during the first use and runs locally.
+
+Start Django with the development settings:
+
+```bash
+python manage.py migrate --settings=ClassCompass.settings.development
+python manage.py runserver --settings=ClassCompass.settings.development
+```
+
+After logging in open:
+
+http://127.0.0.1:8000/ai/syllabus-extractor/
+
+Enter syllabus text and select zero-shot or few-shot prompting. The extracted assignment information will appear on the page.
 
 ## Deployment
 
