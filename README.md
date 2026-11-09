@@ -160,7 +160,7 @@ python -m venv .venv
 ### 3. Install dependencies
 
 ```bash
-python -m pip install -r requirements.txt
+python -m pip install -r ClassCompass/settings/requirements.txt
 ```
 
 ### 4. Configure environment variables
