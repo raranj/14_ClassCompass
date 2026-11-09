@@ -406,3 +406,23 @@ with similar capabilities and benchmark whether a single GPU server could handle
 option is cheaper. Overall, we would initially choose a paid API because it requires less maintenance and scales more
 easily. However, if ClassCompass grew and usage became consistent, we could consider local hosting if benchmarks showed
 that it provided similar accuracy and performance at a lower total cost.
+
+
+Assignment 9:
+### Changes Made
+- Fixed `process_syllabus_extraction()` to properly call the Hugging Face model and parse its output.
+- Fixed Django view logic and form validation for syllabus extraction.
+- Switched from Qwen3-4B to Qwen3-0.6B to reduce memory usage and improve local performance.
+- Disabled Qwen's thinking mode to prevent truncated reasoning output and enable structured JSON extraction.
+- Improved error handling for invalid inputs and failed model responses.
+- Updated local development database settings.
+
+### Testing
+- Successfully ran the AI syllabus extractor through the ClassCompass UI.
+- Verified that the model extracts course names, assignment names, and due dates.
+- Recorded an inference time of 13.432 seconds.
+- Identified estimated-hours extraction as an area for improvement.
+
+### Remaining Work
+- Improve extraction accuracy.
+- Complete additional evaluation test cases and documentation for Assignment 9.
