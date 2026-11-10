@@ -458,6 +458,4 @@ We would store embeddings persistently, reuse the same generation model across r
 
 Our experimental results indicate that smaller embedding models and focused chunking strategies can provide good retrieval quality without requiring the largest available models. This makes RAG a practical foundation for adding syllabus-based AI assistance to ClassCompass.
 
-The proposed architecture is a design for future deployment, not a system that we have already implemented or load-tested at this scale.
-
 Check diagram.png for the system diagram. 
