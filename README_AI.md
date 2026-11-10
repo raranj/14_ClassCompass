@@ -51,7 +51,9 @@ Our main goal was to have a model that could correctly identify assignment infor
 
 In A6 we tested 15 Hugging Face models to compare their performance. Qwen3-4B achieved 100% field accuracy and 100% strict JSON compliance for our extraction tests. It performed just as well as some larger models such as Qwen2.5-14B. This showed us that using a larger model did not always improve the results.
 
-We originally selected Qwen3-4B because it gave us accurate results without requiring as many resources as the larger models. However, we later realized that the model was still too large for our local setup during A9.
+We originally selected Qwen3-4B because it gave us accurate results without requiring as many resources as the larger models. However, it was still too large for our local setup during A9.
+
+We also tested Qwen3-0.6B in A6 and it achieved 81.25% field accuracy with an average latency of 5.71 seconds. It returned valid JSON but had 0% strict JSON compliance. We switched to this model for A9 because it required fewer resources and could run on our local computer. We improved its JSON output by disabling thinking mode and changing the extraction prompt.
 
 ### Model Performance and Latency (A7)
 
