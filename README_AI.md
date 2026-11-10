@@ -154,13 +154,15 @@ This course covers stars, galaxies, cosmology, and the evolution of the universe
 
 No assignments or deadlines are listed in this section.
 
-| Test Input | Expected Behavior | Actual Output | Quality Notes | Latency |
-|---|---|---|---|---|
-| CS 225 - Basic Extraction | Extract MP1 with September 15 due date and 6 hours | Correctly extracted all four fields after prompt improvement | Initially missed estimated hours but correctly returned 6 after updating the prompt | 12.363s |
-| ECE 391 - Multiple Assignments | Extract MP1 with September 10 due date and 8 hours | Extracted MP1 with the correct information | Correct for MP1 but did not extract the other assignments | 16.138s |
-| MATH 241 - Missing Hours | Extract Homework 4 and leave estimated hours empty | Correctly returned missing estimated hours | Correct because the syllabus did not provide an estimate | 11.462s |
-| CS 410 - Unstructured Text | Extract Search Engine Implementation with October 21 due date and 10 hours | Correctly extracted all fields | Correct even though the information was written as a paragraph | 9.496s |
+| Test Input | Expected Behavior | Actual Output | Quality Notes | Latency                                                                                                                                                                                                                                                |
+|---|---|---|---|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| CS 225 - Basic Extraction | Extract MP1 with September 15 due date and 6 hours | Correctly extracted all four fields after prompt improvement | Initially missed estimated hours but correctly returned 6 after updating the prompt | 12.363s                                                                                                                                                                                                                                                |
+| ECE 391 - Multiple Assignments | Extract MP1 with September 10 due date and 8 hours | Extracted MP1 with the correct information | Correct for MP1 but did not extract the other assignments | 16.138s                                                                                                                                                                                                                                                |
+| MATH 241 - Missing Hours | Extract Homework 4 and leave estimated hours empty | Correctly returned missing estimated hours | Correct because the syllabus did not provide an estimate | 11.462s                                                                                                                                                                                                                                                |
+| CS 410 - Unstructured Text | Extract Search Engine Implementation with October 21 due date and 10 hours | Correctly extracted all fields | Correct even though the information was written as a paragraph | 9.496s                                                                                                                                                                                                                                                 |
 | ASTRO 350 - No Assignment | Return an error without inventing information | Returned "No assignment found in syllabus" | Correctly handled the missing assignment | Not recorded |
+
+For Astro 350 test, it returned valid JSON but did not identify an assignment. The application returned HTTP 422 because the assignment field was null. The inference time was not displayed because the request ended with an error response.
 
 The successful tests returned the expected JSON structure because the output included the course name, assignment name, due date and estimated hours. Missing information was returned as null instead of making up a value. The ECE 391 test returned valid information but only extracted one assignment because the current model is designed for single assignment extraction.
 

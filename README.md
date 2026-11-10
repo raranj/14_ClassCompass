@@ -66,24 +66,20 @@ The project is organized around a Django application and its supporting configur
 │   ├── settings/
 │   │   ├── base.py
 │   │   ├── development.py
-│   │   └── production.py
+│   │   ├── production.py
+│   │   └── requirements.txt
 │   ├── urls.py
 │   └── wsgi.py
 ├── courses/
+│   ├── ai_prototype.py
 │   ├── views.py
 │   ├── models.py
-│   ├── urls.py
-│   └── ...
+│   └── urls.py
 ├── templates/
-│   └── courses/
-├── data/
-│   └── db.sqlite3
-├── requirements.txt
 ├── manage.py
-└── README.md
+├── README.md
+└── README_AI.md
 ```
-
-*Note: This is a simplified overview. Update the structure if your actual repository uses different filenames or directories.*
 
 ## API Endpoints
 
