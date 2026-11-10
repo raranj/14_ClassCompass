@@ -1,0 +1,62 @@
+Dataset,Number of Chunks,Query,Latency,Retrieved Chunks,Retrieval Quality,Noise,Notes
+Small,22,When are weekly homework assignments due?,0.0927,"Rank 1: ### 8. Grading Policy & Weight Distribution
+Your final course grade will be determined through a weighted combination of homework assignments, quizzes, a mid-semester examination, and a cumulative final examination. Weekly homework assignments account for twenty percent of your final grade. Regular online and in-class quizzes will contribute fifteen percent.
+
+Rank 2: ### 10. Lecture Schedule & Punctuality
+Physics 212 officially meets every Tuesday and Thursday throughout the fall semester. Our lecture and discussion session begins precisely at 12:00 PM and runs for one full hour, concluding at 1:00 PM in Lecture Hall 210. Punctuality is essential, as announcements and critical conceptual introductions typically occur during the first five minutes of class.
+
+Rank 3: Because the semester moves at a rapid pace, missing a single session can create significant gaps in your understanding. Please make every effort to arrive on time, prepared with your textbook, notebook, and calculator for active problem-solving engagement.",0,2,The first ten paragraphs do not include the homework-deadline section; none of the returned chunks states Thursday at noon. All three results are off-topic for the due-date question.
+Small,22,What happens if I submit homework late?,0.1115,"Rank 1: Because the semester moves at a rapid pace, missing a single session can create significant gaps in your understanding. Please make every effort to arrive on time, prepared with your textbook, notebook, and calculator for active problem-solving engagement.
+
+Rank 2: ### 8. Grading Policy & Weight Distribution
+Your final course grade will be determined through a weighted combination of homework assignments, quizzes, a mid-semester examination, and a cumulative final examination. Weekly homework assignments account for twenty percent of your final grade. Regular online and in-class quizzes will contribute fifteen percent.
+
+Rank 3: The instructor reserves the right to apply a curve to overall course grades if examination performance warrants it, though a curve will only ever benefit students and never lower their calculated letter grade. Extra credit assignments are not offered under any circumstances, so students must focus on performing consistently across all regular assessments, homework assignments, and major examinations throughout the semester.",0,2,The small subset excludes the late-submission policy; all three retrieved chunks omit the 20% daily penalty and 72-hour cutoff.
+Small,22,How much of my grade is the final exam worth?,0.126,"Rank 1: The mid-semester examination administered during week eight will count for thirty percent, while the comprehensive final examination during week sixteen will represent the remaining thirty-five percent of your total grade. Letter grades will be assigned based on standard university grading scales, with absolute percentage thresholds outlined in the course syllabus document.
+
+Rank 2: ### 8. Grading Policy & Weight Distribution
+Your final course grade will be determined through a weighted combination of homework assignments, quizzes, a mid-semester examination, and a cumulative final examination. Weekly homework assignments account for twenty percent of your final grade. Regular online and in-class quizzes will contribute fifteen percent.
+
+Rank 3: The instructor reserves the right to apply a curve to overall course grades if examination performance warrants it, though a curve will only ever benefit students and never lower their calculated letter grade. Extra credit assignments are not offered under any circumstances, so students must focus on performing consistently across all regular assessments, homework assignments, and major examinations throughout the semester.",2,1,Rank 1 explicitly states the final exam is worth 35%. The remaining retrieved chunks discuss general grading and a curve rather than the requested percentage.
+Small,22,When and where is the midterm exam?,0.1129,"Rank 1: ### 10. Lecture Schedule & Punctuality
+Physics 212 officially meets every Tuesday and Thursday throughout the fall semester. Our lecture and discussion session begins precisely at 12:00 PM and runs for one full hour, concluding at 1:00 PM in Lecture Hall 210. Punctuality is essential, as announcements and critical conceptual introductions typically occur during the first five minutes of class.
+
+Rank 2: Because the semester moves at a rapid pace, missing a single session can create significant gaps in your understanding. Please make every effort to arrive on time, prepared with your textbook, notebook, and calculator for active problem-solving engagement.
+
+Rank 3: The mid-semester examination administered during week eight will count for thirty percent, while the comprehensive final examination during week sixteen will represent the remaining thirty-five percent of your total grade. Letter grades will be assigned based on standard university grading scales, with absolute percentage thresholds outlined in the course syllabus document.",1,1,"The retrieved grading chunk identifies Week 8, and the lecture schedule gives Thursday at noon in Hall 210, but no returned chunk directly ties the midterm to that time and place."
+Small,22,When does the instructor hold office hours?,0.1138,"Rank 1: ### 3. Instructor Information & Office Hours
+Your instructor for this semester is Dr. Alexander Vance, Professor of Physics. Office hours will be held every Tuesday and Thursday afternoon following class, as well as by appointment in Room 402 of the Science and Engineering Building.
+
+Rank 2: ### 10. Lecture Schedule & Punctuality
+Physics 212 officially meets every Tuesday and Thursday throughout the fall semester. Our lecture and discussion session begins precisely at 12:00 PM and runs for one full hour, concluding at 1:00 PM in Lecture Hall 210. Punctuality is essential, as announcements and critical conceptual introductions typically occur during the first five minutes of class.
+
+Rank 3: Because the semester moves at a rapid pace, missing a single session can create significant gaps in your understanding. Please make every effort to arrive on time, prepared with your textbook, notebook, and calculator for active problem-solving engagement.",2,1,"Rank 1 explicitly states Tuesday and Thursday afternoons after class and appointments in Room 402. Ranks 2–3 are lecture-schedule material, not office-hours information."
+Large,63,When are weekly homework assignments due?,0.0939,"Rank 1: To reinforce classroom learning, there will be exactly one major homework assignment due every week. In strict accordance with course guidelines, these assignments are always due on Thursday right before class begins, specifically at 12:00 PM. Please note that weekly assignments are explicitly excluded during the first week of the semester and the final week of the semester.
+
+Rank 2: All homework must be submitted digitally through the online portal or handed in physically as instructed. Late submissions will incur a severe penalty of twenty percent per day late, and no homework will be accepted more than seventy-two hours past the original deadline.
+
+Rank 3: The exam occurs during our regular Thursday class time slot at 12:00 PM in Lecture Hall 210, with no separate homework assignment due this week as students focus their efforts on exam preparation and comprehensive review.",2,1,Rank 1 gives Thursday at 12:00 PM and the first/final-week exceptions. Rank 2 adds late penalties; Rank 3 is related to an exam-week exception but is not needed for the deadline.
+Large,63,What happens if I submit homework late?,0.1101,"Rank 1: All homework must be submitted digitally through the online portal or handed in physically as instructed. Late submissions will incur a severe penalty of twenty percent per day late, and no homework will be accepted more than seventy-two hours past the original deadline.
+
+Rank 2: To reinforce classroom learning, there will be exactly one major homework assignment due every week. In strict accordance with course guidelines, these assignments are always due on Thursday right before class begins, specifically at 12:00 PM. Please note that weekly assignments are explicitly excluded during the first week of the semester and the final week of the semester.
+
+Rank 3: Because the semester moves at a rapid pace, missing a single session can create significant gaps in your understanding. Please make every effort to arrive on time, prepared with your textbook, notebook, and calculator for active problem-solving engagement.",2,1,Rank 1 gives the 20%-per-day penalty and 72-hour cutoff. Rank 2 adds general homework timing; Rank 3 is unrelated lecture-attendance advice.
+Large,63,How much of my grade is the final exam worth?,0.1332,"Rank 1: The mid-semester examination administered during week eight will count for thirty percent, while the comprehensive final examination during week sixteen will represent the remaining thirty-five percent of your total grade. Letter grades will be assigned based on standard university grading scales, with absolute percentage thresholds outlined in the course syllabus document.
+
+Rank 2: ### 8. Grading Policy & Weight Distribution
+Your final course grade will be determined through a weighted combination of homework assignments, quizzes, a mid-semester examination, and a cumulative final examination. Weekly homework assignments account for twenty percent of your final grade. Regular online and in-class quizzes will contribute fifteen percent.
+
+Rank 3: Like the midterm, the final exam will evaluate both conceptual reasoning and advanced quantitative problem-solving capabilities. Preparing for this exam requires a systematic review of all past homework assignments, mid-term corrections, and lecture notes. Success on this final exam is critical, as it accounts for thirty-five percent of your overall course grade.",2,1,"Ranks 1 and 3 both state the final exam is worth 35%; Rank 2 supplies general grading context. Some redundancy, but the answer is easy to find."
+Large,63,When and where is the midterm exam?,0.109,"Rank 1: The exam occurs during our regular Thursday class time slot at 12:00 PM in Lecture Hall 210, with no separate homework assignment due this week as students focus their efforts on exam preparation and comprehensive review.
+
+Rank 2: ### 12. Mid-Term Examination Guidelines
+To evaluate your mastery of the first half of the semester, a major mid-term examination will be administered during Week 8 of the term. This exam will take place during our regular Thursday class time slot at 12:00 PM in Lecture Hall 210.
+
+Rank 3: The midterm will cover all concepts introduced from Week 1 through Week 7, including electrostatic forces, electric fields, Gauss's law, electric potential, capacitance, and direct current circuits. Students are permitted to bring one hand-written formula sheet and a non-programmable scientific calculator. Make-up exams will only be granted in cases of documented medical emergencies or official university-sanctioned absences.",2,0,"Rank 2 explicitly gives Week 8, Thursday at 12:00 PM, Lecture Hall 210. Ranks 1 and 3 also concern the midterm; little irrelevant information."
+Large,63,When does the instructor hold office hours?,0.1109,"Rank 1: ### 3. Instructor Information & Office Hours
+Your instructor for this semester is Dr. Alexander Vance, Professor of Physics. Office hours will be held every Tuesday and Thursday afternoon following class, as well as by appointment in Room 402 of the Science and Engineering Building.
+
+Rank 2: ### 10. Lecture Schedule & Punctuality
+Physics 212 officially meets every Tuesday and Thursday throughout the fall semester. Our lecture and discussion session begins precisely at 12:00 PM and runs for one full hour, concluding at 1:00 PM in Lecture Hall 210. Punctuality is essential, as announcements and critical conceptual introductions typically occur during the first five minutes of class.
+
+Rank 3: The exam occurs during our regular Thursday class time slot at 12:00 PM in Lecture Hall 210, with no separate homework assignment due this week as students focus their efforts on exam preparation and comprehensive review.",2,1,"Rank 1 correctly gives the office-hours schedule and Room 402. Rank 2 is tangentially related lecture timing, and Rank 3 is unrelated midterm material."

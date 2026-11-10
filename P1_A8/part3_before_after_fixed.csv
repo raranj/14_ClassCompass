@@ -1,0 +1,16 @@
+Version,Query,Prompt,Retrieved Chunks,Answer,Answer Quality,Notes
+Before,When and where is the midterm exam?,Original prompt,"Rank 1 | Score 0.6136
+The exam occurs during our regular Thursday class time slot at 12:00 PM in Lecture Hall 210, with no separate homework assignment due this week as students focus their efforts on exam preparation and comprehensive review.
+
+Rank 2 | Score 0.6101
+### 12. Mid-Term Examination Guidelines
+To evaluate your mastery of the first half of the semester, a major mid-term examination will be administered during Week 8 of the term. This exam will take place during our regular Thursday class time slot at 12:00 PM in Lecture Hall 210.
+
+Rank 3 | Score 0.5243
+The midterm will cover all concepts introduced from Week 1 through Week 7, including electrostatic forces, electric fields, Gauss's law, electric potential, capacitance, and direct current circuits. Students are permitted to bring one hand-written formula sheet and a non-programmable scientific calculator. Make-up exams will only be granted in cases of documented medical emergencies or official university-sanctioned absences.",The midterm exam is on Thursday at 12:00 PM in Lecture Hall 210.,1.0,
+After,When and where is the midterm exam?,Improved scheduling prompt,"The exam occurs during our regular Thursday class time slot at 12:00 PM in Lecture Hall 210, with no separate homework assignment due this week as students focus their efforts on exam preparation and comprehensive review.
+
+### 12. Mid-Term Examination Guidelines
+To evaluate your mastery of the first half of the semester, a major mid-term examination will be administered during Week 8 of the term. This exam will take place during our regular Thursday class time slot at 12:00 PM in Lecture Hall 210.
+
+The midterm will cover all concepts introduced from Week 1 through Week 7, including electrostatic forces, electric fields, Gauss's law, electric potential, capacitance, and direct current circuits. Students are permitted to bring one hand-written formula sheet and a non-programmable scientific calculator. Make-up exams will only be granted in cases of documented medical emergencies or official university-sanctioned absences.","In Week 8, the midterm exam is on Thursday at 12:00 PM in Lecture Hall 210.",2.0,Added validation to include Week 8 when supported by retrieved context.
