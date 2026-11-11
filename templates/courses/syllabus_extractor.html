@@ -15,6 +15,39 @@
     <form id="extract-form">
         {% csrf_token %}
 
+        <div style="
+            border: 2px dashed #94a3b8;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: center;
+            background: #f8fafc;
+        ">
+
+            <h3>Upload Your Syllabus</h3>
+
+            <p>
+                Choose a PDF, Word document, or HTML file.
+            </p>
+
+            <input
+                type="file"
+                id="syllabus-file"
+                name="syllabus_file"
+                accept=".pdf,.docx,.html,.htm"
+                style="max-width: 100%;"
+            >
+
+            <p style="font-size: 13px; color: #64748b;">
+                Supported: PDF, DOCX, HTML | Maximum: 5 MB
+            </p>
+
+        </div>
+
+        <p style="text-align:center; font-weight:bold;">
+            OR paste syllabus text below
+        </p>
+
         <label for="syllabus">
             Paste syllabus text:
         </label>
@@ -23,7 +56,6 @@
             id="syllabus"
             rows="7"
             maxlength="20000"
-            required
             style="width: 100%;"
             placeholder="CS 225: MP1 is due September 5, 2026. Estimated time: 6 hours."
         ></textarea>
@@ -261,21 +293,39 @@ form.addEventListener("submit", async function(event) {
     ).value;
 
     try {
-        const response = await fetch(
-            "{% url 'courses:extract_calendar_events' %}",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRFToken": csrfToken
-                },
-                credentials: "same-origin",
-                body: JSON.stringify({
-                    syllabus: document.getElementById("syllabus").value,
-                    method: document.getElementById("method").value
-                })
-            }
+        const fileInput = document.getElementById("syllabus-file");
+        const syllabusText = document.getElementById("syllabus").value.trim();
+
+        if (!fileInput.files.length && !syllabusText) {
+            throw new Error(
+                "Upload a syllabus file or paste syllabus text."
+            );
+        }
+
+        const formData = new FormData();
+
+        formData.append(
+            "method",
+            document.getElementById("method").value
         );
+
+        if (fileInput.files.length) {
+            formData.append("syllabus_file", fileInput.files[0]);
+        } else {
+            formData.append("syllabus", syllabusText);
+        }
+
+    const response = await fetch(
+        "{% url 'courses:extract_calendar_events' %}",
+        {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": csrfToken
+            },
+            credentials: "same-origin",
+            body: formData
+        }
+    );
 
         const data = await response.json();
 

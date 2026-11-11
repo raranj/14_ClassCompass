@@ -10,51 +10,52 @@ from django.views.decorators.http import require_POST
 
 from .calendar_ai import extract_calendar_events, validate_event
 from .models import AcademicEvent, Course
+from .syllabus_files import extract_syllabus_file
+
 
 
 @login_required
 @require_POST
 def extract_all_events(request):
-    """
-    Extract calendar events from syllabus text using
-    the local Hugging Face model.
-    """
     try:
-        if len(request.body) > 25000:
-            return JsonResponse(
-                {
-                    "status": "error",
-                    "error": "Input is too large."
-                },
-                status=413
-            )
-
-        data = json.loads(request.body)
-
-        if not isinstance(data, dict):
-            raise ValueError("Invalid request.")
-
-        syllabus = data.get("syllabus", "")
-        method = data.get("method", "zero_shot")
-
+        uploaded_file = request.FILES.get("syllabus_file")
+        if uploaded_file:
+            syllabus = extract_syllabus_file(uploaded_file)
+            method = request.POST.get("method", "zero_shot")
+        else:
+            content_type = request.content_type or ""
+            if content_type.startswith("application/json"):
+                if len(request.body) > 25000:
+                    return JsonResponse(
+                        {
+                            "status": "error",
+                            "error": "Input is too large."
+                        },
+                        status=413
+                    )
+                data = json.loads(request.body)
+                if not isinstance(data, dict):
+                    raise ValueError("Invalid request.")
+                syllabus = data.get("syllabus", "")
+                method = data.get("method", "zero_shot")
+            else:
+                syllabus = request.POST.get("syllabus", "")
+                method = request.POST.get("method", "zero_shot")
         if not isinstance(syllabus, str) or not syllabus.strip():
-            raise ValueError("Syllabus cannot be empty.")
-
+            raise ValueError(
+                "Paste syllabus text or upload a supported file."
+            )
         if len(syllabus) > 20000:
             raise ValueError(
                 "Maximum 20,000 characters allowed."
             )
-
         if method not in ("zero_shot", "few_shot"):
             raise ValueError("Invalid prompting method.")
-
         result = extract_calendar_events(
             syllabus,
             method=method
         )
-
         return JsonResponse(result)
-
     except json.JSONDecodeError:
         return JsonResponse(
             {
@@ -63,7 +64,6 @@ def extract_all_events(request):
             },
             status=400
         )
-
     except (ValueError, TypeError) as exc:
         return JsonResponse(
             {
@@ -72,12 +72,11 @@ def extract_all_events(request):
             },
             status=400
         )
-
     except Exception:
         return JsonResponse(
             {
                 "status": "error",
-                "error": "AI extraction failed. Please try again."
+                "error": "Syllabus extraction failed."
             },
             status=500
         )
@@ -280,6 +279,65 @@ def save_calendar_events(request):
                 except IntegrityError:
                     # Handle a database uniqueness conflict.
                     skipped_count += 1
+        has_office_hours = any(
+            event["event_type"] == "office_hours"
+            for event, hours, start, end in prepared_events
+        )
+        if has_office_hours:
+            office_events = AcademicEvent.objects.filter(
+                course=course,
+                event_type="office_hours",
+                repeats_weekly=True,
+            ).exclude(weekday="")
+            weekday_order = {
+                "monday": 0,
+                "tuesday": 1,
+                "wednesday": 2,
+                "thursday": 3,
+                "friday": 4,
+                "saturday": 5,
+                "sunday": 6,
+            }
+            office_events = sorted(
+                office_events,
+                key=lambda e: (
+                    weekday_order.get(e.weekday.lower(), 7),
+                    e.start_time or datetime.min.time(),
+                )
+            )
+            lines = []
+            for office_event in office_events:
+                day = office_event.weekday.capitalize()
+                if office_event.start_time:
+                    start_label = office_event.start_time.strftime(
+                        "%I:%M %p"
+                    ).lstrip("0")
+                    if office_event.end_time:
+                        end_label = office_event.end_time.strftime(
+                            "%I:%M %p"
+                        ).lstrip("0")
+                        schedule = (
+                            f"{day}: {start_label} - {end_label}"
+                        )
+                    else:
+                        schedule = f"{day}: {start_label}"
+                else:
+                    schedule = day
+                if schedule not in lines:
+                    lines.append(schedule)
+            marker = "AI-EXTRACTED OFFICE HOURS:"
+            existing = course.office_hours or ""
+            manual_text = existing.split(marker, 1)[0].strip()
+            if lines:
+                generated_text = (
+                        marker + "\n" + "\n".join(lines)
+                )
+                course.office_hours = (
+                    manual_text + "\n\n" + generated_text
+                    if manual_text
+                    else generated_text
+                )
+                course.save(update_fields=["office_hours"])
 
         return JsonResponse({
             "status": "success",

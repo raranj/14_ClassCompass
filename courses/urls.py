@@ -78,10 +78,6 @@ urlpatterns = [
          views.redirect_root_view,
          name="root"
     ),
-    path("study-tools/",
-         views.StudyToolListView.as_view(),
-         name="study_tool_list"
-    ),
 
     path(
         "calendar/",

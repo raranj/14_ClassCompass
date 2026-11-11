@@ -70,7 +70,7 @@
 
                 <p>
                     {% if course.office_hours %}
-                    {{ course.office_hours }}
+                    {{ course.office_hours|linebreaksbr }}
                     {% else %}
                     Not provided
                     {% endif %}

@@ -196,36 +196,78 @@ def validate_event(event):
     }
 
 
+
 def find_event_source(event, syllabus_text):
-    """
-    Find a source line supporting the extracted event.
-    """
-    title = event["title"].lower()
-    lines = syllabus_text.splitlines()
+    title = str(event.get("title") or "").strip()
+    event_date = event.get("date")
+    lines = [
+        line.strip()
+        for line in syllabus_text.splitlines()
+        if line.strip()
+    ]
 
-    for line in lines:
-        lower = line.lower()
+    def dates_in_line(line):
+        found = set()
 
-        if title in lower:
-            return line
+        for match in re.finditer(
+            r"\b\d{4}-\d{2}-\d{2}\b",
+            line
+        ):
+            found.add(match.group(0))
 
-        # Match MP1 with Machine Problem 1
+        for match in re.finditer(
+            r"\b(?:January|February|March|April|May|June|"
+            r"July|August|September|October|November|December)"
+            r"\s+\d{1,2},?\s+\d{4}\b",
+            line,
+            re.IGNORECASE
+        ):
+            date_text = match.group(0).replace(",", "")
+
+            try:
+                date_value = datetime.strptime(
+                    date_text.title(), "%B %d %Y"
+                ).date()
+                found.add(date_value.isoformat())
+            except ValueError:
+                pass
+
+        return found
+    generic_titles = {
+        "assignment", "homework", "exam",
+        "quiz", "lab", "project", "event"
+    }
+    if title.lower() not in generic_titles:
+        for line in lines:
+            if title.lower() in line.lower():
+                return line
         mp = re.search(
             r"(?:machine problem|mp)\s*(\d+)",
             title,
             re.IGNORECASE
         )
-
         if mp:
-            source_mp = re.search(
-                r"\bmp\s*(\d+)\b",
-                lower
-            )
+            for line in lines:
+                source_mp = re.search(
+                    r"\b(?:machine problem|mp)\s*(\d+)\b",
+                    line,
+                    re.IGNORECASE
+                )
+                if (
+                    source_mp
+                    and source_mp.group(1) == mp.group(1)
+                ):
+                    return line
+    if event_date:
+        matching_lines = [
+            line for line in lines
+            if event_date in dates_in_line(line)
+        ]
 
-            if source_mp and source_mp.group(1) == mp.group(1):
-                return line
-
+        if len(matching_lines) == 1:
+            return matching_lines[0]
     return None
+
 
 
 def correct_event_from_source(event, syllabus_text):
@@ -253,7 +295,6 @@ def correct_event_from_source(event, syllabus_text):
         event["date"] = parsed.date().isoformat()
     else:
         event["date"] = None
-    # Extract actual workload estimates.
     hours_match = re.search(
         r"(\d+(?:\.\d+)?)\s*(?:hours|hrs)\b",
         source,
@@ -265,13 +306,8 @@ def correct_event_from_source(event, syllabus_text):
         )
     else:
         event["estimated_hours"] = None
-    # Explicit time written as "at 7:00 PM".
-
-    # Clear unsupported AI-generated time values.
     event["time"] = None
     event["end_time"] = None
-
-    # Read times directly from the source line.
     time_matches = list(re.finditer(
         r"\b(\d{1,2})(?::(\d{2}))?\s*(AM|PM)\b",
         source,
@@ -295,6 +331,46 @@ def correct_event_from_source(event, syllabus_text):
         if len(time_matches) > 1:
             event["end_time"] = format_time(time_matches[1])
     lower = source.lower()
+    generic_titles = {
+        "assignment", "homework", "exam",
+        "quiz", "lab", "project", "event"
+    }
+    if str(event.get("title", "")).strip().lower() in generic_titles:
+        source_title = re.split(
+            r"\b(?:January|February|March|April|May|June|"
+            r"July|August|September|October|November|December)"
+            r"\s+\d{1,2},?\s+\d{4}\b"
+            r"|\b\d{4}-\d{2}-\d{2}\b",
+            str(source),
+            maxsplit=1,
+            flags=re.IGNORECASE
+        )[0]
+        source_title = re.sub(
+            r"\bDue\s*:?\s*$",
+            "",
+            source_title,
+            flags=re.IGNORECASE
+        )
+        source_title = source_title.strip(" :-–—|")
+        if source_title and len(source_title) <= 120:
+            event["title"] = source_title
+
+    # Infer type from the original syllabus,
+    # rather than blindly trusting Qwen.
+    if re.search(r"\b(presentation|team demo)\b", lower):
+        event["event_type"] = "presentation"
+    elif re.search(r"\b(lab|laboratory)\b", lower):
+        event["event_type"] = "lab"
+    elif re.search(r"\b(exam|midterm|final exam)\b", lower):
+        event["event_type"] = "exam"
+    elif re.search(r"\bquiz\b", lower):
+        event["event_type"] = "quiz"
+    elif re.search(r"\bproject\b", lower):
+        event["event_type"] = "project"
+    elif re.search(
+            r"\b(homework|assignment|machine problem)\b", lower
+    ):
+        event["event_type"] = "assignment"
     if "office hours" in lower:
         event["event_type"] = "office_hours"
         event["date"] = None
@@ -413,7 +489,12 @@ One quiz event and one weekly office hours event.
 
                     # Then validate the corrected values.
                     valid_event = validate_event(corrected)
-
+                    print(
+                        "CORRECTED:",
+                        valid_event["title"],
+                        valid_event["event_type"],
+                        valid_event["date"]
+                    )
                     print("ACCEPTED:", valid_event["title"])
 
                 except (ValueError, TypeError, KeyError) as exc:
