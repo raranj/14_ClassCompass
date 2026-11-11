@@ -1,7 +1,7 @@
 from django.urls import path
 
 from . import views
-
+from . import calendar_views
 
 app_name = "courses"
 
@@ -161,5 +161,7 @@ urlpatterns = [
     ),
     path('api/extract-syllabus/', views.extract_syllabus_view, name='extract_syllabus'),
     path("ai/syllabus-extractor/", views.syllabus_extractor_page, name="syllabus_extractor_page",),
-
+    path("api/extract-calendar-events/", calendar_views.extract_all_events, name="extract_calendar_events"),
+    path("api/save-calendar-events/", calendar_views.save_calendar_events, name="save_calendar_events"),
+    path("api/extract-calendar-events/", calendar_views.extract_all_events, name="extract_calendar_events",),
 ]

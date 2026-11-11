@@ -97,6 +97,7 @@ class AcademicEvent(models.Model):
         ("presentation", "Presentation"),
         ("discussion", "Discussion"),
         ("lab", "Lab"),
+        ("office_hours", "Office Hours"),
         ("other", "Other"),
     ]
 
@@ -124,6 +125,10 @@ class AcademicEvent(models.Model):
     scheduled_at = models.DateTimeField(null=True, blank=True)
     end_at = models.DateTimeField(null=True, blank=True)
     all_day = models.BooleanField(default=False)
+    repeats_weekly = models.BooleanField(default=False)
+    weekday = models.CharField(max_length=10, blank=True, default="")
+    start_time = models.TimeField(null=True, blank=True)
+    end_time = models.TimeField(null=True, blank=True)
     estimated_hours = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     estimate_source = models.CharField(max_length=10, choices=ESTIMATE_SOURCE_CHOICES, default="unknown")
     source = models.CharField(max_length=10, choices=SOURCE_CHOICES, default="manual")
@@ -131,10 +136,6 @@ class AcademicEvent(models.Model):
 
     class Meta:
         ordering = ["scheduled_at", "title"]
-
-        constraints = [
-            models.UniqueConstraint(fields=["course", "title", "event_type"], name="unique_event_per_course")
-        ]
 
     def __str__(self):
         return f"{self.course.course_code}: {self.title}"

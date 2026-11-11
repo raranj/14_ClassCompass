@@ -3,18 +3,149 @@
 {% block title %}Calendar | ClassCompass{% endblock %}
 
 {% block content %}
-    <h2>Calendar</h2>
-    <h3>Event Chart</h3>
-    <p>The below chart shows the number of academic events scheduled for each date.</p>
-    <div class="container">
-        <img src="{% url 'courses:event_chart' %}" alt="Academic Events Bar Chart" style="max-width: 100%; height: auto;">
+
+<div style="max-width:1150px; margin:30px auto;">
+
+    <div style="display:flex; justify-content:space-between;
+                align-items:center; flex-wrap:wrap; gap:15px;">
+
+        <h2>Academic Calendar</h2>
+
+        <a href="{% url 'courses:syllabus_extractor_page' %}">
+            Extract Events from Syllabus
+        </a>
+
     </div>
 
+    <div style="display:flex; align-items:center;
+                justify-content:space-between; margin:20px 0;">
+
+        <a href="?month={{ previous_month }}">
+            &larr; Previous
+        </a>
+
+        <h3>{{ month_label }}</h3>
+
+        <a href="?month={{ next_month }}">
+            Next &rarr;
+        </a>
+
+    </div>
+
+    <div style="overflow-x:auto;">
+
+        <table style="width:100%; min-width:700px;
+                      border-collapse:collapse;
+                      table-layout:fixed;">
+
+            <thead>
+                <tr>
+                    <th>Mon</th>
+                    <th>Tue</th>
+                    <th>Wed</th>
+                    <th>Thu</th>
+                    <th>Fri</th>
+                    <th>Sat</th>
+                    <th>Sun</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for week in weeks %}
+                <tr>
+                    {% for day in week %}
+
+                    <td style="
+                        vertical-align:top;
+                        height:120px;
+                        border:1px solid #ddd;
+                        padding:8px;
+                        {% if not day.in_month %}
+                            background:#f1f5f9;
+                        {% endif %}
+                    ">
+
+                        <strong>
+                            {{ day.date|date:"j" }}
+                        </strong>
+
+                        {% for event in day.events %}
+
+                        <div style="
+                            margin-top:5px;
+                            padding:6px;
+                            border-radius:5px;
+                            background:#dbeafe;
+                            font-size:12px;
+                            overflow-wrap:anywhere;
+                        ">
+
+                            <a href="{% url 'courses:event_detail' event.pk %}"
+                               style="color:#1e3a8a;">
+
+                                <strong>
+                                    {{ event.title }}
+                                </strong>
+
+                            </a>
+
+                            <div>
+                                {{ event.course.course_code }}
+                            </div>
+
+                            <div>
+                                {{ event.get_event_type_display }}
+                            </div>
+
+                            {% if event.repeats_weekly %}
+                                {% if event.start_time %}
+                                    {{ event.start_time|time:"g:i A" }}
+                                {% endif %}
+
+                                {% if event.end_time %}
+                                    -
+                                    {{ event.end_time|time:"g:i A" }}
+                                {% endif %}
+
+                            {% elif event.scheduled_at and not event.all_day %}
+                                {{ event.scheduled_at|time:"g:i A" }}
+                            {% endif %}
+
+                        </div>
+
+                        {% endfor %}
+
+                    </td>
+
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+
+    <h3 style="margin-top:30px;">Events Without Dates</h3>
+
     <ul>
-        {% for event in events %}
-            <li>{{ event.title }} — {{ event.scheduled_at }}</li>
+        {% for event in unscheduled_events %}
+            <li>
+                <a href="{% url 'courses:event_detail' event.pk %}">
+                    {{ event.title }}
+                </a>
+                — {{ event.course.course_code }}
+            </li>
         {% empty %}
-            <li>No events scheduled yet.</li>
+            <li>No undated events.</li>
         {% endfor %}
     </ul>
+
+    <p style="margin-top:20px;">
+        <a href="{% url 'courses:event_create' %}">
+            + Add Event Manually
+        </a>
+    </p>
+
+</div>
+
 {% endblock %}
