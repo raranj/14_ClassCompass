@@ -1,4 +1,3 @@
-
 {% extends "base.html" %}
 
 {% block title %}AI Syllabus Extractor | ClassCompass{% endblock %}
@@ -10,12 +9,44 @@
     <h2>AI Syllabus Extractor</h2>
 
     <p>
-        Extract assignment details using our local
-        .
+        Extract assignments, quizzes, exams, office hours, and other events using our local Qwen AI model.
     </p>
 
     <form id="extract-form">
         {% csrf_token %}
+
+        <div style="
+            border: 2px dashed #94a3b8;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: center;
+            background: #f8fafc;
+        ">
+
+            <h3>Upload Your Syllabus</h3>
+
+            <p>
+                Choose a PDF, Word document, or HTML file.
+            </p>
+
+            <input
+                type="file"
+                id="syllabus-file"
+                name="syllabus_file"
+                accept=".pdf,.docx,.html,.htm"
+                style="max-width: 100%;"
+            >
+
+            <p style="font-size: 13px; color: #64748b;">
+                Supported: PDF, DOCX, HTML | Maximum: 5 MB
+            </p>
+
+        </div>
+
+        <p style="text-align:center; font-weight:bold;">
+            OR paste syllabus text below
+        </p>
 
         <label for="syllabus">
             Paste syllabus text:
@@ -24,8 +55,7 @@
         <textarea
             id="syllabus"
             rows="7"
-            maxlength="5000"
-            required
+            maxlength="20000"
             style="width: 100%;"
             placeholder="CS 225: MP1 is due September 5, 2026. Estimated time: 6 hours."
         ></textarea>
@@ -42,7 +72,7 @@
         <br><br>
 
         <button type="submit" id="submit-btn">
-            Extract Assignment
+            Extract Class Info
         </button>
     </form>
 
@@ -55,37 +85,195 @@
 
     <div id="results" style="display:none; margin-top:30px;">
 
-        <h3>Extracted Assignment</h3>
+    <h3>Extracted Calendar Events</h3>
 
-        <p><strong>Course:</strong> <span id="course"></span></p>
+    <p>
+        <strong>Course:</strong>
+        <span id="course"></span>
+    </p>
 
-        <p><strong>Assignment:</strong> <span id="assignment"></span></p>
+    <p>
+        <strong>Events found:</strong>
+        <span id="event-count"></span>
+    </p>
 
-        <p><strong>Due Date:</strong> <span id="due_date"></span></p>
+    <div style="overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse;">
 
-        <p><strong>Estimated Hours:</strong> <span id="hours"></span></p>
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox"
+                               id="select-all"
+                               checked>
+                    </th>
+                    <th>Event</th>
+                    <th>Type</th>
+                    <th>Date / Schedule</th>
+                    <th>Time</th>
+                    <th>Est. Hours</th>
+                </tr>
+            </thead>
 
-        <hr>
+            <tbody id="events-table"></tbody>
 
-        <p><strong>Model:</strong> <span id="model"></span></p>
+        </table>
+    </div>
 
-        <p><strong>Inference Time:</strong> <span id="latency"></span></p>
+    <p id="selection-count"></p>
 
-        <p><strong>Generated Tokens:</strong> <span id="tokens"></span></p>
+    <div style="margin: 20px 0;">
+        <label for="course-select">
+            <strong>Add selected events to:</strong>
+        </label>
 
-        <p>
-            Review AI-generated information before
-            adding it to your calendar.
-        </p>
+        <select id="course-select" style="margin: 10px;">
+            <option value="">Select a course</option>
+            {% for course in user_courses %}
+                <option value="{{ course.id }}">
+                    {{ course.course_code }} -
+                    {{ course.course_name }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <button type="button" id="save-events-btn">
+            Add Selected Events to Calendar
+        </button>
+
+        <p id="save-status" role="status"></p>
+    </div>
+
+
+    <hr>
+
+    <p>
+        <strong>Model:</strong>
+        <span id="model"></span>
+    </p>
+
+    <p>
+        <strong>Inference Time:</strong>
+        <span id="latency"></span>
+    </p>
+
+    <p>
+        <strong>Generated Tokens:</strong>
+        <span id="tokens"></span>
+    </p>
+
+    <p>
+        Review the extracted dates, times, and event types
+        before adding them to your calendar.
+    </p>
 
     </div>
 
 </div>
 
 <script>
-document.getElementById("extract-form")
-    .addEventListener("submit", async function(event) {
+let extractedEvents = [];
 
+const form = document.getElementById("extract-form");
+const tableBody = document.getElementById("events-table");
+const selectAll = document.getElementById("select-all");
+const selectionCount = document.getElementById("selection-count");
+
+function updateSelectionCount() {
+    const checkboxes = tableBody.querySelectorAll(
+        'input[type="checkbox"]'
+    );
+
+    const selected = Array.from(checkboxes).filter(
+        checkbox => checkbox.checked
+    ).length;
+
+    selectionCount.textContent =
+        `${selected} of ${checkboxes.length} events selected`;
+
+    selectAll.checked =
+        checkboxes.length > 0 && selected === checkboxes.length;
+
+    selectAll.indeterminate =
+        selected > 0 && selected < checkboxes.length;
+}
+
+function addCell(row, value) {
+    const cell = document.createElement("td");
+
+    cell.textContent = value ?? "Not specified";
+    cell.style.padding = "10px";
+    cell.style.borderBottom = "1px solid #ddd";
+
+    row.appendChild(cell);
+    return cell;
+}
+
+function renderEvents(events) {
+    tableBody.replaceChildren();
+
+    events.forEach((event, index) => {
+        const row = document.createElement("tr");
+
+        const checkboxCell = document.createElement("td");
+        checkboxCell.style.padding = "10px";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.className = "event-checkbox";
+        checkbox.dataset.index = index;
+        checkbox.checked = true;
+        checkbox.addEventListener(
+            "change",
+            updateSelectionCount
+        );
+
+        checkboxCell.appendChild(checkbox);
+        row.appendChild(checkboxCell);
+
+        addCell(row, event.title);
+        addCell(row, event.event_type);
+
+        let schedule = event.date || "Date not specified";
+
+        if (event.repeats_weekly) {
+            schedule = `Every ${event.weekday || "unspecified day"}`;
+        }
+
+        addCell(row, schedule);
+
+        let time = event.time || "Not specified";
+
+        if (event.time && event.end_time) {
+            time = `${event.time} - ${event.end_time}`;
+        }
+
+        addCell(row, time);
+
+        addCell(
+            row,
+            event.estimated_hours == null
+                ? "Not specified"
+                : event.estimated_hours
+        );
+
+        tableBody.appendChild(row);
+    });
+
+    updateSelectionCount();
+}
+
+selectAll.addEventListener("change", function() {
+    tableBody.querySelectorAll(
+        'input[type="checkbox"]'
+    ).forEach(checkbox => {
+        checkbox.checked = selectAll.checked;
+    });
+
+    updateSelectionCount();
+});
+
+form.addEventListener("submit", async function(event) {
     event.preventDefault();
 
     const button = document.getElementById("submit-btn");
@@ -97,56 +285,74 @@ document.getElementById("extract-form")
     loading.style.display = "block";
     error.textContent = "";
     results.style.display = "none";
+    extractedEvents = [];
+    tableBody.replaceChildren();
 
     const csrfToken = document.querySelector(
         '[name=csrfmiddlewaretoken]'
     ).value;
 
     try {
-        const response = await fetch(
-            "{% url 'courses:extract_syllabus' %}",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRFToken": csrfToken
-                },
-                credentials: "same-origin",
-                body: JSON.stringify({
-                    syllabus: document.getElementById("syllabus").value,
-                    method: document.getElementById("method").value
-                })
-            }
+        const fileInput = document.getElementById("syllabus-file");
+        const syllabusText = document.getElementById("syllabus").value.trim();
+
+        if (!fileInput.files.length && !syllabusText) {
+            throw new Error(
+                "Upload a syllabus file or paste syllabus text."
+            );
+        }
+
+        const formData = new FormData();
+
+        formData.append(
+            "method",
+            document.getElementById("method").value
         );
+
+        if (fileInput.files.length) {
+            formData.append("syllabus_file", fileInput.files[0]);
+        } else {
+            formData.append("syllabus", syllabusText);
+        }
+
+    const response = await fetch(
+        "{% url 'courses:extract_calendar_events' %}",
+        {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": csrfToken
+            },
+            credentials: "same-origin",
+            body: formData
+        }
+    );
 
         const data = await response.json();
 
         if (!response.ok || data.status !== "success") {
-            throw new Error(data.error || "Extraction failed.");
+            throw new Error(
+                data.error || "Calendar extraction failed."
+            );
         }
 
-        const parsed = data.parsed_data;
+        extractedEvents = data.events || [];
 
         document.getElementById("course").textContent =
-            parsed.course ?? "Not found";
+            data.course || "Not found";
 
-        document.getElementById("assignment").textContent =
-            parsed.assignment ?? "Not found";
-
-        document.getElementById("due_date").textContent =
-            parsed.due_date ?? "Not found";
-
-        document.getElementById("hours").textContent =
-            parsed.estimated_hours ?? "Not found";
+        document.getElementById("event-count").textContent =
+            extractedEvents.length;
 
         document.getElementById("model").textContent =
-            data.model;
+            data.model || "Unknown";
 
         document.getElementById("latency").textContent =
-            data.latency_seconds + " seconds";
+            `${data.latency_seconds} seconds`;
 
         document.getElementById("tokens").textContent =
-            data.generated_tokens;
+            data.generated_tokens ?? "Unknown";
+
+        renderEvents(extractedEvents);
 
         results.style.display = "block";
 
@@ -157,6 +363,94 @@ document.getElementById("extract-form")
         loading.style.display = "none";
     }
 });
+
+document.getElementById("save-events-btn")
+    .addEventListener("click", async function() {
+
+    const courseId =
+        document.getElementById("course-select").value;
+
+    const status =
+        document.getElementById("save-status");
+
+    const button = this;
+    status.textContent = "";
+
+    if (!courseId) {
+        status.textContent = "Please select a course first.";
+        return;
+    }
+
+    const selectedEvents = Array.from(
+        document.querySelectorAll(
+            "#events-table .event-checkbox:checked"
+        )
+    ).map(checkbox => {
+        const index = Number(checkbox.dataset.index);
+        return extractedEvents[index];
+    });
+
+    if (selectedEvents.length === 0) {
+        status.textContent = "Select at least one event.";
+        return;
+    }
+
+    const csrfToken = document.querySelector(
+        '[name=csrfmiddlewaretoken]'
+    ).value;
+
+    button.disabled = true;
+    button.textContent = "Saving...";
+
+    try {
+        const response = await fetch(
+            "{% url 'courses:save_calendar_events' %}",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": csrfToken
+                },
+                credentials: "same-origin",
+                body: JSON.stringify({
+                    course_id: courseId,
+                    events: selectedEvents
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok || data.status !== "success") {
+            throw new Error(data.error || "Saving failed.");
+        }
+
+        status.textContent =
+            `Saved ${data.created} events. ` +
+            `${data.skipped} duplicates skipped.`;
+
+        // Open the calendar at the first dated event's month.
+        const dated = selectedEvents
+            .filter(event => event.date)
+            .map(event => event.date)
+            .sort();
+
+        const month = dated.length
+            ? `?month=${dated[0].slice(0, 7)}`
+            : "";
+
+        window.location.href =
+            "{% url 'courses:calendar' %}" + month;
+
+    } catch (error) {
+        status.textContent = error.message;
+    } finally {
+        button.disabled = false;
+        button.textContent = "Add Selected Events to Calendar";
+    }
+});
+
 </script>
+
 
 {% endblock %}

@@ -3,18 +3,313 @@
 {% block title %}Calendar | ClassCompass{% endblock %}
 
 {% block content %}
-    <h2>Calendar</h2>
-    <h3>Event Chart</h3>
-    <p>The below chart shows the number of academic events scheduled for each date.</p>
-    <div class="container">
-        <img src="{% url 'courses:event_chart' %}" alt="Academic Events Bar Chart" style="max-width: 100%; height: auto;">
+
+<style>
+    /* Calendar event cards */
+    .calendar-event {
+        margin-top: 5px;
+        padding: 7px;
+        border-radius: 6px;
+        font-size: 12px;
+        overflow-wrap: anywhere;
+        border-left: 4px solid;
+    }
+
+    .calendar-event a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .calendar-event a:hover {
+        text-decoration: underline;
+    }
+
+    /* Event type colors */
+
+    /* Homework / Assignments */
+    .calendar-event--assignment {
+        background: #dbeafe;
+        color: #1e40af;
+        border-color: #2563eb;
+    }
+
+    /* Exams */
+    .calendar-event--exam {
+        background: #fee2e2;
+        color: #991b1b;
+        border-color: #dc2626;
+    }
+
+    /* Quizzes */
+    .calendar-event--quiz {
+        background: #fef3c7;
+        color: #92400e;
+        border-color: #d97706;
+    }
+
+    /* Labs */
+    .calendar-event--lab {
+        background: #d1fae5;
+        color: #065f46;
+        border-color: #059669;
+    }
+
+    /* Projects */
+    .calendar-event--project {
+        background: #ede9fe;
+        color: #5b21b6;
+        border-color: #7c3aed;
+    }
+
+    /* Office Hours */
+    .calendar-event--office_hours {
+        background: #cffafe;
+        color: #155e75;
+        border-color: #0891b2;
+    }
+
+    /* Presentations */
+    .calendar-event--presentation {
+        background: #fce7f3;
+        color: #9d174d;
+        border-color: #db2777;
+    }
+
+    /* Readings */
+    .calendar-event--reading {
+        background: #ffedd5;
+        color: #9a3412;
+        border-color: #ea580c;
+    }
+
+    /* Discussions */
+    .calendar-event--discussion {
+        background: #e0e7ff;
+        color: #3730a3;
+        border-color: #4f46e5;
+    }
+
+    /* Other events */
+    .calendar-event--other {
+        background: #f1f5f9;
+        color: #334155;
+        border-color: #64748b;
+    }
+
+    /* Calendar color key */
+    .calendar-legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 20px;
+        margin: 20px 0;
+        padding: 15px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+    }
+
+    .legend-dot {
+        width: 14px;
+        height: 14px;
+        border-radius: 4px;
+        flex-shrink: 0;
+    }
+</style>
+
+<div style="max-width:1150px; margin:30px auto;">
+
+    <div style="display:flex; justify-content:space-between;
+                align-items:center; flex-wrap:wrap; gap:15px;">
+
+        <h2>Academic Calendar</h2>
+
+        <a href="{% url 'courses:syllabus_extractor_page' %}">
+            Extract Events from Syllabus
+        </a>
+
+    <div class="calendar-legend">
+
+        <div class="legend-item">
+            <span class="legend-dot" style="background:#2563eb;"></span>
+            Homework
+        </div>
+
+        <div class="legend-item">
+            <span class="legend-dot" style="background:#dc2626;"></span>
+            Exams
+        </div>
+
+        <div class="legend-item">
+            <span class="legend-dot" style="background:#d97706;"></span>
+            Quizzes
+        </div>
+
+        <div class="legend-item">
+            <span class="legend-dot" style="background:#059669;"></span>
+            Labs
+        </div>
+
+        <div class="legend-item">
+            <span class="legend-dot" style="background:#7c3aed;"></span>
+            Projects
+        </div>
+
+        <div class="legend-item">
+            <span class="legend-dot" style="background:#0891b2;"></span>
+            Office Hours
+        </div>
+
+        <div class="legend-item">
+            <span class="legend-dot" style="background:#db2777;"></span>
+            Presentations
+        </div>
+
+        <div class="legend-item">
+            <span class="legend-dot" style="background:#ea580c;"></span>
+            Readings
+        </div>
+
+        <div class="legend-item">
+            <span class="legend-dot" style="background:#4f46e5;"></span>
+            Discussions
+        </div>
+
+        <div class="legend-item">
+            <span class="legend-dot" style="background:#64748b;"></span>
+            Other
+        </div>
+
     </div>
 
+
+    </div>
+
+    <div style="display:flex; align-items:center;
+                justify-content:space-between; margin:20px 0;">
+
+        <a href="?month={{ previous_month }}">
+            &larr; Previous
+        </a>
+
+        <h3>{{ month_label }}</h3>
+
+        <a href="?month={{ next_month }}">
+            Next &rarr;
+        </a>
+
+    </div>
+
+    <div style="overflow-x:auto;">
+
+        <table style="width:100%; min-width:700px;
+                      border-collapse:collapse;
+                      table-layout:fixed;">
+
+            <thead>
+                <tr>
+                    <th>Mon</th>
+                    <th>Tue</th>
+                    <th>Wed</th>
+                    <th>Thu</th>
+                    <th>Fri</th>
+                    <th>Sat</th>
+                    <th>Sun</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for week in weeks %}
+                <tr>
+                    {% for day in week %}
+
+                    <td style="
+                        vertical-align:top;
+                        height:120px;
+                        border:1px solid #ddd;
+                        padding:8px;
+                        {% if not day.in_month %}
+                            background:#f1f5f9;
+                        {% endif %}
+                    ">
+
+                        <strong>
+                            {{ day.date|date:"j" }}
+                        </strong>
+
+                        {% for event in day.events %}
+
+                        <div class="calendar-event calendar-event--{{ event.event_type }}">
+                            <a href="{% url 'courses:event_detail' event.pk %}">
+
+                                <strong>
+                                    {{ event.title }}
+                                </strong>
+
+                            </a>
+
+                            <div>
+                                {{ event.course.course_code }}
+                            </div>
+
+                            <div>
+                                {{ event.get_event_type_display }}
+                            </div>
+
+                            {% if event.repeats_weekly %}
+                                {% if event.start_time %}
+                                    {{ event.start_time|time:"g:i A" }}
+                                {% endif %}
+
+                                {% if event.end_time %}
+                                    -
+                                    {{ event.end_time|time:"g:i A" }}
+                                {% endif %}
+
+                            {% elif event.scheduled_at and not event.all_day %}
+                                {{ event.scheduled_at|time:"g:i A" }}
+                            {% endif %}
+
+                        </div>
+
+                        {% endfor %}
+
+                    </td>
+
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+
+    <h3 style="margin-top:30px;">Events Without Dates</h3>
+
     <ul>
-        {% for event in events %}
-            <li>{{ event.title }} — {{ event.scheduled_at }}</li>
+        {% for event in unscheduled_events %}
+            <li>
+                <a href="{% url 'courses:event_detail' event.pk %}">
+                    {{ event.title }}
+                </a>
+                — {{ event.course.course_code }}
+            </li>
         {% empty %}
-            <li>No events scheduled yet.</li>
+            <li>No undated events.</li>
         {% endfor %}
     </ul>
+
+    <p style="margin-top:20px;">
+        <a href="{% url 'courses:event_create' %}">
+            + Add Event Manually
+        </a>
+    </p>
+
+</div>
+
 {% endblock %}

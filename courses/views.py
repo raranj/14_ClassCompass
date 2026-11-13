@@ -40,6 +40,8 @@ from django.contrib.auth import login, get_user_model
 from .forms_auth import StudentSignUpForm
 from django.contrib.auth import get_user_model
 from django.db.models.functions import TruncMonth
+import calendar as pycalendar
+from datetime import date, datetime, timedelta
 
 User = get_user_model()
 
@@ -280,24 +282,87 @@ class DashboardView(LoginRequiredMixin, View):
         )
 
 
-class CalendarView(LoginRequiredMixin, View):
-    """
-    Displays academic events in the calendar.
-    """
 
+class CalendarView(LoginRequiredMixin, View):
     def get(self, request):
-        events = AcademicEvent.objects.filter(
-            course__user=request.user
+        month_text = request.GET.get("month", "")
+
+        try:
+            first_day = datetime.strptime(
+                month_text, "%Y-%m"
+            ).date().replace(day=1)
+        except ValueError:
+            first_day = timezone.localdate().replace(day=1)
+
+        if not 2000 <= first_day.year <= 2100:
+            first_day = timezone.localdate().replace(day=1)
+
+        events = list(
+            AcademicEvent.objects.filter(
+                course__user=request.user
+            ).select_related("course")
         )
 
-        context = {
-            "events": events,
-        }
+        month_calendar = pycalendar.Calendar(firstweekday=0)
+        weeks = []
+
+        for week_dates in month_calendar.monthdatescalendar(
+            first_day.year, first_day.month
+        ):
+            week = []
+
+            for day in week_dates:
+                day_events = []
+
+                for event in events:
+                    if event.repeats_weekly:
+                        if (
+                            event.weekday
+                            and event.weekday.lower()
+                            == day.strftime("%A").lower()
+                        ):
+                            day_events.append(event)
+
+                    elif event.scheduled_at:
+                        event_date = timezone.localtime(
+                            event.scheduled_at
+                        ).date()
+
+                        if event_date == day:
+                            day_events.append(event)
+
+                week.append({
+                    "date": day,
+                    "in_month": day.month == first_day.month,
+                    "events": day_events,
+                })
+
+            weeks.append(week)
+
+        previous_month = (
+            first_day - timedelta(days=1)
+        ).replace(day=1)
+
+        next_month = (
+            first_day + timedelta(days=32)
+        ).replace(day=1)
+
+        unscheduled_events = [
+            event for event in events
+            if not event.repeats_weekly
+            and event.scheduled_at is None
+        ]
 
         return render(
             request,
             "calendar/calendar.html",
-            context,
+            {
+                "weeks": weeks,
+                "month_label": first_day.strftime("%B %Y"),
+                "previous_month": previous_month.strftime("%Y-%m"),
+                "next_month": next_month.strftime("%Y-%m"),
+                "unscheduled_events": unscheduled_events,
+            }
         )
 
 
@@ -823,12 +888,15 @@ def public_api(request):
 
 @login_required
 def syllabus_extractor_page(request):
+    user_courses = Course.objects.filter(
+        user=request.user
+    ).order_by("course_code")
+
     return render(
         request,
         "courses/syllabus_extractor.html",
+        {"user_courses": user_courses}
     )
-
-logger = logging.getLogger(__name__)
 
 
 @login_required
