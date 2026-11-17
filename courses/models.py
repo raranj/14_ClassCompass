@@ -214,3 +214,42 @@ class StudyTool(models.Model):
 
     def __str__(self):
         return f"{self.course.course_code}: {self.title}"
+
+
+class AIRequestLog(models.Model):
+    INPUT_CHOICES = [
+        ("pdf", "PDF"),
+        ("docx", "DOCX"),
+        ("html", "HTML"),
+        ("text", "Pasted Text"),
+    ]
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    input_method = models.CharField(
+        max_length=10,
+        choices=INPUT_CHOICES,
+    )
+    syllabus_length = models.PositiveIntegerField(default=0)
+    latency_seconds = models.FloatField(default=0)
+    generated_tokens = models.PositiveIntegerField(default=0)
+    extracted_events = models.PositiveIntegerField(default=0)
+    saved_events = models.PositiveIntegerField(default=0)
+    status = models.CharField(
+        max_length=10,
+        choices=[
+            ("success", "Success"),
+            ("failure", "Failure"),
+        ],
+        default="success",
+    )
+    is_simulated = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.input_method} - {self.created_at}"

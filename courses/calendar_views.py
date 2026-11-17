@@ -1,6 +1,8 @@
 import json
 from datetime import datetime
 from decimal import Decimal, InvalidOperation
+import time
+from pathlib import Path
 
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError, transaction
@@ -9,77 +11,83 @@ from django.utils import timezone
 from django.views.decorators.http import require_POST
 
 from .calendar_ai import extract_calendar_events, validate_event
-from .models import AcademicEvent, Course
+from .models import AcademicEvent, Course, AIRequestLog
 from .syllabus_files import extract_syllabus_file
-
 
 
 @login_required
 @require_POST
 def extract_all_events(request):
+    started = time.perf_counter()
+    input_method = "text"
+    syllabus_length = 0
+    generated_tokens = 0
+    extracted_events = 0
+    status = "failure"
     try:
         uploaded_file = request.FILES.get("syllabus_file")
         if uploaded_file:
+            extension = Path(uploaded_file.name).suffix.lower()
+            input_method = {
+                ".pdf": "pdf",
+                ".docx": "docx",
+                ".html": "html",
+                ".htm": "html",
+            }.get(extension, "text")
             syllabus = extract_syllabus_file(uploaded_file)
             method = request.POST.get("method", "zero_shot")
+        elif request.content_type.startswith("application/json"):
+            if len(request.body) > 25000:
+                raise ValueError("Input is too large.")
+            data = json.loads(request.body)
+            if not isinstance(data, dict):
+                raise ValueError("Invalid request.")
+            syllabus = data.get("syllabus", "")
+            method = data.get("method", "zero_shot")
         else:
-            content_type = request.content_type or ""
-            if content_type.startswith("application/json"):
-                if len(request.body) > 25000:
-                    return JsonResponse(
-                        {
-                            "status": "error",
-                            "error": "Input is too large."
-                        },
-                        status=413
-                    )
-                data = json.loads(request.body)
-                if not isinstance(data, dict):
-                    raise ValueError("Invalid request.")
-                syllabus = data.get("syllabus", "")
-                method = data.get("method", "zero_shot")
-            else:
-                syllabus = request.POST.get("syllabus", "")
-                method = request.POST.get("method", "zero_shot")
+            syllabus = request.POST.get("syllabus", "")
+            method = request.POST.get("method", "zero_shot")
         if not isinstance(syllabus, str) or not syllabus.strip():
             raise ValueError(
                 "Paste syllabus text or upload a supported file."
             )
-        if len(syllabus) > 20000:
-            raise ValueError(
-                "Maximum 20,000 characters allowed."
-            )
+        syllabus_length = len(syllabus)
+        if syllabus_length > 20000:
+            raise ValueError("Maximum 20,000 characters allowed.")
         if method not in ("zero_shot", "few_shot"):
             raise ValueError("Invalid prompting method.")
         result = extract_calendar_events(
             syllabus,
-            method=method
+            method=method,
         )
-        return JsonResponse(result)
-    except json.JSONDecodeError:
-        return JsonResponse(
-            {
-                "status": "error",
-                "error": "Invalid JSON request."
-            },
-            status=400
-        )
-    except (ValueError, TypeError) as exc:
-        return JsonResponse(
-            {
-                "status": "error",
-                "error": str(exc)
-            },
-            status=400
-        )
+        generated_tokens = result.get("generated_tokens", 0)
+        extracted_events = result.get("count", 0)
+        status = "success"
+    except (ValueError, TypeError, json.JSONDecodeError) as exc:
+        result = {
+            "status": "error",
+            "error": str(exc),
+        }
     except Exception:
-        return JsonResponse(
-            {
-                "status": "error",
-                "error": "Syllabus extraction failed."
-            },
-            status=500
-        )
+        result = {
+            "status": "error",
+            "error": "Syllabus extraction failed.",
+        }
+    latency = time.perf_counter() - started
+    log = AIRequestLog.objects.create(
+        user=request.user,
+        input_method=input_method,
+        syllabus_length=syllabus_length,
+        latency_seconds=round(latency, 3),
+        generated_tokens=generated_tokens,
+        extracted_events=extracted_events,
+        status=status,
+    )
+    if status == "success":
+        result["request_id"] = log.id
+        return JsonResponse(result)
+
+    return JsonResponse(result, status=400)
 
 
 def parse_datetime(event):
@@ -139,6 +147,13 @@ def save_calendar_events(request):
 
         course_id = data.get("course_id")
         events = data.get("events")
+        request_id = data.get("request_id")
+        log = AIRequestLog.objects.filter(
+            id=request_id,
+            user=request.user,
+            status="success",
+            is_simulated=False,
+        ).first()
 
         # Only allow saving to the logged-in user's course.
         course = Course.objects.filter(
@@ -338,6 +353,16 @@ def save_calendar_events(request):
                     else generated_text
                 )
                 course.save(update_fields=["office_hours"])
+        if log is not None:
+            with transaction.atomic():
+                locked_log = AIRequestLog.objects.select_for_update().get(
+                    pk=log.pk
+                )
+                locked_log.saved_events = min(
+                    locked_log.extracted_events,
+                    locked_log.saved_events + created_count,
+                )
+                locked_log.save(update_fields=["saved_events"])
 
         return JsonResponse({
             "status": "success",

@@ -2,6 +2,7 @@ from django.urls import path
 
 from . import views
 from . import calendar_views
+from . import analytics_views
 
 app_name = "courses"
 
@@ -160,4 +161,5 @@ urlpatterns = [
     path("api/extract-calendar-events/", calendar_views.extract_all_events, name="extract_calendar_events"),
     path("api/save-calendar-events/", calendar_views.save_calendar_events, name="save_calendar_events"),
     path("api/extract-calendar-events/", calendar_views.extract_all_events, name="extract_calendar_events",),
+    path("analytics/", analytics_views.analytics_dashboard, name="analytics_dashboard",),
 ]

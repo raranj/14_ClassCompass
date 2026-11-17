@@ -70,3 +70,4 @@ model_cache/
 *.gguf
 
 
+data/db.sqlite3

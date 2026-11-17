@@ -1,0 +1,453 @@
+{% extends "base.html" %}
+
+{% block title %}
+AI Analytics Dashboard | ClassCompass
+{% endblock %}
+
+{% block content %}
+
+<style>
+    .analytics-page {
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 0 15px;
+    }
+
+    .analytics-subtitle {
+        color: #64748b;
+        margin-bottom: 24px;
+    }
+
+    .analytics-section {
+        margin-top: 34px;
+    }
+
+    .analytics-section h3 {
+        margin-bottom: 16px;
+    }
+
+    .analytics-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+    }
+
+    .analytics-metrics {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+        margin-bottom: 26px;
+    }
+
+    .analytics-card {
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        background: #ffffff;
+        padding: 20px;
+        min-width: 0;
+    }
+
+    .analytics-card h4 {
+        font-size: 16px;
+        margin-bottom: 8px;
+        color: #1e293b;
+    }
+
+    .analytics-card p {
+        font-size: 13px;
+        color: #64748b;
+        margin-bottom: 12px;
+    }
+
+    .analytics-number {
+        font-size: 29px;
+        font-weight: 700;
+        color: #0f172a;
+    }
+
+    .analytics-chart {
+        position: relative;
+        height: 275px;
+        width: 100%;
+    }
+
+    .analytics-note {
+        background: #f8fafc;
+        padding: 12px 16px;
+        border-radius: 8px;
+        margin-top: 22px;
+        font-size: 13px;
+    }
+
+    @media (max-width: 800px) {
+        .analytics-grid,
+        .analytics-metrics {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="analytics-page">
+
+    <h2>ClassCompass AI Analytics Dashboard</h2>
+
+    <p class="analytics-subtitle">
+        Monitor AI syllabus extraction performance,
+        student usage, and estimated computation costs.
+    </p>
+
+    {% if total_requests == 0 %}
+        <div class="analytics-note">
+            No analytics requests have been recorded yet.
+            Use the AI Syllabus Extractor to generate data.
+        </div>
+    {% endif %}
+
+    {% if simulated_count %}
+        <div class="analytics-note">
+            Demo data included:
+            {{ simulated_count }} simulated requests.
+            These are not actual student requests.
+        </div>
+    {% endif %}
+
+    <div class="analytics-metrics">
+
+        <div class="analytics-card">
+            <h4>Average Processing Time</h4>
+            <div class="analytics-number">
+                {{ average_latency }} s
+            </div>
+            <p>Average end-to-end latency per request (Q3)</p>
+        </div>
+
+        <div class="analytics-card">
+            <h4>Average Generated Tokens</h4>
+            <div class="analytics-number">
+                {{ average_tokens }}
+            </div>
+            <p>Average Qwen output tokens per request (Q7)</p>
+        </div>
+
+        <div class="analytics-card">
+            <h4>Estimated Cost per Request</h4>
+            <div class="analytics-number">
+                ${{ average_cost }}
+            </div>
+            <p>Illustrative compute cost, not an API charge (Q9)</p>
+        </div>
+
+    </div>
+
+    <section class="analytics-section">
+        <h3>System Performance</h3>
+
+        <div class="analytics-grid">
+
+            <div class="analytics-card">
+                <h4>Syllabus Length vs. Processing Time</h4>
+                <p>
+                    Q1: Does a longer syllabus take more
+                    time to process?
+                </p>
+                <div class="analytics-chart">
+                    <canvas id="lengthChart"></canvas>
+                </div>
+            </div>
+
+            <div class="analytics-card">
+                <h4>AI Latency Over Time</h4>
+                <p>
+                    Q2: How does average extraction
+                    latency change by day?
+                </p>
+                <div class="analytics-chart">
+                    <canvas id="latencyChart"></canvas>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="analytics-section">
+        <h3>User Behavior</h3>
+
+        <div class="analytics-grid">
+
+            <div class="analytics-card">
+                <h4>AI Usage Over Time</h4>
+                <p>
+                    Q4: How many extraction requests
+                    occur each day?
+                </p>
+                <div class="analytics-chart">
+                    <canvas id="usageChart"></canvas>
+                </div>
+            </div>
+
+            <div class="analytics-card">
+                <h4>Input Method Usage</h4>
+                <p>
+                    Q5: Which upload format is
+                    used most frequently?
+                </p>
+                <div class="analytics-chart">
+                    <canvas id="inputChart"></canvas>
+                </div>
+            </div>
+
+            <div class="analytics-card">
+                <h4>Calendar Save Rate</h4>
+                <p>
+                    Q6: What percentage of extracted
+                    events are added to calendars?
+                </p>
+                <div class="analytics-chart">
+                    <canvas id="saveChart"></canvas>
+                </div>
+                <p>
+                    Saved: {{ save_rate }}%
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="analytics-section">
+        <h3>Cost and Token Usage</h3>
+
+        <div class="analytics-grid">
+
+            <div class="analytics-card">
+                <h4>Token Usage by Input Type</h4>
+                <p>
+                    Q8: Which input methods generate
+                    the most tokens per request?
+                </p>
+                <div class="analytics-chart">
+                    <canvas id="tokenChart"></canvas>
+                </div>
+            </div>
+
+            <div class="analytics-card">
+                <h4>Estimated Cost Over Time</h4>
+                <p>
+                    Q9: How does estimated cumulative
+                    computation cost increase?
+                </p>
+                <div class="analytics-chart">
+                    <canvas id="costChart"></canvas>
+                </div>
+                <p>
+                    Total estimated compute cost:
+                    ${{ total_cost }}
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="analytics-note">
+        <strong>Cost assumption:</strong>
+        ${{ compute_rate }} per compute-hour.
+
+        Cost = end-to-end processing seconds / 3600
+        × assumed hourly rate.
+
+        The dashboard uses this estimate for comparison,
+        not actual API billing or measured hardware expenses.
+        Successful extraction means the API completed,
+        not that every generated event was accurate.
+    </div>
+
+</div>
+
+{{ data|json_script:"analytics-data" }}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+
+<script>
+(function () {
+    const data = JSON.parse(
+        document.getElementById("analytics-data").textContent
+    );
+
+    if (typeof Chart === "undefined") {
+        console.error("Chart.js could not be loaded.");
+        return;
+    }
+
+    Chart.defaults.responsive = true;
+    Chart.defaults.maintainAspectRatio = false;
+
+    const blue = "#2563eb";
+    const teal = "#0d9488";
+    const purple = "#7c3aed";
+    const orange = "#ea580c";
+
+    function makeChart(id, type, labels, dataset, options = {}) {
+        return new Chart(document.getElementById(id), {
+            type: type,
+            data: {
+                labels: labels,
+                datasets: [dataset]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true,
+                ...options
+            }
+        });
+    }
+    makeChart(
+        "lengthChart",
+        "scatter",
+        [],
+        {
+            label: "Extraction requests",
+            data: data.scatter,
+            backgroundColor: blue
+        },
+        {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: "Syllabus length (characters)"
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: "Processing time (seconds)"
+                    }
+                }
+            }
+        }
+    );
+    makeChart(
+        "latencyChart",
+        "line",
+        data.dates,
+        {
+            label: "Average latency (seconds)",
+            data: data.latency_over_time,
+            borderColor: blue,
+            backgroundColor: blue,
+            tension: 0.2,
+            spanGaps: false
+        },
+        {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: "Seconds"
+                    }
+                }
+            }
+        }
+    );
+    makeChart(
+        "usageChart",
+        "line",
+        data.dates,
+        {
+            label: "AI requests",
+            data: data.usage_over_time,
+            borderColor: teal,
+            backgroundColor: teal,
+            tension: 0.2
+        },
+        {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { precision: 0 }
+                }
+            }
+        }
+    );
+    makeChart(
+        "inputChart",
+        "bar",
+        data.input_labels,
+        {
+            label: "Number of requests",
+            data: data.input_counts,
+            backgroundColor: [
+                blue, teal, purple, orange
+            ]
+        },
+        {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { precision: 0 }
+                }
+            }
+        }
+    );
+    makeChart(
+        "saveChart",
+        "pie",
+        ["Saved events", "Not saved"],
+        {
+            data: data.save_counts,
+            backgroundColor: [
+                teal,
+                "#cbd5e1"
+            ]
+        }
+    );
+    makeChart(
+        "tokenChart",
+        "bar",
+        data.input_labels,
+        {
+            label: "Average generated tokens",
+            data: data.token_by_input,
+            backgroundColor: purple
+        },
+        {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: "Generated tokens/request"
+                    }
+                }
+            }
+        }
+    );
+    makeChart(
+        "costChart",
+        "line",
+        data.dates,
+        {
+            label: "Cumulative estimated cost ($)",
+            data: data.cost_over_time,
+            borderColor: orange,
+            backgroundColor: orange,
+            tension: 0.2,
+            fill: false
+        },
+        {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: "Estimated USD"
+                    }
+                }
+            }
+        }
+    );
+})();
+</script>
+
+{% endblock %}

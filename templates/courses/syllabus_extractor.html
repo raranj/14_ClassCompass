@@ -173,6 +173,7 @@
 
 <script>
 let extractedEvents = [];
+let extractionRequestId = null;
 
 const form = document.getElementById("extract-form");
 const tableBody = document.getElementById("events-table");
@@ -286,6 +287,7 @@ form.addEventListener("submit", async function(event) {
     error.textContent = "";
     results.style.display = "none";
     extractedEvents = [];
+    extractionRequestId = null;
     tableBody.replaceChildren();
 
     const csrfToken = document.querySelector(
@@ -336,6 +338,7 @@ form.addEventListener("submit", async function(event) {
         }
 
         extractedEvents = data.events || [];
+        extractionRequestId = data.request_id;
 
         document.getElementById("course").textContent =
             data.course || "Not found";
@@ -414,7 +417,8 @@ document.getElementById("save-events-btn")
                 credentials: "same-origin",
                 body: JSON.stringify({
                     course_id: courseId,
-                    events: selectedEvents
+                    events: selectedEvents,
+                    request_id: extractionRequestId
                 })
             }
         );
