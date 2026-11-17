@@ -115,7 +115,6 @@ def parse_datetime(event):
         timezone.get_current_timezone()
     )
 
-from .calendar_ai import validate_event
 @login_required
 @require_POST
 def save_calendar_events(request):
@@ -130,6 +129,7 @@ def save_calendar_events(request):
     - Duplicate prevention
     - User-specific course ownership
     """
+    from .calendar_ai import validate_event
     try:
         if len(request.body) > 200000:
             return JsonResponse(
