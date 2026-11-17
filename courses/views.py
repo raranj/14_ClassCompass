@@ -1,8 +1,5 @@
 import json
-from .ai_prototype import (
-    generate_flashcards,
-    process_syllabus_extraction
-)
+
 import logging
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
@@ -938,6 +935,7 @@ def extract_syllabus_view(request):
     method = form.cleaned_data["method"]
 
     try:
+        from .ai_prototype import process_syllabus_extraction
         result = process_syllabus_extraction(
             syllabus_text,
             method=method,
@@ -958,21 +956,21 @@ def extract_syllabus_view(request):
 
 
 
+
 @login_required
 def ai_study_tools_view(request):
-  flashcards = None
-  source_text = ""  # Default empty string
-
-  if request.method == "POST":
-    source_text = request.POST.get("source_text", "").strip()
-    if source_text:
-      flashcards = generate_flashcards(source_text)
-
-  return render(
-      request,
-      "courses/ai_generated_flashcards.html",
-      {
-          "flashcards": flashcards,
-          "source_text": source_text,  # <-- This fixes the text retention bug
-      },
-  )
+    flashcards = None
+    source_text = ""
+    if request.method == "POST":
+        source_text = request.POST.get("source_text", "").strip()
+        if source_text:
+            from .ai_prototype import generate_flashcards
+            flashcards = generate_flashcards(source_text)
+    return render(
+        request,
+        "courses/ai_generated_flashcards.html",
+        {
+            "flashcards": flashcards,
+            "source_text": source_text,
+        },
+    )

@@ -10,7 +10,6 @@ from django.http import JsonResponse
 from django.utils import timezone
 from django.views.decorators.http import require_POST
 
-from .calendar_ai import extract_calendar_events, validate_event
 from .models import AcademicEvent, Course, AIRequestLog
 from .syllabus_files import extract_syllabus_file
 
@@ -56,6 +55,7 @@ def extract_all_events(request):
             raise ValueError("Maximum 20,000 characters allowed.")
         if method not in ("zero_shot", "few_shot"):
             raise ValueError("Invalid prompting method.")
+        from .calendar_ai import extract_calendar_events
         result = extract_calendar_events(
             syllabus,
             method=method,
@@ -115,7 +115,7 @@ def parse_datetime(event):
         timezone.get_current_timezone()
     )
 
-
+from .calendar_ai import validate_event
 @login_required
 @require_POST
 def save_calendar_events(request):
